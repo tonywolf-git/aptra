@@ -1,0 +1,114 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-menu-button auto-hide="false"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Mi Credencial</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <!-- <app-explore-container name="Tab 4 page"></app-explore-container> -->
+
+  <div class="flip-card">
+    <div class="flip-card-inner" id="credencial">
+      <div class="flip-card-front" (click)="credencialClick();">
+
+        <div class="front-logo-div">
+          <img src="../../assets/credencial/front-logo.png" style="height: 80%; margin: auto;" alt="">
+        </div>
+
+        <ion-grid class="front-pic-number-div">
+          <ion-row class="no-padding" style="height: 100%; width: 100%; margin:0px !important; padding:0px !important;">
+            <ion-col class="front-pic-number-col1" style="padding: 0px !important;">
+              <img style="float: right;" src="{{ laFoto }}" alt="">
+              <img *ngIf="laFoto == ''" style="float: right;" src="https://www.firesidepetlodge.com/wp-content/uploads/2021/03/chesapeake.png" alt="">
+            </ion-col>
+            <ion-col class="front-pic-number-col2" style="padding: 0px !important;">
+              <div class="front-div-empleado">
+                <h1 style="font-weight: bolder;">{{ elNumEmpleado }}</h1>
+                <h6>NÚMERO DE EMPLEADO</h6>
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+        <div class="front-info-container">
+          <div class="front-div-info">
+            <span class="this-but-bold info-titulo">NOMBRE</span><br>
+            <span *ngIf="elNombre == ''" class="info-titulo-text this-but-bold">DON DOGGO HUESONSON PEREZ</span>
+            <span class="info-titulo-text this-but-bold">{{ elNombre }}</span>
+          </div>
+          <div class="front-div-info">
+            <span class="this-but-bold info-titulo">DEPENDENCIA</span><br>
+            <span *ngIf="laDependencia == ''" class="info-titulo-text this-but-bold">SECRETARÍA DE ADMINISTRACIÓN (DE HUESOS)</span>
+            <span class="info-titulo-text this-but-bold">{{ laDependencia }}</span>
+          </div>
+          <div class="front-div-info">
+            <span class="this-but-bold info-titulo">PUESTO</span><br>
+            <span *ngIf="elPuesto == ''" class="info-titulo-text this-but-bold">DESC. PUESTO</span>
+            <span class="info-titulo-text this-but-bold">{{ elPuesto }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="flip-card-back">
+        <ion-grid (click)="credencialClick();">
+          <ion-row style="margin-top: 10px;">
+            <ion-col size="7" style="display: flex; align-items: center;">
+              <div class="back-info-container">
+                <div class="back-div-info">
+                  <span class="this-but-bold back-info-titulo">CURP</span><br>
+                  <span *ngIf="elNombre == ''" class="back-info-titulo-text this-but-bold">SASG910725HTSRRN02</span>
+                  <span class="back-info-titulo-text this-but-bold">{{ elNombre }}</span>
+                </div>
+                <div class="back-div-info">
+                  <span class="this-but-bold back-info-titulo">ALERGIAS</span><br>
+                  <span *ngIf="laDependencia == ''" class="back-info-titulo-text this-but-bold">ASPIRINA</span>
+                  <span class="back-info-titulo-text this-but-bold">{{ laDependencia }}</span>
+                </div>
+                <div class="back-div-info">
+                  <span class="this-but-bold back-info-titulo">TIPO DE SANGRE</span><br>
+                  <span *ngIf="elPuesto == ''" class="back-info-titulo-text this-but-bold">AB+</span>
+                  <span class="back-info-titulo-text this-but-bold">{{ elPuesto }}</span>
+                </div>
+              </div>
+            </ion-col>
+            <ion-col style="display: flex; align-items: center;">
+              <img style="width: 65%; margin: auto;" src="../../assets/credencial/tamaulogo001.png" alt="ESCUDO_TAMAULIPAS_DORADO">
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+        <div (click)="credencialClick();" class="back-firma-container">
+          <img style="width: 55%; margin: auto; margin-top: 10px;" src="../../assets/credencial/firma_lavin.png" alt="FIMRA_LAVIN">
+        </div>
+        <div class="back-qr-container">
+          <ion-grid>
+            <ion-row style="height: 100%;">
+              <ion-col style="height: 100%;">
+                <div button id="open-modal" class="back-qr" (click)="func_showQR()">
+                  <img style="height: 100%; text-align: center; margin: auto;" src="https://www.investopedia.com/thmb/hJrIBjjMBGfx0oa_bHAgZ9AWyn0=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/qr-code-bc94057f452f4806af70fd34540f72ad.png" alt="ELQR">
+                </div>
+              </ion-col>
+              <ion-col (click)="credencialClick();" style="text-align: left;">
+                <h6 style="color: rgb(45, 45, 45);">VIGENCIA<br>31/12/2028</h6>
+              </ion-col>
+            </ion-row>
+          </ion-grid>          
+        </div>
+        <p (click)="credencialClick();" class="back-footer-text">Esta credencial es personal e intransferible, es propiedad del<br>Gobierno del Estado de Tamaulipas.<br>En caso de robo o extravío, favor de reportarla al 8343188000.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <ion-modal #modal trigger="open-modal">
+    <ng-template>
+      <ion-content>
+        <div class="modal-qr-container">
+          <img style="height: 100%; margin: auto;" src="https://www.investopedia.com/thmb/hJrIBjjMBGfx0oa_bHAgZ9AWyn0=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/qr-code-bc94057f452f4806af70fd34540f72ad.png" alt="ELQR">
+        </div>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+</ion-content>

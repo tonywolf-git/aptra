@@ -1,0 +1,100 @@
+/*
+ * App Global CSS
+ * ----------------------------------------------------------------------------
+ * Put style rules here that you want to apply globally. These styles are for
+ * the entire app and not just one component. Additionally, this file can be
+ * used as an entry point to import other CSS/Sass files to be included in the
+ * output CSS.
+ * For more information on global stylesheets, visit the documentation:
+ * https://ionicframework.com/docs/layout/global-stylesheets
+ */
+
+/* Core CSS required for Ionic components to work properly */
+@import "~@ionic/angular/css/core.css";
+
+/* Basic CSS for apps built with Ionic */
+@import "~@ionic/angular/css/normalize.css";
+@import "~@ionic/angular/css/structure.css";
+@import "~@ionic/angular/css/typography.css";
+@import '~@ionic/angular/css/display.css';
+
+/* Optional CSS utils that can be commented out */
+@import "~@ionic/angular/css/padding.css";
+@import "~@ionic/angular/css/float-elements.css";
+@import "~@ionic/angular/css/text-alignment.css";
+@import "~@ionic/angular/css/text-transformation.css";
+@import "~@ionic/angular/css/flex-utils.css";
+
+// COSAS PARA EL CALENDARIO
+@import 'swiper/scss';
+@import '@ionic/angular/css/ionic-swiper';
+@import 'swiper/scss';
+@import 'swiper/scss/autoplay';
+@import 'swiper/scss/keyboard';
+@import 'swiper/scss/pagination';
+@import 'swiper/scss/scrollbar';
+@import 'swiper/scss/zoom';
+@import '@ionic/angular/css/ionic-swiper';
+
+
+:root,
+:root[mode=ios],
+:root[mode=md] {
+  --ion-font-family: "encode sans" !important;
+  font-family: "encode sans" !important; 
+
+    ion-tab-button {
+        --color: white;
+        --background-focused: #A1193E !important;
+        --color-selected: #A1193E !important;
+    }
+
+    ion-tab-bar {
+        --background: #BC936C;
+    }
+}
+
+ion-toolbar {
+    // --background: #19422d !important;
+    --background: url("../src/assets/main/main_bg.jpg") center center/cover no-repeat !important;
+    --color: white !important;
+    --height: 900px !important;
+    --min-height: 10vh;
+}
+
+.main_content_list {
+    width: 90%;
+    margin: auto;
+    font-size: 40px;
+}
+
+.main_content_space_10 {
+    display: block;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.main_content_space_20 {
+    display: block;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.main_content_space_50 {
+    display: block;
+    width: 100%;
+    margin-top: 50px;
+}
+
+.ion-calendario {
+    width: 100% !important;
+    background-color: rgba(0,0,0,0) !important;    
+}
+
+.dia-pago { color: #BC936C !important; }
+
+.dia-inhabil { color: #A1193E !important; }
+
+.this-but-bold { font-weight: bold !important; }
+
+.this-but-bolder { font-weight: bolder !important; }

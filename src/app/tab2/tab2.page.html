@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-menu-button auto-hide="false"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Mis Avisos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <!-- <app-explore-container name="Tab 2 page"></app-explore-container> -->
+  <ion-list>
+    <!-- <ion-item>
+      <ion-label class="ion-text-wrap">
+        <h3 style="color: #53555B; margin-top: 10px;" class="this-but-bolder">MARZO MES DE LA MUJER</h3><br>
+        <p style="color: rgb(50,50,50); margin-bottom: 10px;"><span style="color: #A1193E;">●</span> Durante la gira del director del IMSS Zoé Robledo acompañado del gobernador Américo Villarreal Anaya por el nuevo hospital se analizaron acciones para el proyecto estructural de… </p>
+      </ion-label>
+    </ion-item> -->
+    <ion-item hidden *ngFor="let aviso of arrayAvisos">
+      <ion-label class="ion-text-wrap">
+        <h3 style="color: #53555B; margin-top: 10px;" class="this-but-bolder">{{ aviso.titulo }}</h3><br>
+        <p *ngIf="aviso.texto.length > 200 && aviso.splicePipe == false" style="color: rgb(50,50,50); margin-bottom: 10px;"><span style="color: #A1193E;">●</span> {{ aviso.texto | slice : 0:200  }}<span *ngIf="aviso.texto.length > 200">...</span></p>
+        <p *ngIf="aviso.texto.length > 200 && aviso.splicePipe == true" style="color: rgb(50,50,50); margin-bottom: 10px;"><span style="color: #A1193E;">●</span> {{ aviso.texto }}</p>
+        <p *ngIf="aviso.texto.length < 200 && aviso.splicePipe == false" style="color: rgb(50,50,50); margin-bottom: 10px;"><span style="color: #A1193E;">●</span> {{ aviso.texto | slice : 0:200  }}<span *ngIf="aviso.texto.length > 200">...</span></p>
+        <ion-button (click)="func_changeSlice(aviso.id)" *ngIf="aviso.texto.length > 200 && aviso.splicePipe == false" style="font-size: 12px; color: #A1193E;" fill="clear">Ver más...</ion-button>
+        <ion-button (click)="func_rmSlice(aviso.id)" *ngIf="aviso.texto.length > 200 && aviso.splicePipe == true" style="font-size: 12px; color: #A1193E" fill="clear">Ver menos...</ion-button>
+      </ion-label>
+    </ion-item>
+
+    <ion-item *ngFor="let avisoAxios of avisosAxios">
+      <ion-label class="ion-text-wrap">
+        <h3 style="color: #53555B; margin-top: 10px;" class="this-but-bolder">{{ avisoAxios['title'] | uppercase }}</h3><br>
+        <p *ngIf="avisoAxios.text.length > 100 && avisoAxios.splicePipe == false" style="color: rgb(50,50,50); margin-bottom: 10px;"><span style="color: #A1193E;">●</span> {{ avisoAxios.text | slice : 0:100  }}<span *ngIf="avisoAxios.text.length > 20">...</span></p>
+        <p *ngIf="avisoAxios.text.length > 100 && avisoAxios.splicePipe == true" style="color: rgb(50,50,50); margin-bottom: 10px;"><span style="color: #A1193E;">●</span> {{ avisoAxios.text }}</p>
+        <p *ngIf="avisoAxios.text.length < 100 && avisoAxios.splicePipe == false" style="color: rgb(50,50,50); margin-bottom: 10px;"><span style="color: #A1193E;">●</span> {{ avisoAxios.text | slice : 0:100  }}<span *ngIf="avisoAxios.text.length > 20">...</span></p>
+        <ion-button (click)="func_Axios_changeSlice(avisoAxios.id)" *ngIf="avisoAxios.text.length > 100 && avisoAxios.splicePipe == false" style="font-size: 12px; color: #A1193E;" fill="clear">Ver más...</ion-button>
+        <ion-button (click)="func_Axios_rmSlice(avisoAxios.id)" *ngIf="avisoAxios.text.length > 100 && avisoAxios.splicePipe == true" style="font-size: 12px; color: #A1193E" fill="clear">Ver menos...</ion-button>
+      </ion-label>
+    </ion-item>
+    
+  </ion-list>
+</ion-content>

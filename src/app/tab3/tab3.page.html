@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-menu-button auto-hide="false"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Mi Calendario</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-datetime color="danger"
+    [highlightedDates]="highlightedDates"
+    presentation="date"
+    showDefaultTimeLabel="false"
+    [firstDayOfWeek]="1"
+    locale="es-MX"
+    class="ion-calendario"
+    size="cover">
+  </ion-datetime>
+
+  <ion-list>
+    <ion-item>
+      <ion-label class="ion-text-wrap"><span class="dia-pago this-but-bolder">14</span> - Pago de la primer quincena</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label class="ion-text-wrap"><span class="dia-inhabil this-but-bolder">21</span> - Día inhabil</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label class="ion-text-wrap"><span class="dia-pago this-but-bolder">31</span> - Pago de la segunda quincena y compensaciones</ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

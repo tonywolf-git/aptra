@@ -1,0 +1,34 @@
+.login_bg {
+    // background-color: red !important;
+    background: url("../../assets/login/login_bg_01.png");
+    width: 100%;
+    height: 25%;
+    background-size: cover;
+    background-position: top;
+    background-position: 50% 0;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+.login_icon {
+    height: 50%;
+    // width: 50%;
+    // max-width: 50%;
+    max-height: 50%;
+    margin-bottom: 30px;
+}
+
+.logo_container {
+    margin-top: 3%;
+    margin-bottom: 5%;
+}
+
+.login_logo {
+    display: flex;
+    margin: auto;
+    width: 50%;
+    max-width: 50%;
+}

@@ -1,0 +1,50 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-menu-button auto-hide="false"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>¡Bienvenido!</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <img button (click)="fucn_goTo('tab4')" src="../../assets/etc/tab1_credencial.png" alt="credencial_img" style="display: flex; width: 90%; margin:auto; margin-top: 20px; margin-bottom: 0px;">
+  
+  <ion-grid style="display: flex; width: 90%;">
+    <ion-row>
+      <ion-col button (click)="fucn_goTo('tab2')">
+        <img src="../../assets/etc/tab1_00_avisos.png" alt="credencial_img" style="display: flex; width: 100%; margin:auto;">
+      </ion-col>
+      <ion-col button (click)="fucn_goTo('tab3')">
+        <img src="../../assets/etc/tab1_01_calendario.png" alt="credencial_img" style="display: flex; width: 100%; margin:auto;">
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <div style="width: 85%; margin:auto;">
+    <h4 style="color: #A1193E; font-weight: bold;">Tu semana...</h4>
+    <div style="background-color: #BC936C; color: white; padding: 2px; border-radius: 20px;">
+      <p style="margin-left: 15px; margin-right: 15px; font-size: 15px;"><span style="font-weight: bolder;">14 Marzo</span> - Pago de la primer quincena</p>
+    </div>
+  </div>
+
+
+  <!--
+    [autoplay]="true"
+    [keyboard]="true"
+    [pagination]="true"
+    [scrollbar]="true"
+    [zoom]="true"
+  -->
+    <swiper class="swiper-container" [pagination]="true">
+    <ng-template swiperSlide>
+      <img class="swiper-image" src="../../assets/placeholder/placeholder_turismo.png" alt="credencial_img">
+    </ng-template>
+    <ng-template swiperSlide>
+      <img class="swiper-image" src="../../assets/credencial/tamaulogo001.png" alt="tamauligo">
+    </ng-template>
+    <ng-template swiperSlide>
+      <img class="swiper-image" src="../../assets/etc/tab1_00_avisos.png" alt="otro">
+    </ng-template>
+  </swiper>
+</ion-content>

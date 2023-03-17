@@ -1,0 +1,51 @@
+.clip_this {
+    clip-path: circle(50% at 50% 50%);
+}
+
+ion-menu ion-content { //BACKGROUND DE TODO EL MENU
+    --background: linear-gradient(
+        to right,
+        #BD946C 0%,
+        #BD946C 20%,
+        #C59F79 20%,
+        #C59F79 100%
+    );
+}
+
+ion-menu ion-content { //BACKGROUND DE TODO EL MENU
+    --padding-start: 8px;
+    --padding-end: 8px;
+    --padding-top: 20px;
+    --padding-bottom: 20px;
+}
+
+ion-menu ion-list-header, ion-menu ion-note { // HEADER 1
+    padding-left: 10px;
+    --background: var(--ion-item-background, var(--ion-background-color, rgba(166, 27, 66, 0)));
+    color: white;
+}
+
+ion-menu ion-list#inbox-list { //CONTENT FUERA DE LA LISTA
+    background-color: rgba(4, 222, 66, 0);
+    --background: var(--ion-item-background, var(--ion-background-color, rgba(166, 27, 66, 0)));
+}
+
+ion-menu ion-list#inbox-list ion-list-header { // HEADER 1
+    font-size: 22px;
+    font-weight: 600;
+    background-color: rgba(166, 27, 66, 0);
+    min-height: 20px;
+}
+
+ion-menu ion-item { // ITEMS DE LA LISTA
+    --padding-start: 10px;
+    --padding-end: 10px;
+    border-radius: 4px;
+    --background: rgba(166, 27, 66, 0);
+}
+
+ion-menu ion-item ion-icon { // FONDO DE CADA ICONO
+    margin-right: 30px;
+    color: #616e7e;
+    --z-index: 1000 !important;
+}

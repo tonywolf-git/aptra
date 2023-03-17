@@ -1,0 +1,241 @@
+@keyframes spin1 { 100% { transform:rotateY(180deg); } }
+
+/* The flip card container - set the width and height to whatever you want. We have added the border property to demonstrate that the flip itself goes out of the box on hover (remove perspective if you don't want the 3D effect */
+.flip-card {
+    // background-color: transparent;
+    background-color: rgba(0,0,0,0);
+    // width: 90vw; //318px
+    // width: 318px; //318px
+
+    aspect-ratio: 0.66 / 1;
+    max-height: 90%;
+    max-width: 90%;
+    // max-width:318px;
+    // width:100%;
+
+    // max-height:484px;
+    // height:100%;
+
+    // height: 70vh; //484px
+    // height: 484px; //484px
+    // border: 1px solid #f1f1f1;
+    perspective: 1000px; /* Remove this if you don't want the 3D effect */
+    margin: auto;
+    margin-top: 50px;
+
+  //   -webkit-border-radius: 30px;
+  //   -moz-border-radius: 30px;
+  //   border-radius: 30px;
+  //  /* box-shadow */
+  //   -webkit-box-shadow: rgba(0,0,0,0.8) 0px 0 10px;
+  //   -moz-box-shadow: rgba(0,0,0,0.8) 0 0 10px;
+  //   box-shadow: rgba(0,0,0,0.8) 0 0 10px;
+
+  }
+  
+  /* This container is needed to position the front and back side */
+  .flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+
+    -webkit-border-radius: 35px;
+    -moz-border-radius: 35px;
+    border-radius: 35px;
+   /* box-shadow */
+    -webkit-box-shadow: rgba(0,0,0,0.8) 0px 0 10px;
+    -moz-box-shadow: rgba(0,0,0,0.8) 0 0 10px;
+    box-shadow: rgba(0,0,0,0.8) 0 0 10px;
+  }
+  
+  /* Do an horizontal flip when you move the mouse over the flip box container */
+  // .flip-card:hover .flip-card-inner {
+  //   transform: rotateY(360deg);
+  // }
+  
+  /* Position the front and back side */
+  .flip-card-front, .flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden; /* Safari */
+    backface-visibility: hidden;
+  }
+  
+  /* Style the front side (fallback if image is missing) */
+  .flip-card-front {
+    // background-color: #bbb;
+    background: url('../../assets/credencial/credencial_front.png');
+    background-size: 100% 100%;
+    color: black;
+  }
+
+  //15% de margen arriba del logo     15%
+  //15% de altura del div de logo     30%
+  //05% de margen debajo del logo     35%
+  //25% de altura img/num empleado    60%
+  //05% de margen arriba del info     65%
+
+
+  .front-logo-div { // LOGO TAMAULIPAS //
+    margin-top: 15%;
+    height: 15%;
+    background-color: white;
+    display: flex;
+    vertical-align: middle;
+    margin-bottom: 5%;
+    // margin-bottom: 10px;
+  }
+
+  .front-pic-number-div { // IMAGEN Y NUMERO DE EMPLEADO //
+    display: flex;
+    // background-color: cyan;
+    height: 25%;
+    padding: 0px !important;
+  }
+
+  .front-pic-number-col1 { // COL DE IMAGEN //
+    display: flex;
+    // background-color: red;
+    height: 100%;
+    flex-direction: row-reverse;
+  }
+
+  .front-pic-number-col2 { // COL DE EMPLEADO //
+    display: flex;
+    // background-color: blue;
+    height: 100%;
+    width: 100%;
+    vertical-align: middle;
+    align-items: center;
+  }
+
+  .front-div-empleado {
+    background-color: rgba(161,25,62,0.4);
+    color: white;
+    width: 100%;
+    padding: 5px;
+  }
+
+  .front-info-container {
+    // background-color: cyan;
+    width: 80%;
+    margin: auto;
+    margin-top: 5%;
+    // margin-top: 10px;
+    text-align: left;
+    height: 40%;
+  }
+
+  .front-div-info {
+    margin-bottom: 10px;
+  }
+
+   /* Style the back side */
+  .flip-card-back {
+    background: url('../../assets/credencial/credencial_back.png');
+    background-size: 100% 100%;
+
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+    border-radius: 30px;
+    // background-color: white;
+    color: #53555B;
+    transform: rotateY(180deg);
+  }
+
+  .back-info-container {
+    // background-color: black;
+    width: 80%;
+    margin: auto;
+    // margin-top: 50px;
+    text-align: left;
+  }
+
+  .back-div-info {
+    margin-bottom: 5px;
+  }
+
+  .back-info-titulo {
+    color: #A1193E;
+    font-size: 0.8em;
+    // margin-bottom: 5px;
+  }
+
+  .back-info-titulo-text {
+    color: #53555B;
+    font-size: 0.7em;
+  }
+  
+  .back-firma-container {
+    width: 100%;
+  }
+
+  .back-qr-container {
+    display: flex;
+    height: 11vh;
+    margin-top: 10px;
+    background-color: rgb(221,200,162);
+  }
+
+  .back-qr {
+    display: flex;
+    height: 100%;
+  }
+
+  .back-footer-text {
+    color: rgb(45, 45, 45);
+    font-size: 10%;
+    margin-left: 15px;
+    margin-right: 15px;
+    margin-top: 15px;
+    font-weight: bold;
+  }
+
+  .info-titulo {
+    color: #BC936C;
+    font-size: 12px;
+    // font-size: 2vw;
+    margin-bottom: 5px;
+  }
+
+  .info-titulo-text {
+    color: white;
+    font-size: 15px;
+    // font-size: 2.5vw;
+  }
+
+  /// MODAL STUFF INI ///
+  ion-modal {
+    padding: 20px;
+    --height: 40%;
+    --border-radius: 16px;
+    // --box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  }
+  
+  ion-modal::part(backdrop) {
+    background: rgba(80, 80, 80);
+    opacity: 1;
+  }
+  
+  // ion-modal ion-toolbar {
+  //   --background: rgb(14 116 144);
+  //   --color: white;
+  // }
+
+  .modal-qr-container {
+    display: flex;
+    height: 100%;
+  }
+  /// MODAL STUFF END ///
+  
+  /// MORE TESTS INI ///
+  .card-container {
+    // background-color: cyan;
+    height: 70vh;
+    scale: 100vh; 
+  }
+  /// MORE TESTS END ///

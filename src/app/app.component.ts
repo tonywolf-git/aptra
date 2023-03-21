@@ -4,6 +4,7 @@ import { LoginPage } from './login/login.page';
 import { PerfilPage } from './perfil/perfil.page';
 import { RegistroPage } from './registro/registro.page';
 import { PushNotifications } from '@capacitor/push-notifications';
+import { FCM } from "@capacitor-community/fcm";
 
 @Component({
   selector: 'app-root',
@@ -55,7 +56,12 @@ export class AppComponent {
         throw new Error('User denied permissions!');
       }
     
+      await PushNotifications.requestPermissions();
       await PushNotifications.register();
+
+      FCM.subscribeTo({ topic: "laroca" })
+      .then((r) => alert(`subscribed to topic`))
+      .catch((err) => console.log(err));
     }
     
     const getDeliveredNotifications = async () => {

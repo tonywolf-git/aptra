@@ -3,6 +3,7 @@ import { ModalController } from '@ionic/angular';
 import { LoginPage } from './login/login.page';
 import { PerfilPage } from './perfil/perfil.page';
 import { RegistroPage } from './registro/registro.page';
+import { PushNotifications } from '@capacitor/push-notifications';
 
 @Component({
   selector: 'app-root',
@@ -21,6 +22,57 @@ export class AppComponent {
   ];
   
   constructor(public modalCtrl: ModalController) {}
+
+  ngOnInit() {
+    console.log('IT HAS BEGUN');
+
+    const addListeners = async () => {
+      await PushNotifications.addListener('registration', token => {
+        console.info('Registration token: ', token.value);
+      });
+    
+      await PushNotifications.addListener('registrationError', err => {
+        console.error('Registration error: ', err.error);
+      });
+    
+      await PushNotifications.addListener('pushNotificationReceived', notification => {
+        console.log('Push notification received: ', notification);
+      });
+    
+      await PushNotifications.addListener('pushNotificationActionPerformed', notification => {
+        console.log('Push notification action performed', notification.actionId, notification.inputValue);
+      });
+    }
+
+    const registerNotifications = async () => {
+      let permStatus = await PushNotifications.checkPermissions();
+    
+      if (permStatus.receive === 'prompt') {
+        permStatus = await PushNotifications.requestPermissions();
+      }
+    
+      if (permStatus.receive !== 'granted') {
+        throw new Error('User denied permissions!');
+      }
+    
+      await PushNotifications.register();
+    }
+    
+    const getDeliveredNotifications = async () => {
+      const notificationList = await PushNotifications.getDeliveredNotifications();
+      console.log('delivered notifications', notificationList);
+    }
+    PushNotifications.createChannel({
+      id: "laroca", // (required)
+      name: "LaRoca", // (required)
+      description: "No se si es lo mismo que los topicos, pero ahi va", // (optional) default: undefined.
+      sound: "default", // (optional) See `soundName` parameter of `localNotification` function
+      importance: 4, // (optional) default: 4. Int value of the Android notification importance
+      vibration: true, // (optional) default: true. Creates the default vibration patten if true.
+    })
+    addListeners();
+    registerNotifications();
+  }
 
   async func_openPerfil() {
     console.log('Hola, soy el perfil.');
@@ -67,3 +119,5 @@ export class AppComponent {
     // }
   }
 }
+
+

@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">appFuncionario</string>
-    <string name="title_activity_main">appFuncionario</string>
-    <string name="package_name">io.ionic.starter</string>
-    <string name="custom_url_scheme">io.ionic.starter</string>
+    <string name="app_name">Aptra</string>
+    <string name="title_activity_main">Aptra</string>
+    <string name="package_name">gob.tamaulipas.aptra</string>
+    <string name="custom_url_scheme">gob.tamaulipas.aptra</string>
 </resources>

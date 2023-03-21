@@ -1,4 +1,4 @@
-package io.ionic.starter;
+package gob.tamaulipas.aptra;
 
 import com.getcapacitor.BridgeActivity;
 

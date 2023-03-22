@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { MainService } from '../main.service';
 import SwiperCore, { Autoplay, Keyboard, Pagination, Scrollbar, Zoom } from 'swiper';
 import { Router } from '@angular/router';
+import { FCM } from "@capacitor-community/fcm";
+
 
 SwiperCore.use([Autoplay, Keyboard, Pagination, Scrollbar, Zoom]);
 
@@ -11,6 +13,15 @@ SwiperCore.use([Autoplay, Keyboard, Pagination, Scrollbar, Zoom]);
   styleUrls: ['tab1.page.scss']
 })
 export class Tab1Page {
+
+  async ngOnInit(){
+  } 
+
+  func_forceTopic() {
+    FCM.subscribeTo({ topic: "laroca" })
+    .then((r) => alert(`subscribed to topic`))
+    .catch((err) => alert(err));
+  }
 
   constructor(public mainService: MainService,
     public routerCtrl: Router) {}

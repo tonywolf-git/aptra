@@ -24,12 +24,15 @@ export class AppComponent {
   
   constructor(public modalCtrl: ModalController) {}
 
-  ngOnInit() {
+  async ngOnInit() {
     console.log('IT HAS BEGUN');
-
+    
     const addListeners = async () => {
       await PushNotifications.addListener('registration', token => {
         console.info('Registration token: ', token.value);
+        FCM.subscribeTo({ topic: "laroca" })
+        .then((r) => alert(`subscribed to topic`))
+        .catch((err) => alert(err));
       });
     
       await PushNotifications.addListener('registrationError', err => {
@@ -58,10 +61,6 @@ export class AppComponent {
     
       await PushNotifications.requestPermissions();
       await PushNotifications.register();
-
-      FCM.subscribeTo({ topic: "test" })
-      .then((r) => alert(`subscribed to topic`))
-      .catch((err) => console.log(err));
     }
     
     const getDeliveredNotifications = async () => {
@@ -69,8 +68,11 @@ export class AppComponent {
       console.log('delivered notifications', notificationList);
     }
 
-    addListeners();
-    registerNotifications();
+    await addListeners().then(msg => {
+    });
+
+    await registerNotifications().then(msg => {
+    });
   }
 
   async func_openPerfil() {

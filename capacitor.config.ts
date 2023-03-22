@@ -1,10 +1,13 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'gob.tamaulipas.aptra',
+  appId: 'tamaulipas.gob.aptra',
   appName: 'Aptra',
   webDir: 'www',
   bundledWebRuntime: false,
+  // ios: {
+  //   scheme: 'Aptra'
+  // },
   plugins: {
     PushNotifications: {
       presentationOptions: ["badge", "sound", "alert"],

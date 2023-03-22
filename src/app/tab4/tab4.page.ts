@@ -22,12 +22,12 @@ export class Tab4Page implements OnInit {
 
   async ngOnInit() {
     console.log('HOHOHO');
-    // this.info = await this.mainService.func_get(this.mainService.url_GET_recursos_humanos);
-    // this.laFoto = this.info.foto;
-    // this.elNumEmpleado = this.info.res.datDatosGenerales.DatosGenerales[0].NumeroEmpleado;
-    // this.laDependencia = this.info.res.datDatosGenerales.DatosGenerales[0].Dependencia;
-    // this.elPuesto = this.info.res.datDatosGenerales.DatosGenerales[0].puesto;
-    // this.elNombre = this.info.res.datDatosGenerales.DatosGenerales[0].Nombres + ' ' + this.info.res.datDatosGenerales.DatosGenerales[0].ApellidoPaterno + ' ' + this.info.res.datDatosGenerales.DatosGenerales[0].ApellidoMaterno;
+    this.info = await this.mainService.func_get(this.mainService.url_GET_recursos_humanos);
+    this.laFoto = this.info.foto;
+    this.elNumEmpleado = this.info.res.datDatosGenerales.DatosGenerales[0].NumeroEmpleado;
+    this.laDependencia = this.info.res.datDatosGenerales.DatosGenerales[0].Dependencia;
+    this.elPuesto = this.info.res.datDatosGenerales.DatosGenerales[0].puesto;
+    this.elNombre = this.info.res.datDatosGenerales.DatosGenerales[0].Nombres + ' ' + this.info.res.datDatosGenerales.DatosGenerales[0].ApellidoPaterno + ' ' + this.info.res.datDatosGenerales.DatosGenerales[0].ApellidoMaterno;
   };
 
   credencialClick() {

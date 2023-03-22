@@ -59,7 +59,7 @@ export class AppComponent {
       await PushNotifications.requestPermissions();
       await PushNotifications.register();
 
-      FCM.subscribeTo({ topic: "laroca" })
+      FCM.subscribeTo({ topic: "test" })
       .then((r) => alert(`subscribed to topic`))
       .catch((err) => console.log(err));
     }
@@ -68,14 +68,7 @@ export class AppComponent {
       const notificationList = await PushNotifications.getDeliveredNotifications();
       console.log('delivered notifications', notificationList);
     }
-    PushNotifications.createChannel({
-      id: "laroca", // (required)
-      name: "LaRoca", // (required)
-      description: "No se si es lo mismo que los topicos, pero ahi va", // (optional) default: undefined.
-      sound: "default", // (optional) See `soundName` parameter of `localNotification` function
-      importance: 4, // (optional) default: 4. Int value of the Android notification importance
-      vibration: true, // (optional) default: true. Creates the default vibration patten if true.
-    })
+
     addListeners();
     registerNotifications();
   }

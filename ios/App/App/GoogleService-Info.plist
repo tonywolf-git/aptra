@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>968828274046-ee09mt3pai21s0uecrcti34f3fmcrt6f.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.968828274046-ee09mt3pai21s0uecrcti34f3fmcrt6f</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCehQxRoTDUEKPsYBt9ok2ZGvHPdpVN0hY</string>
+	<key>GCM_SENDER_ID</key>
+	<string>968828274046</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>tamaulipas.gob.aptra</string>
+	<key>PROJECT_ID</key>
+	<string>aptra-b019d</string>
+	<key>STORAGE_BUCKET</key>
+	<string>aptra-b019d.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:968828274046:ios:eb7d961be8ef14bab5df2f</string>
+</dict>
+</plist>

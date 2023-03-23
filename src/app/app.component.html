@@ -1,10 +1,11 @@
 <ion-app>
   <ion-split-pane contentId="main-content">
-    <ion-menu contentId="main-content" type="overlay">
+    <ion-menu contentId="main-content" type="overlay" (ionDidOpen)="openedShit()">
       <ion-content>
         <ion-list id="inbox-list">
           <div style="display: block; width: 75%; margin-left: 23%;">
-            <img class="clip_this" style="display: block; width: 40%; margin: auto; margin-top: 40px; margin-bottom: 10px; background-size: contain;" src="https://i1.sndcdn.com/avatars-000560768412-fgpz9h-t500x500.jpg" alt="user_png">
+            <img *ngIf="profilePic != 'none'" class="clip_this" style="display: block; width: 40%; margin: auto; margin-top: 40px; margin-bottom: 10px; background-size: contain;" src="{{ profilePic }}" alt="user_png">
+            <img *ngIf="profilePic == 'none'" class="clip_this" style="display: block; width: 40%; margin: auto; margin-top: 40px; margin-bottom: 10px; background-size: contain;" src="https://i1.sndcdn.com/avatars-000560768412-fgpz9h-t500x500.jpg" alt="user_png">
             <h2 class="ion-text-wrap" style="display: block; text-align: center; margin: auto; padding: 10px; color: white; font-weight: bold;">¡Bienvenido! </h2>
             <hr style="display: block; border-bottom: 1px solid rgba(250,250,250,1); width: 90%; margin-bottom: 20px; margin-top: 20px;">
           </div>

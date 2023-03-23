@@ -14,7 +14,8 @@ SwiperCore.use([Autoplay, Keyboard, Pagination, Scrollbar, Zoom]);
 })
 export class Tab1Page {
 
-  async ngOnInit(){
+  async ngOnInit() {
+    await this.mainService.func_get(this.mainService.url_GET_recursos_humanos);
   } 
 
   func_forceTopic() {

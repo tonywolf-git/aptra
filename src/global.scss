@@ -36,12 +36,18 @@
 @import 'swiper/scss/zoom';
 @import '@ionic/angular/css/ionic-swiper';
 
+@font-face {
+    font-family: 'encode-sans';
+    font-style: normal;
+    font-weight: normal;
+    src: url('../src/assets/fonts/encode-sans.ttf');
+}
 
 :root,
 :root[mode=ios],
 :root[mode=md] {
-  --ion-font-family: "encode sans" !important;
-  font-family: "encode sans" !important; 
+  --ion-font-family: "encode-sans" !important;
+  font-family: "encode-sans" !important; 
 
     ion-tab-button {
         --color: white;

@@ -5,6 +5,7 @@ import { PerfilPage } from './perfil/perfil.page';
 import { RegistroPage } from './registro/registro.page';
 import { PushNotifications } from '@capacitor/push-notifications';
 import { FCM } from "@capacitor-community/fcm";
+import { MainService } from './main.service';
 
 @Component({
   selector: 'app-root',
@@ -22,7 +23,17 @@ export class AppComponent {
     { title: 'Salir', url: '/folder/Spam', icon: 'exit' },
   ];
   
-  constructor(public modalCtrl: ModalController) {}
+  constructor(public modalCtrl: ModalController,
+    public mainService: MainService) {}
+
+  profilePic = 'none';
+
+  async openedShit() {
+    console.log('OPNED');
+    if (this.mainService.credencialInfo.laFoto != '') {
+      this.profilePic = this.mainService.credencialInfo.laFoto;
+    }
+  }
 
   async ngOnInit() {
     console.log('IT HAS BEGUN');

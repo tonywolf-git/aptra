@@ -14,20 +14,33 @@ export class Tab4Page implements OnInit {
 
   info: any;
   laFoto = '';
-  elNumEmpleado = 0;
+  elNumEmpleado = 69;
   laDependencia = '';
   elPuesto = '';
   elNombre = '';
+  elCURP = '';
   flipped = false;
 
   async ngOnInit() {
     console.log('HOHOHO');
-    this.info = await this.mainService.func_get(this.mainService.url_GET_recursos_humanos);
-    this.laFoto = this.info.foto;
-    this.elNumEmpleado = this.info.res.datDatosGenerales.DatosGenerales[0].NumeroEmpleado;
-    this.laDependencia = this.info.res.datDatosGenerales.DatosGenerales[0].Dependencia;
-    this.elPuesto = this.info.res.datDatosGenerales.DatosGenerales[0].puesto;
-    this.elNombre = this.info.res.datDatosGenerales.DatosGenerales[0].Nombres + ' ' + this.info.res.datDatosGenerales.DatosGenerales[0].ApellidoPaterno + ' ' + this.info.res.datDatosGenerales.DatosGenerales[0].ApellidoMaterno;
+    // console.log(this.mainService.credencialInfo);
+    this.laFoto = this.mainService.credencialInfo.laFoto;
+    this.elNumEmpleado = this.mainService.credencialInfo.elNumEmpleado;
+    this.laDependencia = this.mainService.credencialInfo.laDependencia;
+    this.elPuesto = this.mainService.credencialInfo.elPuesto;
+    this.elNombre = this.mainService.credencialInfo.elNombre;
+    this.elCURP = this.mainService.credencialInfo.elCURP;
+
+    if (this.elNumEmpleado == 69) {
+      console.log('Corriendo protocolo 69')
+      this.info = await this.mainService.func_get(this.mainService.url_GET_recursos_humanos);
+      this.laFoto = this.info.foto;
+      this.elNumEmpleado = this.info.res.datDatosGenerales.DatosGenerales[0].NumeroEmpleado;
+      this.laDependencia = this.info.res.datDatosGenerales.DatosGenerales[0].Dependencia;
+      this.elPuesto = this.info.res.datDatosGenerales.DatosGenerales[0].puesto;
+      this.elNombre = this.info.res.datDatosGenerales.DatosGenerales[0].Nombres + ' ' + this.info.res.datDatosGenerales.DatosGenerales[0].ApellidoPaterno + ' ' + this.info.res.datDatosGenerales.DatosGenerales[0].ApellidoMaterno;  
+      this.elCURP = this.info.res.datDatosGenerales.DatosGenerales[0].curp
+    }
   };
 
   credencialClick() {

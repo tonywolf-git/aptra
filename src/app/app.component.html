@@ -29,18 +29,15 @@
               <ion-icon color="light" slot="start" [ios]="'mail' + '-sharp'" [md]="'mail' + '-sharp'"></ion-icon>
               <ion-label class="ion-text-wrap" style="margin-left: 10px; font-size: 16px; color: white;">Contacto</ion-label>
             </ion-item>
-
-            <ion-item button (click)="func_openLogin()">
-              <ion-icon color="light" slot="start" [ios]="'log-out' + '-sharp'" [md]="'log-out' + '-sharp'"></ion-icon>
-              <ion-label class="ion-text-wrap" style="margin-left: 10px; font-size: 16px; color: white;">Cerrar Sesión</ion-label>
-            </ion-item>
-
-            
             <!-- <ion-item (click)="func_logOut();">
               <ion-icon color="light" slot="start" [ios]="'car' + '-outline'" [md]="'log-out' + '-sharp'"></ion-icon>
               <ion-label class="ion-text-wrap" style="font-size: 16px; color: white;">Cerrar Sesión</ion-label>
             </ion-item> -->
           </ion-menu-toggle>
+          <ion-item button (click)="func_logOut()">
+            <ion-icon color="light" slot="start" [ios]="'log-out' + '-sharp'" [md]="'log-out' + '-sharp'"></ion-icon>
+            <ion-label class="ion-text-wrap" style="margin-left: 10px; font-size: 16px; color: white;">Cerrar Sesión</ion-label>
+          </ion-item>
         </ion-list>
       </ion-content>
     </ion-menu>

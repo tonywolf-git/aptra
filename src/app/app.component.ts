@@ -1,11 +1,14 @@
 import { Component } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { ModalController, NavController } from '@ionic/angular';
 import { LoginPage } from './login/login.page';
 import { PerfilPage } from './perfil/perfil.page';
 import { RegistroPage } from './registro/registro.page';
 import { PushNotifications } from '@capacitor/push-notifications';
 import { FCM } from "@capacitor-community/fcm";
 import { MainService } from './main.service';
+import { register } from 'swiper/element/bundle';
+
+register();
 
 @Component({
   selector: 'app-root',
@@ -24,7 +27,8 @@ export class AppComponent {
   ];
   
   constructor(public modalCtrl: ModalController,
-    public mainService: MainService) {}
+    public mainService: MainService,
+    public navCtrl: NavController) {}
 
   profilePic = 'none';
 
@@ -84,6 +88,10 @@ export class AppComponent {
 
     await registerNotifications().then(msg => {
     });
+  }
+
+  async func_logOut() {
+    this.mainService.func_doLogOut();
   }
 
   async func_openPerfil() {

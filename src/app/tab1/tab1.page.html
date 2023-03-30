@@ -28,7 +28,7 @@
     </div>
   </div>
 
-  <ion-button style="display: flex; margin: auto; width: 50%; margin-top: 10px; margin-bottom: 10px;" (click)="func_forceTopic()">FORZAR TÓPICO</ion-button>
+  <!-- <ion-button style="display: flex; margin: auto; width: 50%; margin-top: 10px; margin-bottom: 10px;" (click)="func_forceTopic()">FORZAR TÓPICO</ion-button> -->
 
   <!--
     [autoplay]="true"
@@ -37,15 +37,26 @@
     [scrollbar]="true"
     [zoom]="true"
   -->
-    <swiper class="swiper-container" [pagination]="true">
+  <!-- <swiper class="swiper-container" hidden [pagination]="true">
     <ng-template swiperSlide>
-      <img class="swiper-image" src="../../assets/placeholder/placeholder_turismo.png" alt="credencial_img">
+      <div class="swiper-image-container">
+        <img class="swiper-image" src="../../assets/placeholder/placeholder_turismo.png" alt="credencial_img">
+      </div>
     </ng-template>
     <ng-template swiperSlide>
-      <img class="swiper-image" src="../../assets/credencial/tamaulogo001.png" alt="tamauligo">
+      <div class="swiper-image-container">
+        <img class="swiper-image" src="../../assets/placeholder/ds3.jpeg" alt="tamauligo">
+      </div>
     </ng-template>
     <ng-template swiperSlide>
-      <img class="swiper-image" src="../../assets/etc/tab1_00_avisos.png" alt="otro">
+      <div class="swiper-image-container">
+        <img class="swiper-image" src="../../assets/placeholder/justacircle.png" alt="otro">
+      </div>
     </ng-template>
-  </swiper>
+    <ng-template swiperSlide>
+      <div class="swiper-image-container">
+        <img class="swiper-image" src="https://th.bing.com/th/id/OIP.Gn0fp_mN06RVer5EqMwlywHaHa?pid=ImgDet&rs=1" alt="otoo">
+      </div>
+    </ng-template>
+  </swiper> -->
 </ion-content>

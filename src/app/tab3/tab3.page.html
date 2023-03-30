@@ -8,8 +8,8 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-datetime color="danger"
-    [highlightedDates]="highlightedDates"
+  <ion-datetime #datetime color="danger"
+    [highlightedDates]="calendarioEventosPost"
     presentation="date"
     showDefaultTimeLabel="false"
     [firstDayOfWeek]="1"
@@ -19,14 +19,11 @@
   </ion-datetime>
 
   <ion-list>
-    <ion-item>
+    <!-- <ion-item>
       <ion-label class="ion-text-wrap"><span class="dia-pago this-but-bolder">14</span> - Pago de la primer quincena</ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-label class="ion-text-wrap"><span class="dia-inhabil this-but-bolder">21</span> - Día inhabil</ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-label class="ion-text-wrap"><span class="dia-pago this-but-bolder">31</span> - Pago de la segunda quincena y compensaciones</ion-label>
+    </ion-item> -->
+    <ion-item *ngFor="let evento of calendarioEventosPost">
+      <ion-label class="ion-text-wrap"><span class="dia-pago this-but-bolder">{{ evento.date }}</span> - {{ evento.title }}</ion-label>
     </ion-item>
   </ion-list>
 </ion-content>

@@ -14,11 +14,13 @@ export class Tab4Page implements OnInit {
 
   info: any;
   laFoto = '';
-  elNumEmpleado = 69;
+  elNumEmpleado = 1007;
   laDependencia = '';
   elPuesto = '';
   elNombre = '';
   elCURP = '';
+  elAlergia = '';
+  elTipoSangre = '';
   flipped = false;
 
   async ngOnInit() {
@@ -30,16 +32,20 @@ export class Tab4Page implements OnInit {
     this.elPuesto = this.mainService.credencialInfo.elPuesto;
     this.elNombre = this.mainService.credencialInfo.elNombre;
     this.elCURP = this.mainService.credencialInfo.elCURP;
+    this.elAlergia = this.mainService.credencialInfo.elAlergia;
+    this.elTipoSangre = this.mainService.credencialInfo.elTipoSangre;
 
-    if (this.elNumEmpleado == 69) {
-      console.log('Corriendo protocolo 69')
+    if (this.elNumEmpleado == 1007) {
+      console.log('Corriendo protocolo 1007')
       this.info = await this.mainService.func_get(this.mainService.url_GET_recursos_humanos);
       this.laFoto = this.info.foto;
       this.elNumEmpleado = this.info.res.datDatosGenerales.DatosGenerales[0].NumeroEmpleado;
       this.laDependencia = this.info.res.datDatosGenerales.DatosGenerales[0].Dependencia;
       this.elPuesto = this.info.res.datDatosGenerales.DatosGenerales[0].puesto;
       this.elNombre = this.info.res.datDatosGenerales.DatosGenerales[0].Nombres + ' ' + this.info.res.datDatosGenerales.DatosGenerales[0].ApellidoPaterno + ' ' + this.info.res.datDatosGenerales.DatosGenerales[0].ApellidoMaterno;  
-      this.elCURP = this.info.res.datDatosGenerales.DatosGenerales[0].curp
+      this.elCURP = this.info.res.datDatosGenerales.DatosGenerales[0].curp;
+      this.elAlergia = this.info.res.datDatosGenerales.DatosGenerales[0].alergias;
+      this.elTipoSangre = this.info.res.datDatosGenerales.DatosGenerales[0].tipo_sangre;
     }
   };
 

@@ -7,8 +7,13 @@ import { IonicModule } from '@ionic/angular';
 import { RegistroPageRoutingModule } from './registro-routing.module';
 
 import { RegistroPage } from './registro.page';
+// import Swiper from 'swiper';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+
+
 
 @NgModule({
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [
     CommonModule,
     FormsModule,

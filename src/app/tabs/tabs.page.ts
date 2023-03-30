@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { MenuController } from '@ionic/angular';
+import { MainService } from '../main.service';
 
 @Component({
   selector: 'app-tabs',
@@ -7,6 +9,5 @@ import { Component } from '@angular/core';
 })
 export class TabsPage {
 
-  constructor() {}
-
+  constructor(public menuCtrl: MenuController) {}
 }

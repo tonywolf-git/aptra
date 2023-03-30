@@ -59,6 +59,20 @@ export class Tab2Page {
   }
 
   async func_getAvisos() {
+    let _theUrl = 'https://sitam.tamaulipas.gob.mx/aptranotificaciones/notificaciones';
+    axios.get(_theUrl).then(response => response.data)
+    .then((data) => {
+      this.avisosIsLoaded = true;
+      console.log(data, typeof data, data.length);
+      this.avisosAxios = [];
+      for (let x = 0; x < data.length; x++) {
+        this.avisosAxios.push({title: data[x].titulo_notificacion, text: data[x].notificacion, splicePipe: false, id: x, activo: data[x].activo})
+      }
+      console.log(':AXIOS:', this.avisosAxios)
+     })
+  }
+
+  async func_getAvisos_REDDIT() {
     let _theUrl = ['https://www.reddit.com/r/all/.json', 'https://www.reddit.com/r/dogs/.json', 'https://www.reddit.com/r/dankmemes/.json'];
     let _min = Math.ceil(0);
     let _max = Math.floor(2);

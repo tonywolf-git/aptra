@@ -32,3 +32,51 @@
     width: 50%;
     max-width: 50%;
 }
+
+.otp-box{
+    margin-top: 0px;
+    margin-right: 0px;
+    
+    h2 {
+        margin: 0;
+        font-size: 12px;
+        color: #b6b6be;
+    }
+    
+    ion-input {
+        text-align: center;
+        border: 1px solid #e1e5e8;
+        border-radius: 5px;
+        margin-top: 8px;
+        font-size: 14px;
+        padding: 3px !important;
+        padding-left: 0px !important;
+        color: #383838;
+        font-weight: 600;
+        --padding-start: 0;
+    }
+    &:last-child {
+        margin-top: 0px;
+        margin-right: 0px;
+    }
+}
+
+  /// MODAL STUFF INI ///
+  ion-modal {
+    padding: 20px;
+    --height: 40%;
+    --border-radius: 16px;
+    border: 3px solid black;
+    background: rgba(80, 80, 80, 0.3);
+    opacity: 1;
+  }
+
+  ion-modal::part(backdrop) {
+    background: rgba(80, 80, 80, 0.3);
+  }
+
+  .modal-qr-container {
+    display: flex;
+    height: 100%;
+  }
+  /// MODAL STUFF END ///

@@ -22,7 +22,8 @@
           <ion-row class="no-padding" style="height: 100%; width: 100%; margin:0px !important; padding:0px !important;">
             <ion-col class="front-pic-number-col1" style="padding: 0px !important;">
               <img style="float: right;" src="{{ laFoto }}" alt="">
-              <img *ngIf="laFoto == ''" style="float: right;" src="https://www.firesidepetlodge.com/wp-content/uploads/2021/03/chesapeake.png" alt="">
+              <img *ngIf="laFoto == ''" style="float: right;" src="../../assets/placeholder/profile_placeholda.png" alt="">
+              <!-- <img *ngIf="laFoto == ''" style="float: right;" src="https://www.firesidepetlodge.com/wp-content/uploads/2021/03/chesapeake.png" alt=""> -->
             </ion-col>
             <ion-col class="front-pic-number-col2" style="padding: 0px !important;">
               <div class="front-div-empleado">
@@ -36,17 +37,20 @@
         <div class="front-info-container">
           <div class="front-div-info">
             <span class="this-but-bold info-titulo">NOMBRE</span><br>
-            <span *ngIf="elNombre == ''" class="info-titulo-text this-but-bold">DON DOGGO HUESONSON PEREZ</span>
+            <span *ngIf="elNombre == ''" class="info-titulo-text this-but-bold">CARGANDO...</span>
+            <!-- <span *ngIf="elNombre == ''" class="info-titulo-text this-but-bold">DON DOGGO HUESONSON PEREZ</span> -->
             <span class="info-titulo-text this-but-bold">{{ elNombre }}</span>
           </div>
           <div class="front-div-info">
             <span class="this-but-bold info-titulo">DEPENDENCIA</span><br>
-            <span *ngIf="laDependencia == ''" class="info-titulo-text this-but-bold">SECRETARÍA DE ADMINISTRACIÓN (DE HUESOS)</span>
+            <span *ngIf="laDependencia == ''" class="info-titulo-text this-but-bold">CARGANDO...</span>
+            <!-- <span *ngIf="laDependencia == ''" class="info-titulo-text this-but-bold">SECRETARÍA DE ADMINISTRACIÓN (DE HUESOS)</span> -->
             <span class="info-titulo-text this-but-bold">{{ laDependencia }}</span>
           </div>
           <div class="front-div-info">
             <span class="this-but-bold info-titulo">PUESTO</span><br>
-            <span *ngIf="elPuesto == ''" class="info-titulo-text this-but-bold">DESC. PUESTO</span>
+            <span *ngIf="elPuesto == ''" class="info-titulo-text this-but-bold">CARGANDO...</span>
+            <!-- <span *ngIf="elPuesto == ''" class="info-titulo-text this-but-bold">DESC. PUESTO</span> -->
             <span class="info-titulo-text this-but-bold">{{ elPuesto }}</span>
           </div>
         </div>
@@ -59,18 +63,24 @@
               <div class="back-info-container">
                 <div class="back-div-info">
                   <span class="this-but-bold back-info-titulo">CURP</span><br>
-                  <span *ngIf="elNombre == ''" class="back-info-titulo-text this-but-bold">SASG910725HTSRRN02</span>
+                  <span *ngIf="elNombre == ''" class="back-info-titulo-text this-but-bold">CARGANDO CURP...</span>
                   <span class="back-info-titulo-text this-but-bold">{{ elCURP }}</span>
                 </div>
                 <div class="back-div-info">
                   <span class="this-but-bold back-info-titulo">ALERGIAS</span><br>
-                  <span class="back-info-titulo-text this-but-bold">ASPIRINA (DATO PENDIENTE, SIN API)</span>
+                  <span *ngIf="elAlergia == ''" class="back-info-titulo-text this-but-bold">CARGANDO...</span>
+                  <span *ngIf="elAlergia != null" class="back-info-titulo-text this-but-bold">{{ elAlergia }}</span>
+                  <span *ngIf="elAlergia == null" class="back-info-titulo-text this-but-bold">NINGUNA</span>
+                  <!-- <span class="back-info-titulo-text this-but-bold">ASPIRINA (DATO PENDIENTE, SIN API)</span> -->
                   <!-- <span *ngIf="laDependencia == ''" class="back-info-titulo-text this-but-bold">ASPIRINA (DATO PENDIENTE, SIN API)</span> -->
                   <!-- <span class="back-info-titulo-text this-but-bold">{{ laDependencia }}</span> -->
                 </div>
                 <div class="back-div-info">
                   <span class="this-but-bold back-info-titulo">TIPO DE SANGRE</span><br>
-                  <span class="back-info-titulo-text this-but-bold">AB+ (DATO PENDIENTE, SIN API)</span>
+                  <span *ngIf="elTipoSangre == ''" class="back-info-titulo-text this-but-bold">CARGANDO...</span>
+                  <span *ngIf="elTipoSangre != null" class="back-info-titulo-text this-but-bold">{{ elTipoSangre }}</span>
+                  <span *ngIf="elTipoSangre == null" class="back-info-titulo-text this-but-bold">NO DISPONIBLE</span>
+                  <!-- <span class="back-info-titulo-text this-but-bold">AB+ (DATO PENDIENTE, SIN API)</span> -->
                   <!-- <span *ngIf="elPuesto == ''" class="back-info-titulo-text this-but-bold">AB+ (DATO PENDIENTE, SIN API)</span> -->
                   <!-- <span class="back-info-titulo-text this-but-bold">{{ elPuesto }}</span> -->
                 </div>
@@ -88,8 +98,11 @@
           <ion-grid>
             <ion-row style="height: 100%;">
               <ion-col style="height: 100%;">
-                <div button id="open-modal" class="back-qr" (click)="func_showQR()">
+                <!-- <div button id="open-modal" class="back-qr" (click)="func_showQR()">
                   <img style="height: 100%; text-align: center; margin: auto;" src="https://www.investopedia.com/thmb/hJrIBjjMBGfx0oa_bHAgZ9AWyn0=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/qr-code-bc94057f452f4806af70fd34540f72ad.png" alt="ELQR">
+                </div> -->
+                <div class="back-qr">
+                  <img style="height: 100%; text-align: center; margin: auto;" src="../../assets/login/apptra_logo.png" alt="ELQR">
                 </div>
               </ion-col>
               <ion-col (click)="credencialClick();" style="text-align: left;">

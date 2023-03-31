@@ -3,6 +3,7 @@ import { IonModal, ModalController } from '@ionic/angular';
 import { OverlayEventDetail } from '@ionic/core/components';
 import Swiper from 'swiper';
 import { MainService } from '../main.service';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-registro',
@@ -16,14 +17,40 @@ export class RegistroPage implements OnInit {
   theSwiper: ElementRef | undefined;
   
   step_registro = 0;
+  step_name = 'Siguiente'
   swiperCtrl: any;
+
+  registroDatos = {
+    correo: '',
+    pass: '',
+    passConfirma: '',
+    numEmpleado: '',
+    rfc: '',
+    curp: '',
+    celular: '',
+    idUser: 0,
+    codigoValidacion: ''
+  };
+
+  elCodigo = {
+    a: '',
+    b: '',
+    c: '',
+    d: '',
+    e: '',
+    f: '',
+  }
   
   constructor(public modalCtrl: ModalController,
-    public mainService: MainService) {
-      this.swiperCtrl = this.theSwiper?.nativeElement.swiper
-    }
+    public mainService: MainService,
+    public toastCtrl: ToastController) {}
 
-  ngOnInit() {
+  ngOnInit() {}
+
+  ionViewDidEnter() {
+    console.log('yeah');
+    this.swiperCtrl = this.theSwiper?.nativeElement.swiper;
+    console.log(this.swiperCtrl);
   }
 
   moveFocus(event: any, nextElement: any, previousElement: any) {
@@ -48,41 +75,181 @@ export class RegistroPage implements OnInit {
   }
 
   func_doRegistro() {
-    this.swiperCtrl = this.theSwiper?.nativeElement.swiper;
-    
+    console.log(this.step_registro);
     switch (this.step_registro) {
       case 0:
         console.log('CORREO | CONTRASEÑA | CHECAR CONTRASEÑA');
-        this.step_registro += 1;
-        this.swiperCtrl.slideNext();
+        this.checkPasoUno();
         break;
         
       case 1:
         console.log('CONFIRMAR QUE VAMOS A SOLICITAR MAS COSAS');
-        this.step_registro += 1;
+        this.step_registro+=1;
+        this.checkTitle();
         this.swiperCtrl.slideNext();
         break;
 
       case 2:
         console.log('NUM EMPLEADO | RFC | CURP');
-        this.step_registro += 1;
-        this.swiperCtrl.slideNext();
+        this.checkPasoDos();
         break;
 
       case 3:
-        console.log('TE VAMOS A ENVIAR EL MENSAJITO DEL WASA');
-        this.step_registro += 1;
-        this.swiperCtrl.slideNext();
+        console.log('YA TE LO ENVIAMOS, PONLO');
+        this.checkPasoTres();
         break;
 
-      case 4:
-        console.log('YA TE LO ENVIAMOS, PONLO');
+      default:
+        break;
+      // case 3:
+      //   console.log('TE VAMOS A ENVIAR EL MENSAJITO DEL WASA');
+      //   this.step_registro += 1;
+      //   this.step_name = "Finalizar";
+      //   this.swiperCtrl.slideNext();
+      //   break;
+    }
+  }
+
+  checkPasoUno() {
+    let _correoValido = false;
+    let _contraseñasIguales = false;
+
+    if (this.registroDatos.pass == this.registroDatos.passConfirma && this.registroDatos.pass.length > 0) {
+      _contraseñasIguales = true;
+    } else {
+      _contraseñasIguales = false;
+    }
+    
+    //pattern(/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/)
+    var re = /^\S+@\S+\.\S+$/;
+    if (re.test(this.registroDatos.correo) == true) {
+      _correoValido = true;
+    } else {
+      _correoValido = false;
+    }
+    console.log(_correoValido, _contraseñasIguales)
+
+    if (_correoValido == true && _contraseñasIguales == true) {
+        this.step_registro += 1;
+        this.checkTitle();
+        this.swiperCtrl.slideNext();
+    } else {
+      this.mainService.alertThis('Error', 'Datos incorrectos, favor de verificarlos.');
+    }
+  }
+
+  async checkPasoDos() {
+    let _validNumEmpleado = false;
+    let _validRFC= false;
+    let _validCURP = false;
+
+    if (this.registroDatos.numEmpleado.length == 5) {
+      _validNumEmpleado = true;
+    }
+
+    if (this.registroDatos.rfc.length == 13) {
+      _validRFC = true;
+    }
+
+    if (this.registroDatos.curp.length == 18) {
+      _validCURP = true;
+    }
+
+    console.log(this.registroDatos.numEmpleado.length, this.registroDatos.rfc.length, this.registroDatos.curp.length);
+
+    if (_validNumEmpleado == true && _validRFC == true && _validCURP == true) {
+      let _response = await this.mainService.func_doRegistro(this.registroDatos);
+      console.log(_response);
+
+      switch (_response) {
+        case 'EMAILEXISTENTE':
+          this.step_registro = 0;
+          this.checkTitle();
+          this.swiperCtrl.slideTo(0);
+          this.mainService.alertThis('Error', 'El correo electrónico ya está registrado, intenta con otro.');
+          break;
+
+        case 'MALOSDATOS':
+          this.mainService.alertThis('Error', 'Los datos ingresados no concuerdan con el registro, favor de verificarlos.');
+          break;
+
+        case 'error':
+          this.mainService.alertThis('Error', 'Ha ocurrido un error, por favor intente más tarde.');
+          break;
+      
+        default:
+          break;
+      }
+
+      if (typeof _response == 'number' ) {
+        this.registroDatos.idUser = _response
+        this.step_registro += 1;
+        this.checkTitle();
+        this.swiperCtrl.slideNext();
+      }
+    } else {
+      this.mainService.alertThis('Error', 'Datos incorrectos, favor de verificarlos.');
+    }
+  }
+
+  async checkPasoTres() {
+    let _elCodigo = this.elCodigo.a + this.elCodigo.b + this.elCodigo.c + this.elCodigo.d + this.elCodigo.e + this.elCodigo.f;
+    console.log(_elCodigo);
+    let _response = await this.mainService.func_validaCodigo(this.registroDatos.idUser, _elCodigo);
+
+    if (_response == 1 || _response == '1') {
+      this.modalCtrl.dismiss();
+        const toast = await this.toastCtrl.create({
+          message: '¡Se ha validado el código correctamente, ya puedes iniciar sesión!',
+          duration: 5000,
+          position: 'top'
+        });
+    
+        await toast.present();
+    } else {
+      if (_response == 0 || _response == "0") {
+        // NO VALIDADO
+        this.mainService.alertThis('Error', 'El código proporcionado no es válido');
+      } else {
+        //ERROR GENERICO
+        // alert('AL SERVIDOR LE DIO LA AMNSIEDA');
+        this.mainService.alertThis('Error', 'Ha ocurrido un error, por favor intente más tarde.');
+      }
+    }
+  }
+
+  func_reenviarCodigo() {
+    this.mainService.func_reenviarCodigo(this.registroDatos.idUser);
+  }
+
+  checkTitle() {
+    switch (this.step_registro) {
+      case 0:
+        this.step_name = 'Siguiente';
+        break;
+
+      case 1:
+        this.step_name = 'Siguiente';
+        break;
+
+      case 2:
+        this.step_name = "Enviar código";
+        break;
+
+      case 3:
+        this.step_name = "Finalizar";
         break;
     
       default:
         break;
     }
-    // this.mainService.func_doRegistro();
+  }
+
+  func_prevSlide() {
+    console.log(this.step_registro);
+    this.swiperCtrl.slidePrev();
+    this.step_registro = this.step_registro-1;
+    this.checkTitle();
   }
 
   // MODAL STUFF INI

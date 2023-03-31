@@ -46,7 +46,10 @@ export class AppComponent {
       await PushNotifications.addListener('registration', token => {
         console.info('Registration token: ', token.value);
         FCM.subscribeTo({ topic: "laroca" })
-        .then((r) => alert(`subscribed to topic`))
+        .then((r) => {
+          // alert(`subscribed to topic`)
+          console.log('ERES PARTE DE LA ROCA');
+        })
         .catch((err) => alert(err));
       });
     

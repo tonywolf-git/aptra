@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { MenuController, NavController } from '@ionic/angular';
+import { AlertController, MenuController, NavController } from '@ionic/angular';
+import { ToastController } from '@ionic/angular';
 import axios from 'axios';
 
 @Injectable({
@@ -8,7 +9,9 @@ import axios from 'axios';
 export class MainService {
 
   constructor(public navCtrl: NavController,
-    public menuCtrl: MenuController) { }
+    public menuCtrl: MenuController,
+    public alertCtrl: AlertController,
+    public toastCtrl: ToastController) { }
 
   credencialInfo = {
     laFoto: "",
@@ -61,25 +64,92 @@ export class MainService {
     return _res;
   }
 
-  async func_doRegistro() {
+  async func_doRegistro(datos: any) {
+    let _elRes: any;
     let _theUrl = 'https://sitam.tamaulipas.gob.mx/aptranotificaciones/registrar';
-    axios.post(_theUrl, {
-      email: "hector.vargas@tamaulipas.gob.mx",
-      password: ".hector.vargas.",
-      NumEmpleado: "47553",
-      rfc: "VAAH8903163I4",
-      curp: "VAAH890316HTSRCC09",
-    }).then(response => response.data)
-    .then((data) => {
-      console.log(data);
-     })
+    try {
+      _elRes = await axios.post(_theUrl, {
+        email: "genaro.sarno@tamaulipas.gob.mx",
+        password: "laroca88",
+        NumEmpleado: "43623",
+        rfc: "SASG910725H78",
+        curp: "SASG910725HTSRRN02",
+      }).then(response => response.data)
+      .then((data) => {
+        return data;
+      })
+      return _elRes;
+    } catch (error) {
+      _elRes = 'error';
+      return _elRes;
+    }
   }
 
-  async func_doLogin() {
-    this.navCtrl.navigateRoot('tabs').then(msg => {
-      this.menuCtrl.enable(true);
-      this.menuCtrl.swipeGesture(true);
-    });
+  async func_validaCodigo(id: any, codigo: any) {
+    let _elRes: any;
+    let _theUrl = 'https://sitam.tamaulipas.gob.mx/aptranotificaciones/verificarCodigo';
+    try {
+      _elRes = await axios.post(_theUrl, {
+        id: id,
+        codigo: codigo,
+      }).then(response => response.data)
+      .then((data) => {
+        return data;
+      })
+      return _elRes;
+    } catch (error) {
+      _elRes = 'error';
+      return _elRes;
+    }
+  }
+
+  async func_doLogin(email: any, password: any) {
+    let _elRes: any;
+    let _theUrl = 'https://sitam.tamaulipas.gob.mx/aptranotificaciones/loginAptra';
+    try {
+      _elRes = await axios.post(_theUrl, {
+        email: email,
+        password: password,
+      }).then(response => response.data)
+      .then((data) => {
+        console.log('RESPONSE DE LOGIN:', data)
+        return data;
+      })
+      return _elRes;
+    } catch (error) {
+      _elRes = 'error';
+      return _elRes;
+    }
+
+    // this.navCtrl.navigateRoot('tabs').then(msg => {
+    //   this.menuCtrl.enable(true);
+    //   this.menuCtrl.swipeGesture(true);
+    // });
+  }
+
+  async func_reenviarCodigo(idUser: any) {
+    let _elRes: any;
+    let _theUrl = 'https://sitam.tamaulipas.gob.mx/aptranotificaciones/resetVerificacion';
+    try {
+      _elRes = await axios.post(_theUrl, {
+        id_usuario: idUser,
+      }).then(response => response.data)
+      .then(async (data) => {
+        // console.log('RESPONSE DE reenviacion:', data);
+        const toast = await this.toastCtrl.create({
+          message: '¡Se ha enviado el código nuevamente!',
+          duration: 5000,
+          position: 'top'
+        });
+    
+        await toast.present();
+        return data;
+      })
+      return _elRes;
+    } catch (error) {
+      _elRes = 'error';
+      return _elRes;
+    }
   }
 
   async func_doLogOut() {
@@ -89,5 +159,15 @@ export class MainService {
       this.menuCtrl.enable(false);
       this.menuCtrl.swipeGesture(false);
     })
+  }
+
+  async alertThis(title: any, msg: any) {
+    const alert = await this.alertCtrl.create({
+      header: title,
+      message: msg,
+      buttons: ['Aceptar'],
+    });
+
+    await alert.present();
   }
 }

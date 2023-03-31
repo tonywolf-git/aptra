@@ -19,6 +19,11 @@ export class LoginPage implements OnInit {
   //   // autoHeight: true,
   // };
 
+  loginData = {
+    email: '',
+    password: ''
+  }
+
   constructor(public mainService: MainService,
     public menuCtrl: MenuController,
     public modalCtrl: ModalController) { }
@@ -31,8 +36,11 @@ export class LoginPage implements OnInit {
     this.menuCtrl.swipeGesture(false);
   }
 
-  func_doLogin() {
-    this.mainService.func_doLogin();
+  async func_doLogin() {
+    let _res = await this.mainService.func_doLogin(this.loginData['email'], this.loginData['password']);
+    if (_res == 0 || _res == '0') {
+      this.mainService.alertThis('Error', 'Datos incorrectos, porfavor intenta de nuevo.')
+    }
   }
 
   async func_openRegistro() {

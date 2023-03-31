@@ -25,7 +25,10 @@ export class Tab1Page {
 
   func_forceTopic() {
     FCM.subscribeTo({ topic: "laroca" })
-    .then((r) => alert(`subscribed to topic`))
+    .then((r) => {
+      // alert(`subscribed to topic`)
+      console.log('ERES PARTE DE LA ROCA :)');
+    })
     .catch((err) => alert(err));
   }
 

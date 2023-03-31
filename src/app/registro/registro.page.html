@@ -8,119 +8,99 @@
   </div>
   
   <div style="display: flex !important;">
-    <swiper-container #swiper allow-touch-move="false" auto-height="true" scrollbar="true">
-      <swiper-slide swiperSlide>
-        <div style="padding-bottom: 30px; width: 100%; align-items: center !important; justify-content: center !important;">
+    <swiper-container #swiper scrollbar="true" allow-touch-move="false" auto-height="true">
+      <swiper-slide style="text-align: center; padding-bottom: 30px;" swiperSlide>
+        <div style="width: 100%;">
           <ion-list class="main_content_list">
+            <p style="color: #A1193E; font-size: 20px; width: 85%; margin: auto; margin-bottom: 20px;">Asocia tu correo electrónico</p>
             <ion-item>
               <ion-label color="tertiary" position="floating">Correo Electrónico</ion-label>
-              <ion-input></ion-input>
+              <ion-input [(ngModel)]="registroDatos.correo" type="email" helperText="Enter a valid email" ngModel email errorText="Invalid email"></ion-input>
             </ion-item>
             <ion-item style="border: solid black 0px;">
               <ion-label color="tertiary" position="floating">Contraseña</ion-label>
-              <ion-input type="password"></ion-input>
+              <ion-input [(ngModel)]="registroDatos.pass" type="password"></ion-input>
             </ion-item>
             
             <ion-item style="border: solid black 0px;">
               <ion-label color="tertiary" position="floating">Repetir Contraseña</ion-label>
-              <ion-input type="password"></ion-input>
+              <ion-input [(ngModel)]="registroDatos.passConfirma" type="password"></ion-input>
             </ion-item>
           </ion-list>
         </div>
       </swiper-slide>
-      <swiper-slide swiperSlide>
-        <div style="padding-bottom: 30px; width: 100%; align-items: center !important; justify-content: center !important;">
+      
+      <swiper-slide style="text-align: center; padding-bottom: 30px;" swiperSlide>
+        <div style="width: 100%;">
           <p style="width: 90%; margin:auto; color: gray; margin-bottom: 20px; font-size: 30px; font-weight: bold;">Para crear tu cuenta necesitamos validar algunos datos</p>
-          <p style="width: 80%; margin:auto; color: gray;">Solo te llevará un par de minutos, flojo</p>
+          <p style="width: 80%; margin:auto; color: gray;">Solo te llevará un par de minutos</p>
         </div>
       </swiper-slide>
-      <swiper-slide swiperSlide>
-        <div style="padding-bottom: 30px; width: 100%; align-items: center !important; justify-content: center !important;">
+
+      <swiper-slide style="text-align: center; padding-bottom: 30px;" swiperSlide>
+        <div style="width: 100%;">
           <ion-list class="main_content_list">
-            <ion-item>
+            <p style="color: #A1193E; font-size: 20px; width: 85%; margin: auto; margin-bottom: 20px;">Confirmación de datos</p>
+            <ion-item counter="true">
               <ion-label color="tertiary" position="floating">Número de empleado</ion-label>
-              <ion-input></ion-input>
+              <ion-input [(ngModel)]="registroDatos.numEmpleado" minlength="5" maxlength="5" type="tel"></ion-input>
             </ion-item>
-            <ion-item style="border: solid black 0px;">
+            <ion-item counter="true" style="border: solid black 0px;">
               <ion-label color="tertiary" position="floating">RFC (Incluida en la homoclave)</ion-label>
-              <ion-input type="password"></ion-input>
+              <ion-input [(ngModel)]="registroDatos.rfc" minlength="13" maxlength="13" type="text" oninput="this.value = this.value.toUpperCase()"></ion-input>
             </ion-item>
             
-            <ion-item style="border: solid black 0px;">
+            <ion-item counter="true" style="border: solid black 0px;">
               <ion-label color="tertiary" position="floating">CURP</ion-label>
-              <ion-input type="password"></ion-input>
+              <ion-input [(ngModel)]="registroDatos.curp" minlength="18" maxlength="18" type="text" oninput="this.value = this.value.toUpperCase()"></ion-input>
             </ion-item>
           </ion-list>
         </div>
       </swiper-slide>
 
-      <swiper-slide swiperSlide>
-        <div style="padding-bottom: 30px; width: 100%; align-items: center !important; justify-content: center !important;">
-          <p style="color: #A1193E; font-size: 20px; width: 85%; margin: auto; margin-bottom: 20px;">Asocie su número de celular </p>
-          <p style="color: #BC936C; font-size: 16px; width: 85%; margin: auto;">Para continuar con el registro, APTRA™ le enviará un código de verificación a su WhatsApp™</p>
-          <ion-list class="main_content_list">
-            <ion-grid>
-              <ion-row>
-                <ion-col size="4">
-                  <ion-item>
-                    <ion-input style="text-align: center;" placeholder="+52"></ion-input>
-                  </ion-item>
-                </ion-col>
-                <ion-col>
-                  <ion-item>
-                    <ion-input style="text-align: center;" placeholder="8341750246"></ion-input>
-                  </ion-item>
-                </ion-col>
-              </ion-row>
-            </ion-grid>
-                  
-            <ion-button class="ion-text-wrap" style="display: flex; text-transform: none !important; margin: auto; font-size: 12px; font-weight: bold;" color="gobmustard" fill="clear">Prefiero no asociar mi número celular y autenticarme con mi correro electrónico</ion-button>
-          </ion-list>
-        </div>
-      </swiper-slide>
-
-      <swiper-slide #swiperSlide>
-        <div style="padding-bottom: 30px; width: 100%; align-items: center !important; justify-content: center !important;">
+      <swiper-slide style="text-align: center; padding-bottom: 30px;" swiperSlide>
+        <div style="width: 100%;">
           <p style="color: #A1193E; font-size: 20px; width: 85%; margin: auto; margin-bottom: 20px;">Verificación de Código </p>
-          <p style="color: #BC936C; font-size: 16px; width: 85%; margin: auto;">Hemos enviado un mensaje de WhatsApp™ al numero <b>+52 8341657934</b>. Por favor, revísalo.</p>
+          <p style="color: #BC936C; font-size: 16px; width: 85%; margin: auto;">Hemos enviado un correo electrónico a "<b>{{ registroDatos.correo }}</b>". Por favor, revísalo.</p>
+          <!-- <p style="color: #BC936C; font-size: 16px; width: 85%; margin: auto;">Hemos enviado un mensaje de WhatsApp™ al numero <b>+52 8341657934</b>. Por favor, revísalo.</p> -->
           <ion-list class="main_content_list">
             <ion-item style="margin-bottom: 20px;">
               <ion-grid>
                 <ion-row class="otp-box">
                   <ion-col>
                     <div>
-                      <ion-input name="a" #a (keyup)="moveFocus($event,b,'')" type="tel" placeholder="0" maxlength="1">
+                      <ion-input [(ngModel)]="elCodigo.a" name="a" #a (keyup)="moveFocus($event,b,'')" type="tel" placeholder="0" maxlength="1">
                       </ion-input>
                     </div>
                   </ion-col>
                   <ion-col>
                     <div>
-                      <ion-input name="b" #b (keyup)="moveFocus($event,c,a)" type="tel" placeholder="0" maxlength="1">
+                      <ion-input [(ngModel)]="elCodigo.b" name="b" #b (keyup)="moveFocus($event,c,a)" type="tel" placeholder="0" maxlength="1">
                       </ion-input>
                     </div>
                   </ion-col>
                   <ion-col>
                     <div>
-                      <ion-input name="c" #c (keyup)="moveFocus($event,d,b)" type="tel" placeholder="0" maxlength="1">
+                      <ion-input [(ngModel)]="elCodigo.c" name="c" #c (keyup)="moveFocus($event,d,b)" type="tel" placeholder="0" maxlength="1">
                       </ion-input>
                     </div>
                   </ion-col>
                   <ion-col>
                     <div>
-                      <ion-input name="d" #d (keyup)="moveFocus($event,e,c)" type="tel" placeholder="0" maxlength="1">
+                      <ion-input [(ngModel)]="elCodigo.d" name="d" #d (keyup)="moveFocus($event,e,c)" type="tel" placeholder="0" maxlength="1">
                       </ion-input>
                     </div>
                   </ion-col>
                   <ion-col>
                     <div>
-                      <ion-input name="e" #e (keyup)="moveFocus($event,f,d)" type="tel" placeholder="0" maxlength="1">
+                      <ion-input [(ngModel)]="elCodigo.e" name="e" #e (keyup)="moveFocus($event,f,d)" type="tel" placeholder="0" maxlength="1">
                       </ion-input>
                     </div>
                   </ion-col>
                   <ion-col>
     
                     <div>
-                      <ion-input name="f" #f (keyup)="moveFocus($event,'',e)" type="tel" placeholder="0" maxlength="1">
+                      <ion-input [(ngModel)]="elCodigo.f" name="f" #f (keyup)="moveFocus($event,'',e)" type="tel" placeholder="0" maxlength="1">
                       </ion-input>
                     </div>
                   </ion-col>
@@ -128,13 +108,15 @@
               </ion-grid>
             </ion-item>
             
-            <p style="color: #BC936C; font-size: 14px; width: 85%; margin: auto; margin-bottom: 10px;">Ingrese el código de 6 digitos que enviamos a su WhatsApp™</p>
+            <p style="color: #BC936C; font-size: 14px; width: 85%; margin: auto; margin-bottom: 10px;">Ingrese el código de 6 digitos que enviamos a su correo</p>
+            <!-- <p style="color: #BC936C; font-size: 14px; width: 85%; margin: auto; margin-bottom: 10px;">Ingrese el código de 6 digitos que enviamos a su WhatsApp™</p> -->
 
-            <ion-button id="open-modal" class="ion-text-wrap" style="display: flex; text-transform: none !important; margin: auto; font-size: 12px; font-weight: bold;" color="gobmustard" fill="clear">¿No recibió el código?</ion-button>
+            <ion-button (click)="func_reenviarCodigo()" class="ion-text-wrap" style="display: flex; text-transform: none !important; margin: auto; font-size: 12px; font-weight: bold;" color="gobmustard" fill="clear">¿No recibió el código?</ion-button>
+            <!-- <ion-button id="open-modal" class="ion-text-wrap" style="display: flex; text-transform: none !important; margin: auto; font-size: 12px; font-weight: bold;" color="gobmustard" fill="clear">¿No recibió el código?</ion-button> -->
             
             <!-- MODAL INI (NECEISTA ESTAR AQUÍ PORQUE EL DIOS DE IONIC LO DEMANDA)-->
-            <ion-modal trigger="open-modal" (willDismiss)="onWillDismiss($event)">
-              <swiper-slide>
+            <!-- <ion-modal trigger="open-modal" (willDismiss)="onWillDismiss($event)">
+              <swiper-slide style="text-align: center; display: flex; justify-content: center; justify-items: center; justify-self: center; vertical-align: middle;">
                 <ion-content class="ion-padding">
                   <p style="text-align: center; width: 90%; margin:auto; color: gray; margin-bottom: 20px; font-size: 25px; font-weight: bold;">¿No recibió el código de verificación?</p>
                   <p style="text-align: center; width: 90%; margin:auto; color: #BC936C; margin-bottom: 20px; font-size: 16px; font-weight: bold;">Por favor, revisa bien antes de solicitar otro código</p>
@@ -143,7 +125,7 @@
                   <ion-button style="display: block; width: 90%; text-transform: none !important; --border-radius: 10px; font-size: 15px; margin: auto;" fill="outline" expand="block" color="gobmustard"><p>Autenticame atraves del correo</p></ion-button><br>
                 </ion-content>
               </swiper-slide>
-            </ion-modal>
+            </ion-modal> -->
             <!-- MODAL END -->
           </ion-list>
         </div>
@@ -152,7 +134,51 @@
   </div>
 
   <div style="text-align: center; margin: auto; margin-top: 20px;">
-    <ion-button (click)="func_doRegistro();" style="width: 50%; text-transform: none !important; --border-radius: 10px; font-size: 15px;" color="gobred">Registrarme</ion-button><br>
-    <ion-button (click)="func_goBack();" style="display: flex; text-transform: none !important; margin: auto; font-size: 12px; font-weight: bold;" color="gobred" fill="clear">Ya tengo una cuenta</ion-button>
+    <!-- 
+      0 - CORREO Y CONTRASEÑA
+      1 - "OCUPAMOS MAS DATOS"
+      2 - NUM EMPLEADO - CURP - RFC
+      3 - NUM CELULAR
+      4 - VERIFICACION CODIGO
+     -->
+
+     <ion-grid>
+      <ion-row>
+        <ion-col *ngIf="step_registro == 1 || step_registro == 2">
+          <ion-button (click)="func_prevSlide();" style="width: 50%; text-transform: none !important; --border-radius: 10px; font-size: 15px;" color="gobred">Regresar</ion-button>
+        </ion-col>
+        <ion-col>
+          <ion-button (click)="func_doRegistro();" style="width: 50%; text-transform: none !important; --border-radius: 10px; font-size: 15px;" color="gobred">{{ step_name }}</ion-button>
+        </ion-col>
+      </ion-row>
+     </ion-grid>
+    <ion-button (click)="func_goBack();" style="display: flex; text-transform: none !important; margin: auto; font-size: 12px; font-weight: bold; margin-bottom: 50px;" color="gobred" fill="clear">Ya tengo una cuenta</ion-button>
   </div>
 </ion-content>
+
+
+<!-- SLIDE DEDICADA A WHATSAPP
+  <swiper-slide *ngIf="step_name == 'Whatsapp'" style="text-align: center; padding-bottom: 30px;" swiperSlide>
+  <div style="width: 100%;">
+    <p style="color: #A1193E; font-size: 20px; width: 85%; margin: auto; margin-bottom: 20px;">Asocie su número de celular </p>
+    <p style="color: #BC936C; font-size: 16px; width: 85%; margin: auto;">Para continuar con el registro, APTRA™ le enviará un código de verificación a su WhatsApp™</p>
+    <ion-list class="main_content_list">
+      <ion-grid>
+        <ion-row>
+          <ion-col size="4">
+            <ion-item>
+              <ion-input style="text-align: center;" disabled placeholder="+52"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col>
+            <ion-item>
+              <ion-input style="text-align: center;" placeholder="8341750246"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+            
+      <ion-button class="ion-text-wrap" style="display: flex; text-transform: none !important; margin: auto; font-size: 12px; font-weight: bold;" color="gobmustard" fill="clear">Prefiero no asociar mi número celular y autenticarme con mi correro electrónico</ion-button>
+    </ion-list>
+  </div>
+</swiper-slide> -->

@@ -168,10 +168,15 @@ export class RegistroPage implements OnInit {
           this.swiperCtrl.slideTo(0);
           this.mainService.alertThis('Error', 'El correo electrónico ya está registrado, intenta con otro.');
           break;
+          
+        case 'DATOSREPETIDOS':
+          this.mainService.alertThis('Error', 'Los datos ingresados ya se encuentran registrados, prueba con otros o contacta al administrador del sistema.');
+          break;
 
         case 'MALOSDATOS':
           this.mainService.alertThis('Error', 'Los datos ingresados no concuerdan con el registro, favor de verificarlos.');
           break;
+          
 
         case 'error':
           this.mainService.alertThis('Error', 'Ha ocurrido un error, por favor intente más tarde.');

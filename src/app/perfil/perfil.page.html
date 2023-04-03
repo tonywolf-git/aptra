@@ -11,30 +11,37 @@
 
 <ion-content>
   <div class="perfil_img_container">
-    <img class="perfil_img_img" src="https://i1.sndcdn.com/avatars-000560768412-fgpz9h-t500x500.jpg" alt="">
+    <!-- <img class="perfil_img_img" src="../../assets/placeholder/placeholderProfile.jpg" alt=""> -->
+    <img *ngIf="userProfile == ''" class="perfil_img_img" src="../../assets/placeholder/placeholderProfile.jpg" alt="">
+    <img *ngIf="userProfile != ''" class="perfil_img_img" src="{{ userProfile }}" alt="">
   </div>
   <div class="perfil_info_container">
     <p class="perfil_info_text">
-      37120
+      <!-- 37120 -->
+      {{ mainService.credencialInfo.elNumEmpleado }}
     </p>
     <p class="perfil_info_text">
-      Don Doggo Huesonson Perez
+      <!-- Don Doggo Huesonson Perez -->
+      {{ mainService.credencialInfo.elNombre }}
     </p>
-    <p class="perfil_info_text">
+    <!-- <p class="perfil_info_text">
       DEJJ831119HTSRRL04
+    </p> -->
+    <p class="perfil_info_text">
+      <!-- DEJJ831119UTX -->
+      {{ mainService.credencialInfo.elCURP }}
     </p>
     <p class="perfil_info_text">
-      DEJJ831119UTX
+      <!-- DESC. PUESTO -->
+      {{ mainService.credencialInfo.elPuesto }}
     </p>
     <p class="perfil_info_text">
-      DESC. PUESTO
-    </p>
-    <p class="perfil_info_text">
-      SECRETARÍA DE ADMINISTRACIÓN (DE HUESOS)
+      <!-- SECRETARÍA DE ADMINISTRACIÓN (DE HUESOS) -->
+      {{ mainService.credencialInfo.laDependencia }}
     </p>
   </div>
 
-  <ion-button color="none" style="display: block; width: 50vw; margin: auto; margin-top: 50px; background-color: #A1193E; color: white;">Cerrar Sesión</ion-button>
+  <ion-button (click)="func_perfilLogOut()" color="none" style="display: block; width: 50vw; margin: auto; margin-top: 50px; background-color: #A1193E; color: white;">Cerrar Sesión</ion-button>
 </ion-content>
 
 

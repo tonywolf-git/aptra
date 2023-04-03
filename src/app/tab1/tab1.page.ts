@@ -3,7 +3,8 @@ import { MainService } from '../main.service';
 // import SwiperCore, { Autoplay, Keyboard, Pagination, Scrollbar, Zoom } from 'swiper';
 import { Router } from '@angular/router';
 import { FCM } from "@capacitor-community/fcm";
-import { MenuController } from '@ionic/angular';
+import { LoadingController, MenuController } from '@ionic/angular';
+import * as moment from 'moment';
 
 
 // SwiperCore.use([Autoplay, Keyboard, Pagination, Scrollbar, Zoom]);
@@ -15,12 +16,45 @@ import { MenuController } from '@ionic/angular';
 })
 export class Tab1Page {
 
+  tuSemana = new Array();
+
   constructor(public mainService: MainService,
     public routerCtrl: Router,
-    public menuCtrl: MenuController) {}
+    public menuCtrl: MenuController,
+    public loadingCtrl: LoadingController) {}
 
   async ngOnInit() {
-    await this.mainService.func_get(this.mainService.url_GET_recursos_humanos);
+    this.menuCtrl.enable(true);
+    this.menuCtrl.swipeGesture(true);
+    moment.locale('es-MX');   
+    // console.log('URL:', this.mainService.url_GET_recursos_humanos);
+    
+    const loading = await this.loadingCtrl.create({
+      message: 'Cargando información...',
+    });
+    
+    loading.present();
+
+    await this.mainService.func_get(this.mainService.url_GET_recursos_humanos).then(async succ => {
+      this.loadingCtrl.dismiss();
+    });
+    
+    this.tuSemana = await this.mainService.getSemana();
+    
+    if (this.tuSemana.length > 0) {
+      for (let x = 0; x < this.tuSemana.length; x++) {
+        if (moment(this.tuSemana[x]['fecha']).isAfter(moment().format('YYYY-MM-DD')) && moment(moment(this.tuSemana[x]['fecha'])).isSame(moment().format('YYYY-MM-DD'), 'week')) {
+          this.tuSemana[x]['diaConvertido'] = moment(this.tuSemana[x]['fecha']).format('dddd')
+          this.tuSemana[x]['valido'] = true;
+        } else {
+          this.tuSemana[x]['diaConvertido'] = moment(this.tuSemana[x]['fecha']).format('dddd')
+          this.tuSemana[x]['valido'] = false;
+        }
+      }
+    } else {
+      this.tuSemana = [];
+    }
+    console.log(this.tuSemana)
   }
 
   func_forceTopic() {

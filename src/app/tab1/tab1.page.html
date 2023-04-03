@@ -21,10 +21,12 @@
     </ion-row>
   </ion-grid>
 
-  <div style="width: 85%; margin:auto;">
+  <div *ngIf="tuSemana.length != 0" style="width: 85%; margin:auto;">
     <h4 style="color: #A1193E; font-weight: bold;">Tu semana...</h4>
-    <div style="background-color: #BC936C; color: white; padding: 2px; border-radius: 20px;">
-      <p style="margin-left: 15px; margin-right: 15px; font-size: 15px;"><span style="font-weight: bolder;">14 Marzo</span> - Pago de la primer quincena</p>
+    <div *ngFor="let evento of tuSemana">
+      <div *ngIf="evento.valido == true" style="background-color: #BC936C; color: white; padding: 2px; border-radius: 20px; margin-bottom: 10px;">
+        <p style="margin-left: 15px; margin-right: 15px; font-size: 15px;"><span style="font-weight: bolder;">{{ evento['diaConvertido'] | titlecase }}</span> - {{  evento['titulo']  }}</p>
+      </div>
     </div>
   </div>
 

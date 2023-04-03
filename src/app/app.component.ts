@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ModalController, NavController } from '@ionic/angular';
+import { MenuController, ModalController, NavController } from '@ionic/angular';
 import { LoginPage } from './login/login.page';
 import { PerfilPage } from './perfil/perfil.page';
 import { RegistroPage } from './registro/registro.page';
@@ -7,6 +7,7 @@ import { PushNotifications } from '@capacitor/push-notifications';
 import { FCM } from "@capacitor-community/fcm";
 import { MainService } from './main.service';
 import { register } from 'swiper/element/bundle';
+import { Router } from '@angular/router';
 
 register();
 
@@ -28,7 +29,9 @@ export class AppComponent {
   
   constructor(public modalCtrl: ModalController,
     public mainService: MainService,
-    public navCtrl: NavController) {}
+    public navCtrl: NavController,
+    public menuCtrl: MenuController,
+    public routerCtrl: Router) {}
 
   profilePic = 'none';
 
@@ -41,6 +44,21 @@ export class AppComponent {
 
   async ngOnInit() {
     console.log('IT HAS BEGUN');
+
+    // console.log(this.mainService.userCurp)
+
+    // this.navCtrl.navigateRoot('tabs');
+
+    if (localStorage.getItem("userCurp") === null) {
+      console.log('NO CURP GUARDADO');
+    } else {
+      console.log(localStorage.getItem("userCurp"));
+      this.mainService.userCurp = localStorage['userCurp'];
+      this.mainService.url_GET_recursos_humanos = "https://sitam.tamaulipas.gob.mx/api/obtenEmpleadoCURP/" + this.mainService.userCurp;
+      console.log(this.mainService.url_GET_recursos_humanos)
+      console.log(this.mainService.userCurp);
+      this.navCtrl.navigateRoot('tabs');
+    }
     
     const addListeners = async () => {
       await PushNotifications.addListener('registration', token => {
@@ -95,6 +113,13 @@ export class AppComponent {
 
   async func_logOut() {
     this.mainService.func_doLogOut();
+  }
+
+  async func_openHome() {
+    this.menuCtrl.close().then(msg => {
+      let _where = 'tabs/' + 'tab1';
+      this.routerCtrl.navigateByUrl(_where);
+    });
   }
 
   async func_openPerfil() {

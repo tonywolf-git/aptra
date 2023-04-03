@@ -37,7 +37,7 @@ export class LoginPage implements OnInit {
   }
 
   async func_doLogin() {
-    let _res = await this.mainService.func_doLogin(this.loginData['email'], this.loginData['password']);
+    let _res = await this.mainService.func_NoAxios_doLogin(this.loginData['email'], this.loginData['password']);
     if (_res == 0 || _res == '0') {
       this.mainService.alertThis('Error', 'Datos incorrectos, porfavor intenta de nuevo.')
     }

@@ -127,6 +127,32 @@ export class MainService {
     // });
   }
 
+  async func_NoAxios_doLogin(email: any, password: any) {
+    let _elRes: any;
+    try {
+      _elRes =  await fetch("https://sitam.tamaulipas.gob.mx/aptranotificaciones/loginAptra", {
+      method: "post",
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        email: email,
+        password: password
+      })
+    })
+    .then( (msg) => { 
+      console.log(msg)
+    });
+      return _elRes;
+    } catch (error) {
+      _elRes = 'error';
+      return _elRes;
+    }
+
+    
+  }
+
   async func_reenviarCodigo(idUser: any) {
     let _elRes: any;
     let _theUrl = 'https://sitam.tamaulipas.gob.mx/aptranotificaciones/resetVerificacion';

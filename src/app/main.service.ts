@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { AlertController, LoadingController, MenuController, NavController } from '@ionic/angular';
 import { ToastController } from '@ionic/angular';
 import axios from 'axios';
+import { Http } from '@capacitor-community/http';
+
 
 @Injectable({
   providedIn: 'root'
@@ -91,24 +93,26 @@ export class MainService {
     });
 
     loading.present();
-    try {
-      _elRes = await axios.post(_theUrl, {
-        // email: "genaro.sarno@tamaulipas.gob.mx",
-        // password: "laroca88",
-        // NumEmpleado: "43623",
-        // rfc: "SASG910725H78",
-        // curp: "SASG910725HTSRRN02",
+
+    const options = {
+      url: _theUrl,
+      data: {
         email: datos['correo'],
         password: datos['pass'],
         NumEmpleado: datos['numEmpleado'],
         rfc: datos['rfc'],
         curp: datos['curp'],
-      }).then(response => response.data)
+      }
+    };
+
+    try {
+      // await Http.post(options)
+      _elRes = await Http.post(options).then(response => response.data)
       .then((data) => {
         loading.dismiss();
-        return data;
+        return JSON.parse(data);
       })
-      return _elRes;
+      return JSON.parse(_elRes);
     } catch (error) {
       _elRes = 'error';
       loading.dismiss();
@@ -126,12 +130,49 @@ export class MainService {
 
     loading.present();
 
-    try {
-      _elRes = await axios.post(_theUrl, {
+    const options = {
+      url: _theUrl,
+      data: {
         id: id,
         codigo: codigo,
-      }).then(response => response.data)
+      }
+    };
+
+    try {
+      _elRes = await Http.post(options).then(response => response.data)
       .then((data) => {
+        loading.dismiss();
+        return JSON.parse(data);
+      })
+      return JSON.parse(_elRes);
+    } catch (error) {
+      loading.dismiss();
+      _elRes = 'error';
+      return _elRes;
+    }
+  }
+
+  async func_doLogin(email: any, password: any) {
+    let _elRes: any;
+    let _theUrl = 'https://sitam.tamaulipas.gob.mx/aptranotificaciones/loginAptra';
+    const loading = await this.loadCtrl.create({
+      message: 'Iniciando sesión...',
+    });
+    loading.present();
+
+    const options = {
+      url: _theUrl,
+      data: {
+        email: email,
+        password: password,
+      }
+    };
+
+    try {
+      _elRes = await Http.post(options).then(response => response.data)
+      .then((data) => {
+        data = JSON.parse(data)
+        console.log('RESPONSE DE LOGIN:', data);
         loading.dismiss();
         return data;
       })
@@ -143,7 +184,92 @@ export class MainService {
     }
   }
 
-  async func_doLogin(email: any, password: any) {
+  async func_reenviarCodigo(idUser: any) {
+    let _elRes: any;
+    let _theUrl = 'https://sitam.tamaulipas.gob.mx/aptranotificaciones/resetVerificacion';
+
+    const loading = await this.loadCtrl.create({
+      message: 'Reenviando código...',
+    });
+
+    loading.present();
+    
+    const options = {
+      url: _theUrl,
+      data: {
+        id_usuario: idUser,
+      }
+    };
+
+    try {
+      _elRes = await Http.post(options).then(response => response.data)
+      .then(async (data) => {
+        // console.log('RESPONSE DE reenviacion:', data);
+        loading.dismiss();
+
+        const toast = await this.toastCtrl.create({
+          message: '¡Se ha enviado el código nuevamente!',
+          duration: 5000,
+          position: 'top'
+        });
+
+        await toast.present();
+        return JSON.parse(data);
+      })
+      loading.dismiss();
+      return JSON.parse(_elRes);
+    } catch (error) {
+      _elRes = 'error';
+      return _elRes;
+    }
+  }
+
+  async func_doLogOut() {
+    this.menuCtrl.close().then(msg => {
+      this.credencialInfo = {
+        laFoto: "",
+        elNumEmpleado: 1007,
+        laDependencia: "",
+        elPuesto: "",
+        elNombre: "",
+        elCURP: "",
+        elAlergia: '',
+        elTipoSangre: '',
+      };
+      this.navCtrl.navigateRoot('');
+      localStorage.removeItem('userCurp');
+      this.menuCtrl.enable(false);
+      this.menuCtrl.swipeGesture(false);
+    })
+  }
+
+  async alertThis(title: any, msg: any) {
+    const alert = await this.alertCtrl.create({
+      header: title,
+      message: msg,
+      buttons: ['Aceptar'],
+    });
+
+    await alert.present();
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  /// OLD FUNCTIONS INI
+  async OLD_func_doLogin(email: any, password: any) {
     let _elRes: any;
     let _theUrl = 'https://sitam.tamaulipas.gob.mx/aptranotificaciones/loginAptra';
     const loading = await this.loadCtrl.create({
@@ -167,14 +293,9 @@ export class MainService {
       _elRes = 'error';
       return _elRes;
     }
-
-    // this.navCtrl.navigateRoot('tabs').then(msg => {
-    //   this.menuCtrl.enable(true);
-    //   this.menuCtrl.swipeGesture(true);
-    // });
   }
 
-  async func_reenviarCodigo(idUser: any) {
+  async OLD_func_reenviarCodigo(idUser: any) {
     let _elRes: any;
     let _theUrl = 'https://sitam.tamaulipas.gob.mx/aptranotificaciones/resetVerificacion';
 
@@ -210,32 +331,64 @@ export class MainService {
     }
   }
 
-  async func_doLogOut() {
-    this.menuCtrl.close().then(msg => {
-      this.credencialInfo = {
-        laFoto: "",
-        elNumEmpleado: 1007,
-        laDependencia: "",
-        elPuesto: "",
-        elNombre: "",
-        elCURP: "",
-        elAlergia: '',
-        elTipoSangre: '',
-      };
-      this.navCtrl.navigateRoot('');
-      localStorage.removeItem('userCurp');
-      this.menuCtrl.enable(false);
-      this.menuCtrl.swipeGesture(false);
-    })
-  }
+  async OLD_func_validaCodigo(id: any, codigo: any) {
+    let _elRes: any;
+    let _theUrl = 'https://sitam.tamaulipas.gob.mx/aptranotificaciones/verificarCodigo';
 
-  async alertThis(title: any, msg: any) {
-    const alert = await this.alertCtrl.create({
-      header: title,
-      message: msg,
-      buttons: ['Aceptar'],
+    const loading = await this.loadCtrl.create({
+      message: 'Validando código...',
     });
 
-    await alert.present();
+    loading.present();
+
+    try {
+      _elRes = await axios.post(_theUrl, {
+        id: id,
+        codigo: codigo,
+      }).then(response => response.data)
+      .then((data) => {
+        loading.dismiss();
+        return data;
+      })
+      return _elRes;
+    } catch (error) {
+      loading.dismiss();
+      _elRes = 'error';
+      return _elRes;
+    }
   }
+
+  async OLD_func_doRegistro(datos: any) {
+    let _elRes: any;
+    let _theUrl = 'https://sitam.tamaulipas.gob.mx/aptranotificaciones/registrar';
+    const loading = await this.loadCtrl.create({
+      message: 'Confirmando datos...',
+    });
+
+    loading.present();
+    try {
+      _elRes = await axios.post(_theUrl, {
+        // email: "genaro.sarno@tamaulipas.gob.mx",
+        // password: "laroca88",
+        // NumEmpleado: "43623",
+        // rfc: "SASG910725H78",
+        // curp: "SASG910725HTSRRN02",
+        email: datos['correo'],
+        password: datos['pass'],
+        NumEmpleado: datos['numEmpleado'],
+        rfc: datos['rfc'],
+        curp: datos['curp'],
+      }).then(response => response.data)
+      .then((data) => {
+        loading.dismiss();
+        return data;
+      })
+      return _elRes;
+    } catch (error) {
+      _elRes = 'error';
+      loading.dismiss();
+      return _elRes;
+    }
+  }
+  /// OLD FUNCTIONS END
 }

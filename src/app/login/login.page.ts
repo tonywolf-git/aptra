@@ -4,6 +4,7 @@ import { AlertController, IonModal, MenuController, ModalController, NavControll
 import { OverlayEventDetail } from '@ionic/core/components';
 import { MainService } from '../main.service';
 import { RegistroPage } from '../registro/registro.page';
+import { Http } from '@capacitor-community/http';
 
 // SwiperCore.use([Autoplay, Keyboard, Pagination, Scrollbar, Zoom]);
 
@@ -41,6 +42,7 @@ export class LoginPage implements OnInit {
 
   async func_doLogin() {
     let _res = await this.mainService.func_doLogin(this.loginData['email'], this.loginData['password']);
+    console.log(_res, typeof _res);
     if (typeof _res == "number") {
       if (_res == 0) {
         this.mainService.alertThis('Error', 'Datos incorrectos, porfavor intenta de nuevo.')
@@ -177,4 +179,22 @@ export class LoginPage implements OnInit {
     }
   }
   // MODAL STUFF END
+
+  async func_testHTTP() {
+    console.log('¿Does it work?');
+      const options = {
+        url: 'https://sitam.tamaulipas.gob.mx/aptranotificaciones/loginAptra',
+        data: {
+          email: 'genaro.sarno@tamaulipas.gob.mx',
+          password: 'laroca88',
+        },
+      };
+    
+      let _elRes = await Http.post(options);
+      console.log(_elRes);
+      this.mainService.alertThis('Alerta', _elRes['data']);
+    
+      // or...
+      // const response = await Http.request({ ...options, method: 'POST' })
+  }
 }

@@ -97,23 +97,27 @@ export class MainService {
     const options = {
       url: _theUrl,
       data: {
-        email: datos['correo'],
-        password: datos['pass'],
-        NumEmpleado: datos['numEmpleado'],
-        rfc: datos['rfc'],
-        curp: datos['curp'],
-      }
+        "email": datos.correo,
+        "password": datos.pass,
+        "NumEmpleado": datos.numEmpleado,
+        "rfc": datos.rfc,
+        "curp": datos.curp,
+      },
+      headers: { 'Content-Type': 'application/json' },
     };
+
+    console.log(options)
 
     try {
       // await Http.post(options)
-      _elRes = await Http.post(options).then(response => response.data)
-      .then((data) => {
+      _elRes = await Http.post(options).then(data => {
+        console.log(JSON.parse(data.data))
         loading.dismiss();
-        return JSON.parse(data);
+        return JSON.parse(data.data);
       })
-      return JSON.parse(_elRes);
+      return _elRes;
     } catch (error) {
+      console.log(error),
       _elRes = 'error';
       loading.dismiss();
       return _elRes;
@@ -135,7 +139,8 @@ export class MainService {
       data: {
         id: id,
         codigo: codigo,
-      }
+      },
+      headers: { 'Content-Type': 'application/json' },
     };
 
     try {
@@ -165,7 +170,8 @@ export class MainService {
       data: {
         email: email,
         password: password,
-      }
+      },
+      headers: { 'Content-Type': 'application/json' },
     };
 
     try {
@@ -198,7 +204,8 @@ export class MainService {
       url: _theUrl,
       data: {
         id_usuario: idUser,
-      }
+      },
+      headers: { 'Content-Type': 'application/json' },
     };
 
     try {
@@ -251,6 +258,10 @@ export class MainService {
     });
 
     await alert.present();
+  }
+
+  setCURP() {
+    localStorage.setItem('userCurp', "SASG910725HTSRRN02");
   }
 
 

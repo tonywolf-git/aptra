@@ -62,7 +62,7 @@ export class LoginPage implements OnInit {
                   let _response = await this.mainService.func_validaCodigo(_elId, input[0]);
 
                   if (_response == 1 || _response == '1') {
-                    this.modalCtrl.dismiss();
+                    // this.modalCtrl.dismiss();
                       const toast = await this.toastCtrl.create({
                         message: '¡Se ha validado el código correctamente, ya puedes iniciar sesión!',
                         duration: 5000,

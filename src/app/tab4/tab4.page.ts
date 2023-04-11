@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { MainService } from '../main.service';
+import QRCode from 'easyqrcodejs';
+import { AfterViewInit, ElementRef, ViewChild } from '@angular/core';
+import { ModalQRPage } from '../modal-qr/modal-qr.page';
 
 @Component({
   selector: 'app-tab4',
@@ -8,6 +11,9 @@ import { MainService } from '../main.service';
   styleUrls: ['./tab4.page.scss'],
 })
 export class Tab4Page implements OnInit {
+  @ViewChild('qrcode', {static: false}) qrcode: ElementRef;
+  @ViewChild('extraqrcode', {static: false}) extraqrcode: ElementRef;
+
 
   constructor(public mainService: MainService,
     public modalCtrl: ModalController) { }
@@ -49,6 +55,22 @@ export class Tab4Page implements OnInit {
     }
   };
 
+  ionViewDidEnter() {
+    console.log('----- ENTRÉ PINCHES PERROS ALV -----')
+    if (document.querySelector('#qrcode')?.childNodes[0]) {
+      document.querySelector('#qrcode')?.removeChild(document.querySelector('#qrcode')?.firstChild!)
+    }
+
+     // Options
+     let _elstring = this.mainService.credencialInfo.elNombre + ' ' + this.mainService.credencialInfo.elNumEmpleado + ' ' + this.mainService.credencialInfo.elPuesto + ' ' + this.mainService.credencialInfo.laDependencia;
+     var options = {
+      text: _elstring
+    }
+
+    // Create new QRCode Object
+    new QRCode(this.qrcode.nativeElement, options);
+  }
+
   credencialClick() {
     switch (this.flipped) {
       case false:
@@ -82,8 +104,22 @@ export class Tab4Page implements OnInit {
     };
   }
 
-  func_showQR() {
+  async func_showQR() {
     console.log('QR CLICKED');
+    // let _elstring = this.mainService.credencialInfo.elNombre + ' ' + this.mainService.credencialInfo.elNumEmpleado + ' ' + this.mainService.credencialInfo.elPuesto + ' ' + this.mainService.credencialInfo.laDependencia;
+    //  var options = {
+    //   text: _elstring
+    // }
+
+    // // Create new QRCode Object
+    // new QRCode(this.extraqrcode.nativeElement, options);
+    const modal = await this.modalCtrl.create({
+      component: ModalQRPage,
+      cssClass: 'controllerModal'
+    });
+    modal.present().then();
+
+    const { data, role } = await modal.onWillDismiss();
   }
 }
 

@@ -4,7 +4,7 @@ import { MainService } from '../main.service';
 import { Router } from '@angular/router';
 import { FCM } from "@capacitor-community/fcm";
 import { LoadingController, MenuController } from '@ionic/angular';
-import * as moment from 'moment';
+import moment from 'moment';
 
 
 // SwiperCore.use([Autoplay, Keyboard, Pagination, Scrollbar, Zoom]);

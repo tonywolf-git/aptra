@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { MainService } from '../main.service';
-import * as moment from 'moment';
+import moment from 'moment';
 
 @Component({
   selector: 'app-tab3',
@@ -8,7 +8,6 @@ import * as moment from 'moment';
   styleUrls: ['tab3.page.scss']
 })
 export class Tab3Page {
-
   constructor(public mainService: MainService) {}
 
   calendarioEventosPre = [];

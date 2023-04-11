@@ -29,6 +29,10 @@ const routes: Routes = [
   {
     path: 'registro',
     loadChildren: () => import('./registro/registro.module').then( m => m.RegistroPageModule)
+  },
+  {
+    path: 'modal-qr',
+    loadChildren: () => import('./modal-qr/modal-qr.module').then( m => m.ModalQRPageModule)
   }
 ];
 @NgModule({

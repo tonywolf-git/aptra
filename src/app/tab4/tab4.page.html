@@ -56,11 +56,11 @@
         </div>
       </div>
 
-      <div class="flip-card-back" (click)="credencialClick();">
+      <div class="flip-card-back">
         <ion-grid>
           <ion-row style="margin-top: 10px;">
             <ion-col size="7" style="display: flex; align-items: center;">
-              <div class="back-info-container">
+              <div class="back-info-container" (click)="credencialClick();">
                 <div class="back-div-info">
                   <span class="this-but-bold back-info-titulo">CURP</span><br>
                   <span *ngIf="elNombre == ''" class="back-info-titulo-text this-but-bold">CARGANDO CURP...</span>
@@ -86,12 +86,12 @@
                 </div>
               </div>
             </ion-col>
-            <ion-col style="display: flex; align-items: center;">
+            <ion-col style="display: flex; align-items: center;" (click)="credencialClick();">
               <img style="width: 65%; margin: auto;" src="../../assets/credencial/tamaulogo001.png" alt="ESCUDO_TAMAULIPAS_DORADO">
             </ion-col>
           </ion-row>
         </ion-grid>
-        <div class="back-firma-container">
+        <div class="back-firma-container" (click)="credencialClick();">
           <img style="width: 55%; margin: auto; margin-top: 10px;" src="../../assets/credencial/firma_lavin.png" alt="FIMRA_LAVIN">
         </div>
         <div class="back-qr-container">
@@ -101,31 +101,36 @@
                 <!-- <div button id="open-modal" class="back-qr" (click)="func_showQR()">
                   <img style="height: 100%; text-align: center; margin: auto;" src="https://www.investopedia.com/thmb/hJrIBjjMBGfx0oa_bHAgZ9AWyn0=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/qr-code-bc94057f452f4806af70fd34540f72ad.png" alt="ELQR">
                 </div> -->
-                <div class="back-qr">
+                <div button class="back-qr" id="qrcode" #qrcode (click)="func_showQR()"></div>
+                <!-- <div class="back-qr">
                   <img style="height: 100%; text-align: center; margin: auto;" src="../../assets/login/apptra_logo.png" alt="ELQR">
-                </div>
+                </div> -->
               </ion-col>
-              <ion-col style="text-align: left;">
+              <ion-col style="text-align: left;" (click)="credencialClick();">
                 <h6 style="color: rgb(45, 45, 45);">VIGENCIA<br>31/12/2028</h6>
               </ion-col>
             </ion-row>
           </ion-grid>          
         </div>
+        <div style="height: 20%; display: block;" (click)="credencialClick();">
+
+        </div>
         <!-- <p (click)="credencialClick();" class="back-footer-text">Esta credencial es personal e intransferible, es propiedad del<br>Gobierno del Estado de Tamaulipas.<br>En caso de robo o extravío, favor de reportarla al 8343188000.</p> -->
       </div>
-
     </div>
   </div>
 
-  <ion-modal #modal trigger="open-modal">
+
+  <!-- <ion-modal #modal id="qrmodal" trigger="open-modal">
     <ng-template>
       <ion-content>
         <div class="modal-qr-container">
           <img style="height: 100%; margin: auto;" src="https://www.investopedia.com/thmb/hJrIBjjMBGfx0oa_bHAgZ9AWyn0=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/qr-code-bc94057f452f4806af70fd34540f72ad.png" alt="ELQR">
+          <div style="height: 100%; margin: auto;" #extraqrcode></div>
         </div>
       </ion-content>
     </ng-template>
-  </ion-modal>
+  </ion-modal> -->
 </ion-content>
 
 <!-- 

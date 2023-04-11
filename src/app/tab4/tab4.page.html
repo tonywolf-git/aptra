@@ -56,8 +56,8 @@
         </div>
       </div>
 
-      <div class="flip-card-back">
-        <ion-grid (click)="credencialClick();">
+      <div class="flip-card-back" (click)="credencialClick();">
+        <ion-grid>
           <ion-row style="margin-top: 10px;">
             <ion-col size="7" style="display: flex; align-items: center;">
               <div class="back-info-container">
@@ -91,7 +91,7 @@
             </ion-col>
           </ion-row>
         </ion-grid>
-        <div (click)="credencialClick();" class="back-firma-container">
+        <div class="back-firma-container">
           <img style="width: 55%; margin: auto; margin-top: 10px;" src="../../assets/credencial/firma_lavin.png" alt="FIMRA_LAVIN">
         </div>
         <div class="back-qr-container">
@@ -105,13 +105,13 @@
                   <img style="height: 100%; text-align: center; margin: auto;" src="../../assets/login/apptra_logo.png" alt="ELQR">
                 </div>
               </ion-col>
-              <ion-col (click)="credencialClick();" style="text-align: left;">
+              <ion-col style="text-align: left;">
                 <h6 style="color: rgb(45, 45, 45);">VIGENCIA<br>31/12/2028</h6>
               </ion-col>
             </ion-row>
           </ion-grid>          
         </div>
-        <p (click)="credencialClick();" class="back-footer-text">Esta credencial es personal e intransferible, es propiedad del<br>Gobierno del Estado de Tamaulipas.<br>En caso de robo o extravío, favor de reportarla al 8343188000.</p>
+        <!-- <p (click)="credencialClick();" class="back-footer-text">Esta credencial es personal e intransferible, es propiedad del<br>Gobierno del Estado de Tamaulipas.<br>En caso de robo o extravío, favor de reportarla al 8343188000.</p> -->
       </div>
 
     </div>
@@ -127,3 +127,8 @@
     </ng-template>
   </ion-modal>
 </ion-content>
+
+<!-- 
+  data:image/svg+xml;base64,
+  data:image/jpg;base64,
+ -->

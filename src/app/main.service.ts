@@ -3,6 +3,7 @@ import { AlertController, LoadingController, MenuController, NavController } fro
 import { ToastController } from '@ionic/angular';
 import axios from 'axios';
 import { Http } from '@capacitor-community/http';
+import * as moment from 'moment';
 
 
 @Injectable({
@@ -41,6 +42,12 @@ export class MainService {
       _res = data;
 
       this.credencialInfo.laFoto = _res.foto;
+      this.credencialInfo.laFoto = this.credencialInfo.laFoto.replace('data:image/jpg;base64,','');
+      if (this.credencialInfo.laFoto[0] == "P") {
+        this.credencialInfo.laFoto = 'data:image/svg+xml;base64,' + this.credencialInfo.laFoto;      
+      } else {
+        this.credencialInfo.laFoto = 'data:image/jpg;base64,' + this.credencialInfo.laFoto; 
+      }
       this.credencialInfo.elNumEmpleado = _res.res.datDatosGenerales.DatosGenerales[0].NumeroEmpleado;
       this.credencialInfo.laDependencia = _res.res.datDatosGenerales.DatosGenerales[0].Dependencia;
       this.credencialInfo.elPuesto = _res.res.datDatosGenerales.DatosGenerales[0].puesto;
@@ -76,8 +83,8 @@ export class MainService {
     await fetch(url).then(function(response) {
       return response.json();
     }).then(data => {
-      console.log(data.reverse());
-      _res = data;
+      // console.log(data.reverse());
+      _res = data.reverse();
     }).catch(function(err) {
       _res = [];
       console.log('Fetch Error :-S', err);
@@ -111,13 +118,13 @@ export class MainService {
     try {
       // await Http.post(options)
       _elRes = await Http.post(options).then(data => {
-        console.log(JSON.parse(data.data))
+        // console.log(JSON.parse(data.data))
         loading.dismiss();
         return JSON.parse(data.data);
       })
       return _elRes;
     } catch (error) {
-      console.log(error),
+      // console.log(error),
       _elRes = 'error';
       loading.dismiss();
       return _elRes;
@@ -178,7 +185,7 @@ export class MainService {
       _elRes = await Http.post(options).then(response => response.data)
       .then((data) => {
         data = JSON.parse(data)
-        console.log('RESPONSE DE LOGIN:', data);
+        // console.log('RESPONSE DE LOGIN:', data);
         loading.dismiss();
         return data;
       })
@@ -294,7 +301,7 @@ export class MainService {
         password: password,
       }).then(response => response.data)
       .then((data) => {
-        console.log('RESPONSE DE LOGIN:', data);
+        // console.log('RESPONSE DE LOGIN:', data);
         loading.dismiss();
         return data;
       })

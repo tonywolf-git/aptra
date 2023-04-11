@@ -8,22 +8,23 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-datetime #datetime color="danger"
+  <ion-datetime id="elPerritoCalendario"
+    [(ngModel)]="calendarDate"
+    #datetime color="danger"
     [highlightedDates]="calendarioEventosPost"
     presentation="date"
     showDefaultTimeLabel="false"
     [firstDayOfWeek]="1"
     locale="es-MX"
     class="ion-calendario"
-    size="cover">
+    size="cover" (ionChange)="calendarioChange($event)">
   </ion-datetime>
 
   <ion-list>
-    <!-- <ion-item>
-      <ion-label class="ion-text-wrap"><span class="dia-pago this-but-bolder">14</span> - Pago de la primer quincena</ion-label>
-    </ion-item> -->
-    <ion-item *ngFor="let evento of calendarioEventosPost">
-      <ion-label class="ion-text-wrap"><span class="dia-pago this-but-bolder">{{ evento.date }}</span> - {{ evento.title }}</ion-label>
-    </ion-item>
+    <div *ngFor="let evento of calendarioEventosPost">
+      <ion-item *ngIf="evento.valido == true">
+          <ion-label class="ion-text-wrap"><span class="dia-pago this-but-bolder">{{ evento.fechaConvertida + ' - ' | uppercase }}</span>{{ evento.title }}</ion-label>
+      </ion-item>
+    </div>
   </ion-list>
 </ion-content>

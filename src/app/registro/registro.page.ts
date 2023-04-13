@@ -264,4 +264,13 @@ export class RegistroPage implements OnInit {
     }
   }
   // MODAL STUFF END
+
+  keyPress(event:Event, input: any) {
+    // this.elKeyUp = event.key;
+    // event.preventDefault();
+    if (input['key'] == 'Enter') {
+      event.stopPropagation();
+      this.func_doRegistro();
+    }
+  }
 }

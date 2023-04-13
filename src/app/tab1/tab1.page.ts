@@ -17,6 +17,7 @@ import moment from 'moment';
 export class Tab1Page {
 
   tuSemana = new Array();
+  tuSemanaMsg = "Cargando..."
 
   constructor(public mainService: MainService,
     public routerCtrl: Router,
@@ -39,21 +40,53 @@ export class Tab1Page {
       this.loadingCtrl.dismiss();
     });
     
-    this.tuSemana = await this.mainService.getSemana();
-    
-    if (this.tuSemana.length > 0) {
-      for (let x = 0; x < this.tuSemana.length; x++) {
-        if (moment(this.tuSemana[x]['fecha']).isAfter(moment().format('YYYY-MM-DD')) && moment(moment(this.tuSemana[x]['fecha'])).isSame(moment().format('YYYY-MM-DD'), 'week')) {
-          this.tuSemana[x]['diaConvertido'] = moment(this.tuSemana[x]['fecha']).format('dddd')
-          this.tuSemana[x]['valido'] = true;
-        } else {
-          this.tuSemana[x]['diaConvertido'] = moment(this.tuSemana[x]['fecha']).format('dddd')
-          this.tuSemana[x]['valido'] = false;
-        }
+    let _eventos = await this.mainService.getSemana();
+    // _eventos.push({
+    //   fecha: "2023-04-14",
+    //   id: 666,
+    //   titulo: "Prueba Uno"
+    // })
+
+    // _eventos.push({
+    //   fecha: "2023-04-15",
+    //   id: 667,
+    //   titulo: "Prueba Dos"
+    // })
+
+    this.tuSemana = [];
+
+    console.log("_eventos:", _eventos)
+
+    if (_eventos.length > 0) {
+      for (let x = 0; x < _eventos.length; x++) {
+        if (moment(_eventos[x]['fecha']).isAfter(moment().format('YYYY-MM-DD')) && moment(moment(_eventos[x]['fecha'])).isSame(moment().format('YYYY-MM-DD'), 'week')) {
+          this.tuSemana.push({
+            diaConvertido: moment(_eventos[x]['fecha']).format('dddd'),
+            titulo: _eventos[x]['titulo'],
+            valido: true
+          })
+        } 
       }
     } else {
       this.tuSemana = [];
     }
+
+    this.tuSemanaMsg = "No hay eventos esta semana :(";
+    
+    // if (this.tuSemana.length > 0) {
+    //   for (let x = 0; x < this.tuSemana.length; x++) {
+    //     if (moment(this.tuSemana[x]['fecha']).isAfter(moment().format('YYYY-MM-DD')) && moment(moment(this.tuSemana[x]['fecha'])).isSame(moment().format('YYYY-MM-DD'), 'week')) {
+    //       this.tuSemana[x]['diaConvertido'] = moment(this.tuSemana[x]['fecha']).format('dddd')
+    //       this.tuSemana[x]['valido'] = true;
+    //     } else {
+    //       this.tuSemana[x]['diaConvertido'] = moment(this.tuSemana[x]['fecha']).format('dddd')
+    //       this.tuSemana[x]['valido'] = false;
+    //     }
+    //   }
+    // } else {
+    //   this.tuSemana = [];
+    // }
+
     console.log(this.tuSemana)
   }
 

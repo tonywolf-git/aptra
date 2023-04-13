@@ -48,17 +48,17 @@ export class MainService {
       } else {
         this.credencialInfo.laFoto = 'data:image/jpg;base64,' + this.credencialInfo.laFoto; 
       }
-      this.credencialInfo.elNumEmpleado = _res.res.datDatosGenerales.DatosGenerales[0].NumeroEmpleado;
+      this.credencialInfo.elNumEmpleado = Number(_res.res.datDatosGenerales.DatosGenerales[0].NumeroEmpleado);
       this.credencialInfo.laDependencia = _res.res.datDatosGenerales.DatosGenerales[0].Dependencia;
       this.credencialInfo.elPuesto = _res.res.datDatosGenerales.DatosGenerales[0].puesto;
       this.credencialInfo.elNombre = _res.res.datDatosGenerales.DatosGenerales[0].Nombres + ' ' + _res.res.datDatosGenerales.DatosGenerales[0].ApellidoPaterno + ' ' + _res.res.datDatosGenerales.DatosGenerales[0].ApellidoMaterno;
       this.credencialInfo.elCURP = _res.res.datDatosGenerales.DatosGenerales[0].curp;
-      this.credencialInfo.elAlergia = _res.res.datDatosGenerales.DatosGenerales[0].alergias;
-      this.credencialInfo.elTipoSangre = _res.res.datDatosGenerales.DatosGenerales[0].tipo_sangre;
+
+      this.credencialInfo.elAlergia = _res.credencial["datos"]["alergias"];
+      this.credencialInfo.elTipoSangre = _res.credencial["datos"]["tipo_sangre"];
     }).catch(function(err) {
       console.log('Fetch Error :-S', err);
     });
-    console.log(_res);
     return _res;
   }
 

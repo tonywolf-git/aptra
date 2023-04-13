@@ -21,8 +21,11 @@
         <ion-grid class="front-pic-number-div">
           <ion-row class="no-padding" style="height: 100%; width: 100%; margin:0px !important; padding:0px !important;">
             <ion-col class="front-pic-number-col1" style="padding: 0px !important;">
-              <img style="float: right; max-width: 70%;" src="{{ laFoto }}" alt="">
-              <img *ngIf="laFoto == ''" style="float: right;" src="../../assets/placeholder/profile_placeholda.png" alt="">
+              <div style="height: 100%; background-color: cyan;">
+                <img style="float: right; height: 100%" src="{{ laFoto }}" alt="">
+                <!-- <img style="float: right; max-width: 70%;" src="{{ laFoto }}" alt=""> -->
+                <img *ngIf="laFoto == ''" style="float: right;" src="../../assets/placeholder/profile_placeholda.png" alt="">
+              </div>
               <!-- <img *ngIf="laFoto == ''" style="float: right;" src="https://www.firesidepetlodge.com/wp-content/uploads/2021/03/chesapeake.png" alt=""> -->
             </ion-col>
             <ion-col class="front-pic-number-col2" style="padding: 0px !important;">
@@ -101,12 +104,14 @@
                 <!-- <div button id="open-modal" class="back-qr" (click)="func_showQR()">
                   <img style="height: 100%; text-align: center; margin: auto;" src="https://www.investopedia.com/thmb/hJrIBjjMBGfx0oa_bHAgZ9AWyn0=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/qr-code-bc94057f452f4806af70fd34540f72ad.png" alt="ELQR">
                 </div> -->
-                <div button class="back-qr" id="qrcode" #qrcode (click)="func_showQR()"></div>
+                <div button class="back-qr" (click)="func_showQR()">
+                  <div id="qrcode" #qrcode></div>
+                </div>
                 <!-- <div class="back-qr">
                   <img style="height: 100%; text-align: center; margin: auto;" src="../../assets/login/apptra_logo.png" alt="ELQR">
                 </div> -->
               </ion-col>
-              <ion-col style="text-align: left;" (click)="credencialClick();">
+              <ion-col class="back-qr-vigencia-container" (click)="credencialClick();">
                 <h6 style="color: rgb(45, 45, 45);">VIGENCIA<br>31/12/2028</h6>
               </ion-col>
             </ion-row>

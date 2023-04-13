@@ -22,9 +22,10 @@ export class ModalQRPage implements OnInit {
     }
 
      // Options
-     let _elstring = this.mainService.credencialInfo.elNombre + ' ' + this.mainService.credencialInfo.elNumEmpleado + ' ' + this.mainService.credencialInfo.elPuesto + ' ' + this.mainService.credencialInfo.laDependencia;
+     let _elstring = this.mainService.credencialInfo.elNombre + ' ' + this.mainService.credencialInfo.elNumEmpleado + ' ' + this.mainService.credencialInfo.laDependencia + ' ' + this.mainService.credencialInfo.elPuesto;
+     let _elStringURL = 'https://sitam.tamaulipas.gob.mx/registroaptraempleado/qr?' + _elstring;
      var options = {
-      text: _elstring,
+      text: _elStringURL,
       width: 500,
       height: 500,
     }

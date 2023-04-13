@@ -36,7 +36,8 @@ export class Tab3Page {
     this.filtrarEventos(moment().format('YYYY-MM-DD'));
 
     //OBSERVA LOS CAMBIOS DEL CALENDARIO POR MES/AÑO NO TOCAR A MENOS QUE QUIERAS PROBLEMAS --INI--
-    let _elPerrito = document.querySelector('#elPerritoCalendario')?.shadowRoot?.querySelector('div.calendar-header')?.querySelector('div.calendar-month-year')?.querySelector('ion-label.sc-ion-label-md-h')!;
+    let _elPerrito = document.querySelector('#elPerritoCalendario')?.shadowRoot;
+    // let _elPerrito = document.querySelector('#elPerritoCalendario')?.shadowRoot?.querySelector('div.calendar-header')?.querySelector('div.calendar-month-year')?.querySelector('ion-label.sc-ion-label-md-h')!;
     let elObserver = new MutationObserver(async () => {
       let _elPerritoTexto = document.querySelector('#elPerritoCalendario')?.shadowRoot?.querySelector('div.calendar-header')?.querySelector('div.calendar-month-year')?.querySelector('ion-label.sc-ion-label-md-h')?.textContent;
       let _elMes = await this.calendarioGetMonth(_elPerritoTexto!).then(() => {

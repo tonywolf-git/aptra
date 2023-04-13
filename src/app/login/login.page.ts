@@ -20,6 +20,8 @@ export class LoginPage implements OnInit {
   //   // autoHeight: true,
   // };
 
+  elKeyUp = '';
+
   loginData = {
     email: '',
     password: ''
@@ -196,5 +198,15 @@ export class LoginPage implements OnInit {
     
       // or...
       // const response = await Http.request({ ...options, method: 'POST' })
+  }
+
+  keyPress(event:Event, input: any) {
+    console.log(input['key'])
+    // this.elKeyUp = event.key;
+    // event.preventDefault();
+    if (input['key'] == 'Enter') {
+      event.stopPropagation();
+      this.func_doLogin();
+    }
   }
 }

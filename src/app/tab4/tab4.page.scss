@@ -185,6 +185,22 @@
     display: flex;
     justify-content: center;
     height: 100%;
+    align-items: center;
+  }
+
+  .back-qr-vigencia-container {
+    height: 100%;
+    display: flex!important;
+    align-content: center!important;
+    align-items: center!important;
+    text-align: left; 
+    margin: 0px !important;
+    padding: 0px !important;
+  }
+
+  .back-qr-vigencia-container h6 {
+    margin: 0px !important;
+    padding: 0px !important;
   }
 
   .back-footer-text {
@@ -238,5 +254,9 @@
     // background-color: cyan;
     height: 70vh;
     scale: 100vh; 
+  }
+
+  .pls-canvas-work {
+    width: 200px !important;
   }
   /// MORE TESTS END ///

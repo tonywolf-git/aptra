@@ -56,19 +56,25 @@ export class Tab4Page implements OnInit {
   };
 
   ionViewDidEnter() {
-    console.log('----- ENTRÉ PINCHES PERROS ALV -----')
     if (document.querySelector('#qrcode')?.childNodes[0]) {
       document.querySelector('#qrcode')?.removeChild(document.querySelector('#qrcode')?.firstChild!)
     }
 
      // Options
-     let _elstring = this.mainService.credencialInfo.elNombre + ' ' + this.mainService.credencialInfo.elNumEmpleado + ' ' + this.mainService.credencialInfo.elPuesto + ' ' + this.mainService.credencialInfo.laDependencia;
+     let _elstring = this.mainService.credencialInfo.elNombre + ' ' + this.mainService.credencialInfo.elNumEmpleado + ' ' + this.mainService.credencialInfo.laDependencia + ' ' + this.mainService.credencialInfo.elPuesto;
+     let _elStringURL = 'https://sitam.tamaulipas.gob.mx/registroaptraempleado/qr?' + _elstring;
      var options = {
-      text: _elstring
+      text: _elStringURL,
+      height: 50,
+      width: 50
     }
 
     // Create new QRCode Object
     new QRCode(this.qrcode.nativeElement, options);
+    // document.querySelector('canvas')!.style.width = "100%";
+    document.querySelector('canvas')!.style.width = "auto";
+    document.querySelector('canvas')!.style.height = "95%";
+    document.querySelector('canvas')!.style.verticalAlign = "middle";
   }
 
   credencialClick() {

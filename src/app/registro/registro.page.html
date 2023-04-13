@@ -24,7 +24,7 @@
             
             <ion-item style="border: solid black 0px;">
               <ion-label color="tertiary" position="floating">Repetir Contraseña</ion-label>
-              <ion-input [(ngModel)]="registroDatos.passConfirma" type="password"></ion-input>
+              <ion-input [(ngModel)]="registroDatos.passConfirma" type="password" enterkeyhint="go" (keypress)="keyPress($event, $event)"></ion-input>
             </ion-item>
           </ion-list>
         </div>
@@ -52,7 +52,7 @@
             
             <ion-item counter="true" style="border: solid black 0px;">
               <ion-label color="tertiary" position="floating">CURP</ion-label>
-              <ion-input [(ngModel)]="registroDatos.curp" minlength="18" maxlength="18" type="text" oninput="this.value = this.value.toUpperCase()"></ion-input>
+              <ion-input [(ngModel)]="registroDatos.curp" minlength="18" maxlength="18" type="text" oninput="this.value = this.value.toUpperCase()" enterkeyhint="go" (keypress)="keyPress($event, $event)"></ion-input>
             </ion-item>
           </ion-list>
         </div>
@@ -100,7 +100,7 @@
                   <ion-col>
     
                     <div>
-                      <ion-input [(ngModel)]="elCodigo.f" name="f" #f (keyup)="moveFocus($event,'',e)" type="tel" placeholder="0" maxlength="1">
+                      <ion-input [(ngModel)]="elCodigo.f" name="f" #f (keyup)="moveFocus($event,'',e)" type="tel" placeholder="0" maxlength="1" enterkeyhint="go" (keypress)="keyPress($event, $event)">
                       </ion-input>
                     </div>
                   </ion-col>

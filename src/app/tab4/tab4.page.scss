@@ -260,3 +260,34 @@
     width: 200px !important;
   }
   /// MORE TESTS END ///
+  
+  
+  /// WATERMARK INI ///
+  .watermarked {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .watermarked img {
+    width: 100%;
+  }
+  
+  .watermarked::before {
+    position: absolute;
+    top: -100%;
+    left: -100%;
+    
+    display: block;
+    width: 300%;
+    height: 300%;
+    
+    transform: rotate(-45deg);
+    content: attr(data-watermark);
+    
+    opacity: 0.08;
+    line-height: 3em;
+    letter-spacing: 2px;
+    word-spacing: 5px;
+    color: black;
+  }
+  /// WATERMARK END ///

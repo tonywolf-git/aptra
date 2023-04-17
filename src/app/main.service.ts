@@ -32,6 +32,7 @@ export class MainService {
 
   // url_GET_recursos_humanos = "https://sitam.tamaulipas.gob.mx/api/obtenEmpleadoCURP/";
   url_GET_recursos_humanos = "https://sitam.tamaulipas.gob.mx/api/obtenEmpleadoCURP/" + this.userCurp;
+  url_LOGIN_qr = "";
 
   async func_get(url: string) {
     let _res: any;
@@ -113,7 +114,7 @@ export class MainService {
       headers: { 'Content-Type': 'application/json' },
     };
 
-    console.log(options)
+    // console.log(options)
 
     try {
       // await Http.post(options)
@@ -252,6 +253,7 @@ export class MainService {
       };
       this.navCtrl.navigateRoot('');
       localStorage.removeItem('userCurp');
+      localStorage.removeItem('userQR');
       this.menuCtrl.enable(false);
       this.menuCtrl.swipeGesture(false);
     })

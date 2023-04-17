@@ -68,7 +68,7 @@ export class Tab2Page {
       for (let x = 0; x < data.length; x++) {
         this.avisosAxios.push({title: data[x].titulo_notificacion, text: data[x].notificacion, splicePipe: false, id: x, activo: data[x].activo})
       }
-      console.log(':AXIOS:', this.avisosAxios)
+      // console.log(':AXIOS:', this.avisosAxios)
      })
   }
 
@@ -80,14 +80,14 @@ export class Tab2Page {
     axios.get(_theUrl[_elRando]).then(response => response.data)
     .then((data) => {
       this.avisosIsLoaded = true;
-      console.log(data.data.children);
+      // console.log(data.data.children);
       // data.data.children;
       this.avisosAxios = [];
       for (let x = 0; x < data.data.children.length; x++) {
         this.avisosAxios.push({title: data.data.children[x].data.subreddit, text:  data.data.children[x].data.title, splicePipe: false, id: x})
       }
 
-      console.log(this.avisosAxios)
+      // console.log(this.avisosAxios)
      })
   }
 

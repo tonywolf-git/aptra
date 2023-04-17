@@ -30,7 +30,7 @@ export class Tab4Page implements OnInit {
   flipped = false;
 
   async ngOnInit() {
-    console.log('HOHOHO');
+    // console.log('HOHOHO');
     // console.log(this.mainService.credencialInfo);
     this.laFoto = this.mainService.credencialInfo.laFoto;
     this.elNumEmpleado = this.mainService.credencialInfo.elNumEmpleado;
@@ -60,8 +60,10 @@ export class Tab4Page implements OnInit {
       document.querySelector('#qrcode')?.removeChild(document.querySelector('#qrcode')?.firstChild!)
     }
 
-     // Options
-     let _elstring = this.mainService.credencialInfo.elNombre + ' ' + this.mainService.credencialInfo.elNumEmpleado + ' ' + this.mainService.credencialInfo.laDependencia + ' ' + this.mainService.credencialInfo.elPuesto;
+     // Options / x
+    //  let _elstring = this.mainService.credencialInfo.elNombre + ' ' + this.mainService.credencialInfo.elNumEmpleado + ' ' + this.mainService.credencialInfo.laDependencia + ' ' + this.mainService.credencialInfo.elPuesto;
+     let _elstring = this.mainService.url_LOGIN_qr;
+    //  console.log(_elstring)
      let _elStringURL = 'https://sitam.tamaulipas.gob.mx/registroaptraempleado/qr?' + _elstring;
      var options = {
       text: _elStringURL,
@@ -75,6 +77,12 @@ export class Tab4Page implements OnInit {
     document.querySelector('canvas')!.style.width = "auto";
     document.querySelector('canvas')!.style.height = "95%";
     document.querySelector('canvas')!.style.verticalAlign = "middle";
+
+    document.querySelectorAll('.watermarked').forEach(el => {
+      if (el instanceof HTMLElement) {
+        el.dataset["watermark"] = (el.dataset["watermark"] + ' ').repeat(300);
+      }
+    });
   }
 
   credencialClick() {

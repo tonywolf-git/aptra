@@ -59,7 +59,7 @@
         </div>
       </div>
 
-      <div class="flip-card-back">
+      <div class="flip-card-back watermarked" attr.data-watermark="{{ elCURP }}">
         <ion-grid>
           <ion-row style="margin-top: 10px;">
             <ion-col size="7" style="display: flex; align-items: center;">
@@ -94,9 +94,15 @@
             </ion-col>
           </ion-row>
         </ion-grid>
-        <div class="back-firma-container" (click)="credencialClick();">
-          <img style="width: 55%; margin: auto; margin-top: 10px;" src="../../assets/credencial/firma_lavin.png" alt="FIMRA_LAVIN">
-        </div>
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <div class="back-firma-container" (click)="credencialClick();">
+                <img style="width: 55%; margin: auto; margin-top: 10px;" src="../../assets/credencial/firma_lavin.png" alt="FIMRA_LAVIN">
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
         <div class="back-qr-container">
           <ion-grid>
             <ion-row style="height: 100%;">
@@ -117,9 +123,15 @@
             </ion-row>
           </ion-grid>          
         </div>
-        <div style="height: 20%; display: block;" (click)="credencialClick();">
-
-        </div>
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <div style="height: 20%; display: flex;" (click)="credencialClick();">
+                <img style="width: 55%; margin: auto; opacity: 0; background-color: teal;" src="../../assets/credencial/firma_lavin.png" alt="FIMRA_LAVIN">
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
         <!-- <p (click)="credencialClick();" class="back-footer-text">Esta credencial es personal e intransferible, es propiedad del<br>Gobierno del Estado de Tamaulipas.<br>En caso de robo o extravío, favor de reportarla al 8343188000.</p> -->
       </div>
     </div>

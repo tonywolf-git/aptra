@@ -44,7 +44,7 @@ export class LoginPage implements OnInit {
 
   async func_doLogin() {
     let _res = await this.mainService.func_doLogin(this.loginData['email'], this.loginData['password']);
-    console.log(_res, typeof _res);
+    // console.log(_res, typeof _res);
     if (typeof _res == "number") {
       if (_res == 0) {
         this.mainService.alertThis('Error', 'Datos incorrectos, porfavor intenta de nuevo.')
@@ -104,11 +104,15 @@ export class LoginPage implements OnInit {
           this.mainService.alertThis('Error', 'Hubo un error, por favor intenta nuevamente.')
         } else {
           // console.log('ASUMO QUE EL LOGIN EStÁ BIEN')
-          console.log(_res);
-          this.mainService.userCurp = _res;
+          // console.log(_res);
+          let elSlice = _res.split(',');
+          // console.log('EL SLICE:', elSlice)
+          this.mainService.userCurp = elSlice[0];
+          this.mainService.url_LOGIN_qr = elSlice[1];
           this.mainService.url_GET_recursos_humanos = "https://sitam.tamaulipas.gob.mx/api/obtenEmpleadoCURP/" + this.mainService.userCurp;
           this.navCtrl.navigateRoot('tabs');
-          localStorage.setItem('userCurp', _res);
+          localStorage.setItem('userCurp', this.mainService.userCurp);
+          localStorage.setItem('userQR', this.mainService.url_LOGIN_qr);
         }
       }
     }
@@ -160,7 +164,7 @@ export class LoginPage implements OnInit {
   }
 
   async func_openRegistro() {
-    console.log('Hola, soy el registro.');
+    // console.log('Hola, soy el registro.');
 
     const modal = await this.modalCtrl.create({
       component: RegistroPage,
@@ -183,7 +187,7 @@ export class LoginPage implements OnInit {
   // MODAL STUFF END
 
   async func_testHTTP() {
-    console.log('¿Does it work?');
+    // console.log('¿Does it work?');
       const options = {
         url: 'https://sitam.tamaulipas.gob.mx/aptranotificaciones/loginAptra',
         data: {
@@ -193,7 +197,7 @@ export class LoginPage implements OnInit {
       };
     
       let _elRes = await Http.post(options);
-      console.log(_elRes);
+      // console.log(_elRes);
       this.mainService.alertThis('Alerta', _elRes['data']);
     
       // or...
@@ -201,7 +205,7 @@ export class LoginPage implements OnInit {
   }
 
   keyPress(event:Event, input: any) {
-    console.log(input['key'])
+    // console.log(input['key'])
     // this.elKeyUp = event.key;
     // event.preventDefault();
     if (input['key'] == 'Enter') {

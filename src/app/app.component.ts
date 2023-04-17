@@ -36,7 +36,7 @@ export class AppComponent {
   profilePic = 'none';
 
   async openedShit() {
-    console.log('OPNED');
+    // console.log('OPNED');
     if (this.mainService.credencialInfo.laFoto != '') {
       this.profilePic = this.mainService.credencialInfo.laFoto;
     }
@@ -55,8 +55,9 @@ export class AppComponent {
       console.log(localStorage.getItem("userCurp"));
       this.mainService.userCurp = localStorage['userCurp'];
       this.mainService.url_GET_recursos_humanos = "https://sitam.tamaulipas.gob.mx/api/obtenEmpleadoCURP/" + this.mainService.userCurp;
-      console.log(this.mainService.url_GET_recursos_humanos)
-      console.log(this.mainService.userCurp);
+      // console.log(this.mainService.url_GET_recursos_humanos)
+      // console.log(this.mainService.userCurp);
+      this.mainService.url_LOGIN_qr = localStorage['userQR']
       this.navCtrl.navigateRoot('tabs');
     }
     
@@ -123,7 +124,7 @@ export class AppComponent {
   }
 
   async func_openPerfil() {
-    console.log('Hola, soy el perfil.');
+    // console.log('Hola, soy el perfil.');
 
     const modal = await this.modalCtrl.create({
       component: PerfilPage,
@@ -138,7 +139,7 @@ export class AppComponent {
   }
 
   async func_openLogin() {
-    console.log('Hola, soy el login.');
+    // console.log('Hola, soy el login.');
 
     const modal = await this.modalCtrl.create({
       component: LoginPage,
@@ -153,7 +154,7 @@ export class AppComponent {
   }
 
   async func_openRegistro() {
-    console.log('Hola, soy el registro.');
+    // console.log('Hola, soy el registro.');
 
     const modal = await this.modalCtrl.create({
       component: RegistroPage,

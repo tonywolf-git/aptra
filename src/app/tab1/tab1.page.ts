@@ -55,7 +55,7 @@ export class Tab1Page {
 
     this.tuSemana = [];
 
-    console.log("_eventos:", _eventos)
+    // console.log("_eventos:", _eventos)
 
     if (_eventos.length > 0) {
       for (let x = 0; x < _eventos.length; x++) {
@@ -87,7 +87,7 @@ export class Tab1Page {
     //   this.tuSemana = [];
     // }
 
-    console.log(this.tuSemana)
+    // console.log(this.tuSemana)
   }
 
   func_forceTopic() {
@@ -100,7 +100,7 @@ export class Tab1Page {
   }
 
   fucn_goTo(where: string) {
-    console.log(where)
+    // console.log(where)
     let _where = 'tabs/' + where;
     this.routerCtrl.navigateByUrl(_where);
   }

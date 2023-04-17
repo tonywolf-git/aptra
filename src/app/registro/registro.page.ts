@@ -48,13 +48,13 @@ export class RegistroPage implements OnInit {
   ngOnInit() {}
 
   ionViewDidEnter() {
-    console.log('yeah');
+    // console.log('yeah');
     this.swiperCtrl = this.theSwiper?.nativeElement.swiper;
-    console.log(this.swiperCtrl);
+    // console.log(this.swiperCtrl);
   }
 
   moveFocus(event: any, nextElement: any, previousElement: any) {
-    console.log(event.keyCode);
+    // console.log(event.keyCode);
     if (event.keyCode === 8 && previousElement) {
       previousElement.setFocus();
     } else if (event.keyCode >= 48 && event.keyCode <= 57) {
@@ -75,27 +75,27 @@ export class RegistroPage implements OnInit {
   }
 
   func_doRegistro() {
-    console.log(this.step_registro);
+    // console.log(this.step_registro);
     switch (this.step_registro) {
       case 0:
-        console.log('CORREO | CONTRASEÑA | CHECAR CONTRASEÑA');
+        // console.log('CORREO | CONTRASEÑA | CHECAR CONTRASEÑA');
         this.checkPasoUno();
         break;
         
       case 1:
-        console.log('CONFIRMAR QUE VAMOS A SOLICITAR MAS COSAS');
+        // console.log('CONFIRMAR QUE VAMOS A SOLICITAR MAS COSAS');
         this.step_registro+=1;
         this.checkTitle();
         this.swiperCtrl.slideNext();
         break;
 
       case 2:
-        console.log('NUM EMPLEADO | RFC | CURP');
+        // console.log('NUM EMPLEADO | RFC | CURP');
         this.checkPasoDos();
         break;
 
       case 3:
-        console.log('YA TE LO ENVIAMOS, PONLO');
+        // console.log('YA TE LO ENVIAMOS, PONLO');
         this.checkPasoTres();
         break;
 
@@ -127,7 +127,7 @@ export class RegistroPage implements OnInit {
     } else {
       _correoValido = false;
     }
-    console.log(_correoValido, _contraseñasIguales)
+    // console.log(_correoValido, _contraseñasIguales)
 
     if (_correoValido == true && _contraseñasIguales == true) {
         this.step_registro += 1;
@@ -155,11 +155,11 @@ export class RegistroPage implements OnInit {
       _validCURP = true;
     }
 
-    console.log(this.registroDatos.numEmpleado.length, this.registroDatos.rfc.length, this.registroDatos.curp.length);
+    // console.log(this.registroDatos.numEmpleado.length, this.registroDatos.rfc.length, this.registroDatos.curp.length);
 
     if (_validNumEmpleado == true && _validRFC == true && _validCURP == true) {
       let _response = await this.mainService.func_doRegistro(this.registroDatos);
-      console.log(_response);
+      // console.log(_response);
 
       switch (_response) {
         case 'EMAILEXISTENTE':
@@ -199,7 +199,7 @@ export class RegistroPage implements OnInit {
 
   async checkPasoTres() {
     let _elCodigo = this.elCodigo.a + this.elCodigo.b + this.elCodigo.c + this.elCodigo.d + this.elCodigo.e + this.elCodigo.f;
-    console.log(_elCodigo);
+    // console.log(_elCodigo);
     let _response = await this.mainService.func_validaCodigo(this.registroDatos.idUser, _elCodigo);
 
     if (_response == 1 || _response == '1') {
@@ -251,7 +251,7 @@ export class RegistroPage implements OnInit {
   }
 
   func_prevSlide() {
-    console.log(this.step_registro);
+    // console.log(this.step_registro);
     this.swiperCtrl.slidePrev();
     this.step_registro = this.step_registro-1;
     this.checkTitle();

@@ -269,7 +269,7 @@
   }
   
   .watermarked img {
-    width: 100%;
+    // width: 100%;
   }
   
   .watermarked::before {
@@ -283,6 +283,34 @@
     
     transform: rotate(-45deg);
     content: attr(data-watermark);
+    
+    opacity: 0.08;
+    line-height: 3em;
+    letter-spacing: 2px;
+    word-spacing: 5px;
+    color: black;
+  }
+
+  .watermarkedFront {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .watermarkedFront img {
+    // width: 100%;
+  }
+  
+  .watermarkedFront::before {
+    position: absolute;
+    top: -100%;
+    left: -100%;
+    
+    display: block;
+    width: 300%;
+    height: 300%;
+    
+    transform: rotate(-45deg);
+    content: attr(data-watermarkFront);
     
     opacity: 0.08;
     line-height: 3em;

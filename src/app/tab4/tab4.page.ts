@@ -28,6 +28,7 @@ export class Tab4Page implements OnInit {
   elAlergia = '';
   elTipoSangre = '';
   flipped = false;
+  water_this_mark = false;
 
   async ngOnInit() {
     // console.log('HOHOHO');
@@ -74,15 +75,20 @@ export class Tab4Page implements OnInit {
     // Create new QRCode Object
     new QRCode(this.qrcode.nativeElement, options);
     // document.querySelector('canvas')!.style.width = "100%";
-    document.querySelector('canvas')!.style.width = "auto";
-    document.querySelector('canvas')!.style.height = "95%";
-    document.querySelector('canvas')!.style.verticalAlign = "middle";
 
-    document.querySelectorAll('.watermarked').forEach(el => {
-      if (el instanceof HTMLElement) {
-        el.dataset["watermark"] = (el.dataset["watermark"] + ' ').repeat(300);
-      }
-    });
+    if (this.water_this_mark == false) {
+      document.querySelector('canvas')!.style.width = "auto";
+      document.querySelector('canvas')!.style.height = "95%";
+      document.querySelector('canvas')!.style.verticalAlign = "middle";
+  
+      document.querySelectorAll('.watermarked').forEach(el => {
+        if (el instanceof HTMLElement) {
+          el.dataset["watermark"] = (el.dataset["watermark"] + ' ').repeat(300);
+        }
+      });
+    }
+
+    this.water_this_mark =true;
   }
 
   credencialClick() {

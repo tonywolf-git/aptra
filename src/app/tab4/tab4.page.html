@@ -14,10 +14,12 @@
     <div class="flip-card-inner" id="credencial">
       <div class="flip-card-front" (click)="credencialClick();">
 
+        <!-- <div class="front-logo-div"> -->
         <div class="front-logo-div" [ngClass]="{'watermarked': flipped === false}" attr.data-watermark="{{ elCURP }}">
           <img src="../../assets/credencial/front-logo.png" style="height: 80%; margin: auto;" alt="">
         </div>
 
+        <!-- <ion-grid class="front-pic-number-div"> -->
         <ion-grid class="front-pic-number-div" [ngClass]="{'watermarked': flipped === false}" attr.data-watermark="{{ elCURP }}">
           <ion-row class="no-padding" style="height: 100%; width: 100%; margin:0px !important; padding:0px !important;">
             <ion-col class="front-pic-number-col1" style="padding: 0px !important;">
@@ -29,7 +31,6 @@
               <!-- <img *ngIf="laFoto == ''" style="float: right;" src="https://www.firesidepetlodge.com/wp-content/uploads/2021/03/chesapeake.png" alt=""> -->
             </ion-col>
             <ion-col class="front-pic-number-col2" style="padding: 0px !important;">
-            <!-- <ion-col class="front-pic-number-col2 watermarked" attr.data-watermark="{{ elCURP }}" style="padding: 0px !important;"> -->
               <div class="front-div-empleado">
                 <h1 style="font-weight: bolder;">{{ elNumEmpleado }}</h1>
                 <h6>NÚMERO DE EMPLEADO</h6>
@@ -38,8 +39,8 @@
           </ion-row>
         </ion-grid>
 
+        <!-- <div class="front-info-container"> -->
         <div class="front-info-container" [ngClass]="{'watermarked': flipped === false}" attr.data-watermark="{{ elCURP }}">
-        <!-- <div class="front-info-container" [ngClass]="{'watermarked': flipped === false}" attr.data-watermark="{{ elCURP }}"> -->
           <div class="front-div-info">
             <span class="this-but-bold info-titulo">NOMBRE</span><br>
             <span *ngIf="elNombre == ''" class="info-titulo-text this-but-bold">CARGANDO...</span>
@@ -61,8 +62,8 @@
         </div>
       </div>
 
+      <!-- <div class="flip-card-back"> -->
       <div class="flip-card-back watermarked" attr.data-watermark="{{ elCURP }}">
-      <!-- <div class="flip-card-back watermarked" attr.data-watermark="{{ elCURP }}"> -->
         <ion-grid>
           <ion-row style="margin-top: 10px;">
             <ion-col size="7" style="display: flex; align-items: center;">

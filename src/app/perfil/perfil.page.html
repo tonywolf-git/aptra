@@ -16,6 +16,10 @@
     <img *ngIf="userProfile != ''" class="perfil_img_img" src="{{ userProfile }}" alt="">
   </div>
   <div class="perfil_info_container">
+    <p class="perfil_info_text" style="text-transform: none !important;">
+      <!-- 37120 -->
+      {{ 'Versión: ' + appVersion }}
+    </p>
     <p class="perfil_info_text">
       <!-- 37120 -->
       {{ mainService.credencialInfo.elNumEmpleado }}
@@ -43,6 +47,3 @@
 
   <ion-button (click)="func_perfilLogOut()" color="none" style="display: block; width: 50vw; margin: auto; margin-top: 50px; margin-bottom: 30px; background-color: #A1193E; color: white;">Cerrar Sesión</ion-button>
 </ion-content>
-
-
-   

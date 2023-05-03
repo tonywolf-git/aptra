@@ -24,6 +24,7 @@ export class RegistroPage implements OnInit {
     correo: '',
     pass: '',
     passConfirma: '',
+    tipo_gobierno: 0,
     numEmpleado: '',
     rfc: '',
     curp: '',
@@ -157,7 +158,8 @@ export class RegistroPage implements OnInit {
 
     // console.log(this.registroDatos.numEmpleado.length, this.registroDatos.rfc.length, this.registroDatos.curp.length);
 
-    if (_validNumEmpleado == true && _validRFC == true && _validCURP == true) {
+    if (_validRFC == true && _validCURP == true) {
+    // if (_validNumEmpleado == true && _validRFC == true && _validCURP == true) {
       let _response = await this.mainService.func_doRegistro(this.registroDatos);
       // console.log(_response);
 

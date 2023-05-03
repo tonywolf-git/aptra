@@ -4,6 +4,8 @@ import { MainService } from '../main.service';
 import QRCode from 'easyqrcodejs';
 import { AfterViewInit, ElementRef, ViewChild } from '@angular/core';
 import { ModalQRPage } from '../modal-qr/modal-qr.page';
+import { PrivacyScreen } from '@capacitor-community/privacy-screen';
+import { Platform } from '@ionic/angular';
 
 @Component({
   selector: 'app-tab4',
@@ -16,7 +18,8 @@ export class Tab4Page implements OnInit {
 
 
   constructor(public mainService: MainService,
-    public modalCtrl: ModalController) { }
+    public modalCtrl: ModalController,
+    public platformCtrl: Platform) { }
 
   info: any;
   laFoto = '';
@@ -31,8 +34,6 @@ export class Tab4Page implements OnInit {
   water_this_mark = false;
 
   async ngOnInit() {
-    // console.log('HOHOHO');
-    // console.log(this.mainService.credencialInfo);
     this.laFoto = this.mainService.credencialInfo.laFoto;
     this.elNumEmpleado = this.mainService.credencialInfo.elNumEmpleado;
     this.laDependencia = this.mainService.credencialInfo.laDependencia;
@@ -57,6 +58,15 @@ export class Tab4Page implements OnInit {
   };
 
   ionViewDidEnter() {
+    // ACTIVA LA PROTECCION COSA SCREENSHOT CHINGADERA -- INI --
+    if (this.platformCtrl.is('android') || this.platformCtrl.is('ios')) {
+      const enable = async () => {
+        await PrivacyScreen.enable();
+      };
+      enable();
+    }
+    // ACTIVA LA PROTECCION COSA SCREENSHOT CHINGADERA -- END --
+
     if (document.querySelector('#qrcode')?.childNodes[0]) {
       document.querySelector('#qrcode')?.removeChild(document.querySelector('#qrcode')?.firstChild!)
     }
@@ -89,6 +99,17 @@ export class Tab4Page implements OnInit {
     }
 
     this.water_this_mark =true;
+  }
+
+  ionViewDidLeave() {
+    // ACTIVA LA PROTECCION COSA SCREENSHOT CHINGADERA -- INI --
+    if (this.platformCtrl.is('android') || this.platformCtrl.is('ios')) {
+      const disable = async () => {
+        await PrivacyScreen.disable();
+      };
+      disable();
+    }
+    // ACTIVA LA PROTECCION COSA SCREENSHOT CHINGADERA -- END --
   }
 
   credencialClick() {
@@ -140,6 +161,10 @@ export class Tab4Page implements OnInit {
     modal.present().then();
 
     const { data, role } = await modal.onWillDismiss();
+  }
+
+  async func_descargaPDF() {
+    window.open("https://sitam.tamaulipas.gob.mx/registroaptraempleado/pdfempleado?" + this.mainService.url_LOGIN_qr, '_blank')
   }
 }
 

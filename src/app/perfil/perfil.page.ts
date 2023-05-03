@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { ModalController, Platform } from '@ionic/angular';
 import { MainService } from '../main.service';
 
 @Component({
@@ -10,10 +10,20 @@ import { MainService } from '../main.service';
 export class PerfilPage implements OnInit {
 
   constructor(public modalCtrl: ModalController,
-    public mainService: MainService) { }
+    public mainService: MainService,
+    public platformCtrl: Platform) { }
+
+  appVersion = 0;
 
   ngOnInit() {
     this.userProfile = this.mainService.credencialInfo.laFoto;
+    if (this.platformCtrl.is('android')) {
+      this.appVersion = this.mainService.appVersion["android"];
+    } else {
+      if (this.platformCtrl.is('ios')) {
+        this.appVersion = this.mainService.appVersion["ios"];
+      }
+    }
   }
 
   userProfile = '';

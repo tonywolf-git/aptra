@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AlertController, LoadingController, MenuController, NavController } from '@ionic/angular';
+import { AlertController, LoadingController, MenuController, NavController, Platform } from '@ionic/angular';
 import { ToastController } from '@ionic/angular';
 import axios from 'axios';
 import { Http } from '@capacitor-community/http';
@@ -15,9 +15,22 @@ export class MainService {
     public menuCtrl: MenuController,
     public alertCtrl: AlertController,
     public toastCtrl: ToastController,
-    public loadCtrl: LoadingController) { }
+    public loadCtrl: LoadingController,
+    public platformCtrl: Platform,
+    public toasteCtrl: ToastController) { }
+
+  appVersion = {
+    ios: 11,
+    android: 11
+  };
+
+  serverVersion = {
+    ios: 0,
+    android: 0
+  }
 
   userCurp = '';
+  tipo_gobierno = 0;
 
   credencialInfo = {
     laFoto: "",
@@ -42,21 +55,49 @@ export class MainService {
       // console.log(data.foto);
       _res = data;
 
-      this.credencialInfo.laFoto = _res.foto;
-      this.credencialInfo.laFoto = this.credencialInfo.laFoto.replace('data:image/jpg;base64,','');
-      if (this.credencialInfo.laFoto[0] == "P") {
-        this.credencialInfo.laFoto = 'data:image/svg+xml;base64,' + this.credencialInfo.laFoto;      
-      } else {
-        this.credencialInfo.laFoto = 'data:image/jpg;base64,' + this.credencialInfo.laFoto; 
-      }
-      this.credencialInfo.elNumEmpleado = Number(_res.res.datDatosGenerales.DatosGenerales[0].NumeroEmpleado);
-      this.credencialInfo.laDependencia = _res.res.datDatosGenerales.DatosGenerales[0].Dependencia;
-      this.credencialInfo.elPuesto = _res.res.datDatosGenerales.DatosGenerales[0].puesto;
-      this.credencialInfo.elNombre = _res.res.datDatosGenerales.DatosGenerales[0].Nombres + ' ' + _res.res.datDatosGenerales.DatosGenerales[0].ApellidoPaterno + ' ' + _res.res.datDatosGenerales.DatosGenerales[0].ApellidoMaterno;
-      this.credencialInfo.elCURP = _res.res.datDatosGenerales.DatosGenerales[0].curp;
+      // console.log('HOLA SI ES AQUI POR FAVOR', _res.foto)
 
-      this.credencialInfo.elAlergia = _res.credencial["datos"]["alergias"];
-      this.credencialInfo.elTipoSangre = _res.credencial["datos"]["tipo_sangre"];
+      if (this.tipo_gobierno == 1) {
+        /// TIPO_GOBIERNO == 1 (GOBIERNO CENTRAL)  INI ///
+        this.credencialInfo.laFoto = _res.foto;
+        this.credencialInfo.laFoto = this.credencialInfo.laFoto.replace('data:image/jpg;base64,','');
+        if (this.credencialInfo.laFoto[0] == "P") {
+          this.credencialInfo.laFoto = 'data:image/svg+xml;base64,' + this.credencialInfo.laFoto;      
+        } else {
+          this.credencialInfo.laFoto = 'data:image/jpg;base64,' + this.credencialInfo.laFoto; 
+        }
+        this.credencialInfo.elNumEmpleado = Number(_res.res.datDatosGenerales.DatosGenerales[0].NumeroEmpleado);
+        this.credencialInfo.laDependencia = _res.res.datDatosGenerales.DatosGenerales[0].Dependencia;
+        this.credencialInfo.elPuesto = _res.res.datDatosGenerales.DatosGenerales[0].puesto;
+        this.credencialInfo.elNombre = _res.res.datDatosGenerales.DatosGenerales[0].Nombres + ' ' + _res.res.datDatosGenerales.DatosGenerales[0].ApellidoPaterno + ' ' + _res.res.datDatosGenerales.DatosGenerales[0].ApellidoMaterno;
+        this.credencialInfo.elCURP = _res.res.datDatosGenerales.DatosGenerales[0].curp;
+  
+        this.credencialInfo.elAlergia = _res.credencial["datos"]["alergias"];
+        this.credencialInfo.elTipoSangre = _res.credencial["datos"]["tipo_sangre"];
+        /// TIPO_GOBIERNO == 1 (GOBIERNO CENTRAL)  END ///
+      }
+
+      if (this.tipo_gobierno == 2) {
+        console.log(_res);
+        /// TIPO_GOBIERNO == 2 (OPD)  INI ///
+        // this.credencialInfo.laFoto = "https://cogumelolouco.com/wp-content/uploads/2012/07/filhote-de-golden-retriever.jpg"
+        this.credencialInfo.laFoto = _res.imagen;
+        // this.credencialInfo.laFoto = this.credencialInfo.laFoto.replace('data:image/jpg;base64,','');
+        // if (this.credencialInfo.laFoto[0] == "P") {
+        //   this.credencialInfo.laFoto = 'data:image/svg+xml;base64,' + this.credencialInfo.laFoto;      
+        // } else {
+        //   this.credencialInfo.laFoto = 'data:image/jpg;base64,' + this.credencialInfo.laFoto; 
+        // }
+        this.credencialInfo.elNumEmpleado = _res.cve_emp;
+        this.credencialInfo.laDependencia = _res.secretaria
+        this.credencialInfo.elPuesto = _res.puesto;
+        this.credencialInfo.elNombre = _res.nombre + ' ' + _res.ape_pat + ' ' + _res.ape_mat;
+        this.credencialInfo.elCURP = _res.curp;
+
+        this.credencialInfo.elAlergia = _res.alergias;
+        this.credencialInfo.elTipoSangre = _res.tipo_sangre;
+        /// TIPO_GOBIERNO == 2 (OPD)  END ///
+      }
     }).catch(function(err) {
       console.log('Fetch Error :-S', err);
     });
@@ -110,6 +151,7 @@ export class MainService {
         "NumEmpleado": datos.numEmpleado,
         "rfc": datos.rfc,
         "curp": datos.curp,
+        "tipo_gobierno" : datos.tipo_gobierno
       },
       headers: { 'Content-Type': 'application/json' },
     };
@@ -267,6 +309,67 @@ export class MainService {
     });
 
     await alert.present();
+  }
+
+  async checkVersion() {
+    let _theUrl = "https://sitam.tamaulipas.gob.mx/aptranotificaciones/versiones";
+    let _storeUrl = '';
+
+    let toastButtons = [
+      {
+        text: 'Actualizar',
+        role: 'info',
+        handler: () => {
+          console.log('More Info clicked')
+          window.open(_storeUrl, '_blank')
+        }
+      },
+    ];
+
+    const toast = await this.toasteCtrl.create({
+      message: '¡Tu aplicación no está actualizada! Descargala aquí:',
+      duration: 5500,
+      position: 'top',
+      buttons: toastButtons
+    });
+
+    const options = {
+      url: _theUrl,
+      headers: { 'Content-Type': 'application/json' },
+    };
+
+    try {
+      await Http.get(options).then(response => response.data)
+      .then(async (data) => {
+        console.log(JSON.parse(data)[0]["version"]);
+        console.log(JSON.parse(data)[0]["version_ios"]);
+        // loading.dismiss();
+        this.serverVersion["android"] = JSON.parse(data)[0]["version"];
+        this.serverVersion["ios"] = JSON.parse(data)[0]["version_ios"];
+        return JSON.parse(data)[0];
+      });
+      // loading.dismiss();
+    } catch (error) {
+      // _elRes = 'error';
+      // return _elRes;
+      console.error('ERROR');
+    }
+
+    console.log("SERVER VERSION IS:", this.serverVersion)
+
+    if (this.platformCtrl.is('android')) {
+      _storeUrl = "https://play.google.com/store/apps/details?id=gob.tamaulipas.aptra&hl=es_MX";
+      if (this.serverVersion["android"] > this.appVersion["android"]) {
+        await toast.present();
+      }
+    } else {
+      if (this.platformCtrl.is('ios')) {
+        _storeUrl = "https://apps.apple.com/us/app/aptra/id6447215714";
+        if (this.serverVersion["ios"] > this.appVersion["ios"]) {
+          await toast.present();
+        }
+      }
+    }
   }
 
   setCURP() {

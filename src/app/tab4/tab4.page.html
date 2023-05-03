@@ -10,6 +10,10 @@
 <ion-content [fullscreen]="true">
   <!-- <app-explore-container name="Tab 4 page"></app-explore-container> -->
 
+  <div style="width: 100%; margin: auto; text-align: center; margin-top: 25px;">
+    <ion-button color="gobred" style="width: 90%; margin: auto; text-align: center;" (click)="func_descargaPDF()">Descargar Constancia</ion-button>
+  </div>
+
   <div class="flip-card" style="margin-bottom: 20px;">
     <div class="flip-card-inner" id="credencial">
       <div class="flip-card-front" (click)="credencialClick();">
@@ -26,7 +30,7 @@
               <div style="height: 100%; background-color: cyan;">
                 <img style="float: right; height: 100%" src="{{ laFoto }}" alt="">
                 <!-- <img style="float: right; max-width: 70%;" src="{{ laFoto }}" alt=""> -->
-                <img *ngIf="laFoto == ''" style="float: right;" src="../../assets/placeholder/profile_placeholda.png" alt="">
+                <img *ngIf="laFoto == ''" style="float: right; height: 100%;" src="../../assets/placeholder/profile_placehold.jpeg" alt="">
               </div>
               <!-- <img *ngIf="laFoto == ''" style="float: right;" src="https://www.firesidepetlodge.com/wp-content/uploads/2021/03/chesapeake.png" alt=""> -->
             </ion-col>
@@ -45,19 +49,19 @@
             <span class="this-but-bold info-titulo">NOMBRE</span><br>
             <span *ngIf="elNombre == ''" class="info-titulo-text this-but-bold">CARGANDO...</span>
             <!-- <span *ngIf="elNombre == ''" class="info-titulo-text this-but-bold">DON DOGGO HUESONSON PEREZ</span> -->
-            <span class="info-titulo-text this-but-bold">{{ elNombre }}</span>
+            <span class="info-titulo-text this-but-bold">{{ elNombre | uppercase }}</span>
           </div>
           <div class="front-div-info">
             <span class="this-but-bold info-titulo">DEPENDENCIA</span><br>
             <span *ngIf="laDependencia == ''" class="info-titulo-text this-but-bold">CARGANDO...</span>
             <!-- <span *ngIf="laDependencia == ''" class="info-titulo-text this-but-bold">SECRETARÍA DE ADMINISTRACIÓN (DE HUESOS)</span> -->
-            <span class="info-titulo-text this-but-bold">{{ laDependencia }}</span>
+            <span class="info-titulo-text this-but-bold">{{ laDependencia | uppercase }}</span>
           </div>
           <div class="front-div-info">
             <span class="this-but-bold info-titulo">PUESTO</span><br>
             <span *ngIf="elPuesto == ''" class="info-titulo-text this-but-bold">CARGANDO...</span>
             <!-- <span *ngIf="elPuesto == ''" class="info-titulo-text this-but-bold">DESC. PUESTO</span> -->
-            <span class="info-titulo-text this-but-bold">{{ elPuesto }}</span>
+            <span class="info-titulo-text this-but-bold">{{ elPuesto | uppercase }}</span>
           </div>
         </div>
       </div>
@@ -71,12 +75,12 @@
                 <div class="back-div-info">
                   <span class="this-but-bold back-info-titulo">CURP</span><br>
                   <span *ngIf="elNombre == ''" class="back-info-titulo-text this-but-bold">CARGANDO CURP...</span>
-                  <span class="back-info-titulo-text this-but-bold">{{ elCURP }}</span>
+                  <span class="back-info-titulo-text this-but-bold">{{ elCURP | uppercase }}</span>
                 </div>
                 <div class="back-div-info">
                   <span class="this-but-bold back-info-titulo">ALERGIAS</span><br>
                   <span *ngIf="elAlergia == ''" class="back-info-titulo-text this-but-bold">CARGANDO...</span>
-                  <span *ngIf="elAlergia != null" class="back-info-titulo-text this-but-bold">{{ elAlergia }}</span>
+                  <span *ngIf="elAlergia != null" class="back-info-titulo-text this-but-bold">{{ elAlergia | uppercase }}</span>
                   <span *ngIf="elAlergia == null" class="back-info-titulo-text this-but-bold">NINGUNA</span>
                   <!-- <span class="back-info-titulo-text this-but-bold">ASPIRINA (DATO PENDIENTE, SIN API)</span> -->
                   <!-- <span *ngIf="laDependencia == ''" class="back-info-titulo-text this-but-bold">ASPIRINA (DATO PENDIENTE, SIN API)</span> -->
@@ -85,7 +89,7 @@
                 <div class="back-div-info">
                   <span class="this-but-bold back-info-titulo">TIPO DE SANGRE</span><br>
                   <span *ngIf="elTipoSangre == ''" class="back-info-titulo-text this-but-bold">CARGANDO...</span>
-                  <span *ngIf="elTipoSangre != null" class="back-info-titulo-text this-but-bold">{{ elTipoSangre }}</span>
+                  <span *ngIf="elTipoSangre != null" class="back-info-titulo-text this-but-bold">{{ elTipoSangre | uppercase }}</span>
                   <span *ngIf="elTipoSangre == null" class="back-info-titulo-text this-but-bold">NO DISPONIBLE</span>
                   <!-- <span class="back-info-titulo-text this-but-bold">AB+ (DATO PENDIENTE, SIN API)</span> -->
                   <!-- <span *ngIf="elPuesto == ''" class="back-info-titulo-text this-but-bold">AB+ (DATO PENDIENTE, SIN API)</span> -->
@@ -121,7 +125,7 @@
                   <img style="height: 100%; text-align: center; margin: auto;" src="../../assets/login/apptra_logo.png" alt="ELQR">
                 </div> -->
               </ion-col>
-              <ion-col class="back-qr-vigencia-container" (click)="credencialClick();">
+              <ion-col class="back-qr-vigencia-container" (click)="func_showQR();">
                 <h6 style="color: rgb(45, 45, 45);">VIGENCIA<br>31/12/2028</h6>
               </ion-col>
             </ion-row>
@@ -140,7 +144,6 @@
       </div>
     </div>
   </div>
-
 
   <!-- <ion-modal #modal id="qrmodal" trigger="open-modal">
     <ng-template>

@@ -41,10 +41,18 @@
         <div style="width: 100%;">
           <ion-list class="main_content_list">
             <p style="color: #A1193E; font-size: 20px; width: 85%; margin: auto; margin-bottom: 20px;">Confirmación de datos</p>
-            <ion-item counter="true">
+            <ion-item>
+              <ion-select color="tertiary" aria-label="entidad" interface="popover" placeholder="Selecciona tu entidad de Gobierno" [(ngModel)]="registroDatos.tipo_gobierno" (ionChange)="registroDatos.numEmpleado = ''; registroDatos.rfc = ''; registroDatos.curp = '';">
+                <ion-select-option color="tertiary" value="1">Gobierno Central</ion-select-option>
+                <ion-select-option color="tertiary" value="2">OPD</ion-select-option>
+              </ion-select>
+            </ion-item>
+
+            <ion-item counter="true" [disabled]="registroDatos.tipo_gobierno == 2">
               <ion-label color="tertiary" position="floating">Número de empleado</ion-label>
               <ion-input [(ngModel)]="registroDatos.numEmpleado" minlength="5" maxlength="5" type="tel"></ion-input>
             </ion-item>
+
             <ion-item counter="true" style="border: solid black 0px;">
               <ion-label color="tertiary" position="floating">RFC (Incluida en la homoclave)</ion-label>
               <ion-input [(ngModel)]="registroDatos.rfc" minlength="13" maxlength="13" type="text" oninput="this.value = this.value.toUpperCase()"></ion-input>

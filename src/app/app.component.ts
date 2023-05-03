@@ -8,6 +8,10 @@ import { FCM } from "@capacitor-community/fcm";
 import { MainService } from './main.service';
 import { register } from 'swiper/element/bundle';
 import { Router } from '@angular/router';
+import { PrivacyScreen } from '@capacitor-community/privacy-screen';
+import { Platform } from '@ionic/angular';
+import { ToastController } from '@ionic/angular';
+
 
 register();
 
@@ -31,7 +35,9 @@ export class AppComponent {
     public mainService: MainService,
     public navCtrl: NavController,
     public menuCtrl: MenuController,
-    public routerCtrl: Router) {}
+    public routerCtrl: Router,
+    public toasteCtrl: ToastController,
+    public platformCtrl: Platform) {}
 
   profilePic = 'none';
 
@@ -45,6 +51,11 @@ export class AppComponent {
   async ngOnInit() {
     console.log('IT HAS BEGUN');
 
+    const disable = async () => {
+      await PrivacyScreen.disable();
+    };
+    disable();
+
     // console.log(this.mainService.userCurp)
 
     // this.navCtrl.navigateRoot('tabs');
@@ -54,7 +65,24 @@ export class AppComponent {
     } else {
       console.log(localStorage.getItem("userCurp"));
       this.mainService.userCurp = localStorage['userCurp'];
-      this.mainService.url_GET_recursos_humanos = "https://sitam.tamaulipas.gob.mx/api/obtenEmpleadoCURP/" + this.mainService.userCurp;
+      this.mainService.tipo_gobierno = Number(localStorage['tipo_gobierno'])
+
+      console.log('VALIDANDO:', this.mainService.tipo_gobierno, this.mainService.userCurp)
+      
+      // this.mainService.url_GET_recursos_humanos = "https://sitam.tamaulipas.gob.mx/api/obtenEmpleadoCURP/" + this.mainService.userCurp;
+      switch (this.mainService.tipo_gobierno) {
+        case 1:
+          this.mainService.url_GET_recursos_humanos = "https://sitam.tamaulipas.gob.mx/api/obtenEmpleadoCURP/" + this.mainService.userCurp;
+          break;
+
+        case 2:
+          this.mainService.url_GET_recursos_humanos = "https://sitam.tamaulipas.gob.mx/aptranotificaciones/nominaOpd?curp=" + this.mainService.userCurp;
+          break;
+      
+        default:
+          break;
+      }
+
       // console.log(this.mainService.url_GET_recursos_humanos)
       // console.log(this.mainService.userCurp);
       this.mainService.url_LOGIN_qr = localStorage['userQR']

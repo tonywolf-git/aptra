@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import axios from 'axios';
+import { MainService } from '../main.service';
 
 @Component({
   selector: 'app-tab2',
@@ -8,7 +9,7 @@ import axios from 'axios';
 })
 export class Tab2Page {
 
-  constructor() {}
+  constructor(public mainService: MainService) {}
 
   splicePipe = true;
 
@@ -69,6 +70,7 @@ export class Tab2Page {
         this.avisosAxios.push({title: data[x].titulo_notificacion, text: data[x].notificacion, splicePipe: false, id: x, activo: data[x].activo})
       }
       // console.log(':AXIOS:', this.avisosAxios)
+      this.mainService.checkVersion();
      })
   }
 

@@ -6,7 +6,6 @@ import { FCM } from "@capacitor-community/fcm";
 import { LoadingController, MenuController } from '@ionic/angular';
 import moment from 'moment';
 
-
 // SwiperCore.use([Autoplay, Keyboard, Pagination, Scrollbar, Zoom]);
 
 @Component({
@@ -38,6 +37,7 @@ export class Tab1Page {
 
     await this.mainService.func_get(this.mainService.url_GET_recursos_humanos).then(async succ => {
       this.loadingCtrl.dismiss();
+      this.mainService.checkVersion();
     });
     
     let _eventos = await this.mainService.getSemana();

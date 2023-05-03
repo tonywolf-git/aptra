@@ -3,6 +3,7 @@ import { AlertController, LoadingController, MenuController, NavController, Plat
 import { ToastController } from '@ionic/angular';
 import axios from 'axios';
 import { Http } from '@capacitor-community/http';
+import { FCM } from "@capacitor-community/fcm";
 import * as moment from 'moment';
 
 
@@ -20,8 +21,8 @@ export class MainService {
     public toasteCtrl: ToastController) { }
 
   appVersion = {
-    ios: 11,
-    android: 11
+    ios: 13,
+    android: 13
   };
 
   serverVersion = {
@@ -230,8 +231,15 @@ export class MainService {
         data = JSON.parse(data)
         // console.log('RESPONSE DE LOGIN:', data);
         loading.dismiss();
+
+        // --- SUSCRIBIRSE AL TOPICO GENERAL INI ---
+        FCM.subscribeTo({ topic: "laroca" })
+        .then((r) => {
+          console.log('YA ERES PARTE DE TEST');
+        }).catch((err) => alert(err));
         return data;
       })
+      // --- SUSCRIBIRSE AL TOPICO GENERAL END ---
       return _elRes;
     } catch (error) {
       loading.dismiss();
@@ -298,7 +306,12 @@ export class MainService {
       localStorage.removeItem('userQR');
       this.menuCtrl.enable(false);
       this.menuCtrl.swipeGesture(false);
-    })
+
+      FCM.unsubscribeFrom({ topic: "laroca" })
+      .then((r) => {
+        console.log('YA NO ERES PARTE DE TEST');
+      }).catch((err) => alert(err));
+    });
   }
 
   async alertThis(title: any, msg: any) {

@@ -92,12 +92,10 @@ export class AppComponent {
     const addListeners = async () => {
       await PushNotifications.addListener('registration', token => {
         console.info('Registration token: ', token.value);
-        FCM.subscribeTo({ topic: "laroca" })
-        .then((r) => {
-          // alert(`subscribed to topic`)
-          console.log('ERES PARTE DE LA ROCA');
-        })
-        .catch((err) => alert(err));
+        // FCM.subscribeTo({ topic: "laroca" })
+        // .then((r) => {
+        //   console.log('ERES PARTE DE LA ROCA');
+        // }).catch((err) => alert(err));
       });
     
       await PushNotifications.addListener('registrationError', err => {

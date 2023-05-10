@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { IonModal, ModalController } from '@ionic/angular';
+import { AlertController, IonModal, ModalController } from '@ionic/angular';
 import { OverlayEventDetail } from '@ionic/core/components';
 import Swiper from 'swiper';
 import { MainService } from '../main.service';
@@ -20,6 +20,8 @@ export class RegistroPage implements OnInit {
   step_name = 'Siguiente'
   swiperCtrl: any;
 
+  opcion_codigo = 'c';
+
   registroDatos = {
     correo: '',
     pass: '',
@@ -30,7 +32,7 @@ export class RegistroPage implements OnInit {
     curp: '',
     celular: '',
     idUser: 0,
-    codigoValidacion: ''
+    codigoValidacion: '',
   };
 
   elCodigo = {
@@ -44,7 +46,8 @@ export class RegistroPage implements OnInit {
   
   constructor(public modalCtrl: ModalController,
     public mainService: MainService,
-    public toastCtrl: ToastController) {}
+    public toastCtrl: ToastController,
+    public alertCtrl: AlertController) {}
 
   ngOnInit() {}
 
@@ -140,6 +143,7 @@ export class RegistroPage implements OnInit {
   }
 
   async checkPasoDos() {
+    this.opcion_codigo = 'c';
     let _validNumEmpleado = false;
     let _validRFC= false;
     let _validCURP = false;
@@ -199,9 +203,97 @@ export class RegistroPage implements OnInit {
     }
   }
 
+  async checkPasoDosWasa() {
+    this.opcion_codigo = 'w';
+    let _validNumEmpleado = false;
+    let _validRFC= false;
+    let _validCURP = false;
+
+    const alert = await this.alertCtrl.create({
+      header: 'Enviar Código',
+      message: 'Indica el número de teléfono al que se enviará el código de verificación.',
+      inputs: [
+        {
+          type: 'tel',
+          placeholder: '834 0000000',
+          min: 10,
+          attributes: {
+            maxlength: 10,
+            minlength: 10
+          }
+        }
+      ],
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: () => {
+          },
+        },
+        {
+          text: 'OK',
+          role: 'confirm',
+          handler: async (tel) => {
+            this.registroDatos.celular = tel[0];
+            if (this.registroDatos.numEmpleado.length == 5) {
+              _validNumEmpleado = true;
+            }
+          
+            if (this.registroDatos.rfc.length == 13) {
+              _validRFC = true;
+            }
+          
+            if (this.registroDatos.curp.length == 18) {
+              _validCURP = true;
+            }
+          
+            if (_validRFC == true && _validCURP == true) {
+              let _response = await this.mainService.func_doRegistroWasa(this.registroDatos, tel);
+              console.log(_response);
+            
+              switch (_response) {
+                case 'EMAILEXISTENTE':
+                  this.step_registro = 0;
+                  this.checkTitle();
+                  this.swiperCtrl.slideTo(0);
+                  this.mainService.alertThis('Error', 'El correo electrónico ya está registrado, intenta con otro.');
+                  break;
+
+                case 'DATOSREPETIDOS':
+                  this.mainService.alertThis('Error', 'Los datos ingresados ya se encuentran registrados, prueba con otros o contacta al administrador del sistema.');
+                  break;
+              
+                case 'MALOSDATOS':
+                  this.mainService.alertThis('Error', 'Los datos ingresados no concuerdan con el registro, favor de verificarlos.');
+                  break;
+              
+                case 'error':
+                  this.mainService.alertThis('Error', 'Ha ocurrido un error, por favor intente más tarde.');
+                  break;
+              
+                default:
+                  break;
+              }
+            
+              if (typeof _response == 'number' ) {
+                this.registroDatos.idUser = _response
+                this.step_registro += 1;
+                this.checkTitle();
+                this.swiperCtrl.slideNext();
+              }
+            } else {
+              this.mainService.alertThis('Error', 'Datos incorrectos, favor de verificarlos.');
+            }
+          },
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
   async checkPasoTres() {
     let _elCodigo = this.elCodigo.a + this.elCodigo.b + this.elCodigo.c + this.elCodigo.d + this.elCodigo.e + this.elCodigo.f;
-    // console.log(_elCodigo);
     let _response = await this.mainService.func_validaCodigo(this.registroDatos.idUser, _elCodigo);
 
     if (_response == 1 || _response == '1') {
@@ -227,6 +319,10 @@ export class RegistroPage implements OnInit {
 
   func_reenviarCodigo() {
     this.mainService.func_reenviarCodigo(this.registroDatos.idUser);
+  }
+
+  func_reenviarCodigoW() {
+    this.mainService.func_reenviarCodigoW(this.registroDatos.idUser);
   }
 
   checkTitle() {

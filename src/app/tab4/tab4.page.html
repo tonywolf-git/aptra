@@ -111,21 +111,21 @@
             </ion-col>
           </ion-row>
         </ion-grid>
-        <div class="back-qr-container">
+        <div class="back-qr-container" (click)="func_showQR()">
           <ion-grid>
             <ion-row style="height: 100%;">
               <ion-col style="height: 100%;">
                 <!-- <div button id="open-modal" class="back-qr" (click)="func_showQR()">
                   <img style="height: 100%; text-align: center; margin: auto;" src="https://www.investopedia.com/thmb/hJrIBjjMBGfx0oa_bHAgZ9AWyn0=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/qr-code-bc94057f452f4806af70fd34540f72ad.png" alt="ELQR">
                 </div> -->
-                <div button class="back-qr" (click)="func_showQR()">
+                <div button class="back-qr">
                   <div id="qrcode" #qrcode></div>
                 </div>
                 <!-- <div class="back-qr">
                   <img style="height: 100%; text-align: center; margin: auto;" src="../../assets/login/apptra_logo.png" alt="ELQR">
                 </div> -->
               </ion-col>
-              <ion-col class="back-qr-vigencia-container" (click)="func_showQR();">
+              <ion-col class="back-qr-vigencia-container">
                 <h6 style="color: rgb(45, 45, 45);">VIGENCIA<br>31/12/2028</h6>
               </ion-col>
             </ion-row>

@@ -181,6 +181,36 @@ export class LoginPage implements OnInit {
     await alert.present();
   }
 
+  async func_resetPass() {
+    const alert = await this.alertCtrl.create({
+      header: 'Recuperar Contraseña',
+      message: 'Indica el correo electrónico al que se enviará el código de verificación.',
+      inputs: [
+        {
+          type: 'email',
+          placeholder: 'correo@correo.com',
+        }
+      ],
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: () => {
+          },
+        },
+        {
+          text: 'OK',
+          role: 'confirm',
+          handler: async (correo) => {
+            this.mainService.func_resetPass(correo[0]);
+          }
+        }
+      ]
+    });
+    await alert.present();
+    
+  }
+
   async func_openRegistro() {
     // console.log('Hola, soy el registro.');
 

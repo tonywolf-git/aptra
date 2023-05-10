@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { FCM } from "@capacitor-community/fcm";
 import { LoadingController, MenuController } from '@ionic/angular';
 import moment from 'moment';
+import { Platform } from '@ionic/angular';
 
 // SwiperCore.use([Autoplay, Keyboard, Pagination, Scrollbar, Zoom]);
 
@@ -18,12 +19,20 @@ export class Tab1Page {
   tuSemana = new Array();
   tuSemanaMsg = "Cargando..."
 
+  laFoto = '';
+  elNumEmpleado = 1007;
+  laDependencia = '';
+  elPuesto = '';
+  elNombre = '';
+
   constructor(public mainService: MainService,
     public routerCtrl: Router,
     public menuCtrl: MenuController,
-    public loadingCtrl: LoadingController) {}
+    public loadingCtrl: LoadingController,
+    public platform: Platform) {}
 
   async ngOnInit() {
+    console.log('Platform:', this.platform.is('ios'));
     this.menuCtrl.enable(true);
     this.menuCtrl.swipeGesture(true);
     moment.locale('es-MX');   

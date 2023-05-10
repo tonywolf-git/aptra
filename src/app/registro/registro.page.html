@@ -69,7 +69,8 @@
       <swiper-slide style="text-align: center; padding-bottom: 30px;" swiperSlide>
         <div style="width: 100%;">
           <p style="color: #A1193E; font-size: 20px; width: 85%; margin: auto; margin-bottom: 20px;">Verificación de Código </p>
-          <p style="color: #BC936C; font-size: 16px; width: 85%; margin: auto;">Hemos enviado un correo electrónico a "<b>{{ registroDatos.correo }}</b>". Por favor, revísalo.</p>
+          <p *ngIf="opcion_codigo == 'c'" style="color: #BC936C; font-size: 16px; width: 85%; margin: auto;">Hemos enviado un correo electrónico a "<b>{{ registroDatos.correo }}</b>". Por favor, revísalo.</p>
+          <p *ngIf="opcion_codigo == 'w'" style="color: #BC936C; font-size: 16px; width: 85%; margin: auto;">AVIT™ he enviado un mensaje a "<b>{{ registroDatos.celular }}</b>". Por favor, revísalo.</p>
           <!-- <p style="color: #BC936C; font-size: 16px; width: 85%; margin: auto;">Hemos enviado un mensaje de WhatsApp™ al numero <b>+52 8341657934</b>. Por favor, revísalo.</p> -->
           <ion-list class="main_content_list">
             <ion-item style="margin-bottom: 20px;">
@@ -116,10 +117,11 @@
               </ion-grid>
             </ion-item>
             
-            <p style="color: #BC936C; font-size: 14px; width: 85%; margin: auto; margin-bottom: 10px;">Ingrese el código de 6 digitos que enviamos a su correo</p>
+            <p style="color: #BC936C; font-size: 14px; width: 85%; margin: auto; margin-bottom: 10px;">Ingrese el código de 6 digitos que le enviamos</p>
             <!-- <p style="color: #BC936C; font-size: 14px; width: 85%; margin: auto; margin-bottom: 10px;">Ingrese el código de 6 digitos que enviamos a su WhatsApp™</p> -->
 
-            <ion-button (click)="func_reenviarCodigo()" class="ion-text-wrap" style="display: flex; text-transform: none !important; margin: auto; font-size: 12px; font-weight: bold;" color="gobmustard" fill="clear">¿No recibió el código?</ion-button>
+            <ion-button *ngIf="opcion_codigo == 'c'" (click)="func_reenviarCodigo()" class="ion-text-wrap" style="display: flex; text-transform: none !important; margin: auto; font-size: 12px; font-weight: bold;" color="gobmustard" fill="clear">¿No recibió el código?</ion-button>
+            <ion-button *ngIf="opcion_codigo == 'w'" (click)="func_reenviarCodigoW()" class="ion-text-wrap" style="display: flex; text-transform: none !important; margin: auto; font-size: 12px; font-weight: bold;" color="gobmustard" fill="clear">¿No recibió el código?</ion-button>
             <!-- <ion-button id="open-modal" class="ion-text-wrap" style="display: flex; text-transform: none !important; margin: auto; font-size: 12px; font-weight: bold;" color="gobmustard" fill="clear">¿No recibió el código?</ion-button> -->
             
             <!-- MODAL INI (NECEISTA ESTAR AQUÍ PORQUE EL DIOS DE IONIC LO DEMANDA)-->
@@ -160,6 +162,7 @@
         </ion-col>
       </ion-row>
      </ion-grid>
+    <ion-button (click)="checkPasoDosWasa();" *ngIf="step_registro == 2" style="display: flex; text-transform: none !important; margin: auto; font-size: 12px; font-weight: bold; margin-bottom: 50px;" color="gobred" fill="clear">Enviar código por&nbsp;<span style="color: #25D366 !important;">WhatsApp™</span></ion-button>
     <ion-button (click)="func_goBack();" style="display: flex; text-transform: none !important; margin: auto; font-size: 12px; font-weight: bold; margin-bottom: 50px;" color="gobred" fill="clear">Ya tengo una cuenta</ion-button>
   </div>
 </ion-content>

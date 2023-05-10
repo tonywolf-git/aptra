@@ -13,3 +13,167 @@
     height: 100% !important;
     padding: 20px !important;
 }
+
+
+
+
+/* The flip card container - set the width and height to whatever you want. We have added the border property to demonstrate that the flip itself goes out of the box on hover (remove perspective if you don't want the 3D effect */
+.mini-cred-flip-card {
+    background-color: rgba(0,0,0,0);
+    margin: auto;
+    padding-bottom: 7%;
+    padding-top: 3%;
+  }
+  
+  /* This container is needed to position the front and back side */
+  .mini-cred-flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+
+    -webkit-border-radius: 35px;
+    -moz-border-radius: 35px;
+    border-radius: 35px;
+   /* box-shadow */
+    // -webkit-box-shadow: rgba(0,0,0,0.8) 0px 0 10px;
+    // -moz-box-shadow: rgba(0,0,0,0.8) 0 0 10px;
+    // box-shadow: rgba(0,0,0,0.8) 0 0 10px;
+  }
+  
+  /* Position the front and back side */
+  .mini-cred-flip-card-front, .mini-cred-flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
+  
+  /* Style the front side (fallback if image is missing) */
+  .mini-cred-flip-card-front {
+    background: url('../../assets/credencial/credencial_front.png');
+    background-size: 100% 100%;
+    color: black;
+  }
+
+  .mini-cred-front-logo-div { // LOGO TAMAULIPAS //
+    margin-top: 15%;
+    height: 15%;
+    background-color: white;
+    display: flex;
+    vertical-align: middle;
+    margin-bottom: 5%;
+  }
+
+  .mini-cred-front-pic-number-div { // IMAGEN Y NUMERO DE EMPLEADO //
+    display: flex;
+    height: 20%;
+    padding: 0px !important;
+  }
+
+  .mini-cred-front-pic-number-col1 { // COL DE IMAGEN //
+    display: flex;
+    // background-color: red;
+    height: 100%;
+    flex-direction: row-reverse;
+  }
+
+  .mini-cred-front-pic-number-col2 { // COL DE EMPLEADO //
+    display: flex;
+    // background-color: blue;
+    height: 100%;
+    width: 100%;
+    vertical-align: middle;
+    align-items: center;
+  }
+
+  .mini-cred-front-div-empleado {
+    background-color: rgba(161,25,62,0.4);
+    color: white;
+    width: 100%;
+    padding: 2px;
+  }
+
+  .mini-cred-front-info-container {
+    // background-color: cyan;
+    width: 80%;
+    margin: auto;
+    margin-top: 5%;
+    // margin-top: 10px;
+    text-align: left;
+    height: 40%;
+  }
+
+  .mini-cred-front-div-info {
+    margin-bottom: 0px;
+  }
+
+  .ios-info-titulo {
+    color: #BC936C;
+    font-size: 1.2vw;
+    padding-left: 10%;
+    font-weight: bolder;
+  }
+
+  .ios-info-titulo-text {
+    color: white;
+    font-size: 1vw;
+    padding-left: 10%;
+    font-weight: bold;
+  }
+
+  .android-info-titulo {
+    color: #BC936C;
+    font-size: 1.2vw;
+    padding-left: 10%;
+    font-weight: bolder;
+    zoom: 0.6;
+  }
+
+  .android-info-titulo-text {
+    color: white;
+    font-size: 1vw;
+    padding-left: 10%;
+    font-weight: bold;
+    zoom: 0.6;
+  }
+
+  .scale-this {
+    margin-left: 10%;
+    transform: scale(0.9);
+    transform-origin: 50% 0;
+  }
+
+  .iosPlat {
+    max-height: 100% * 0.3;
+    max-width: 100% * 0.3;
+    aspect-ratio: 0.66 / 1;
+    padding-bottom: 8%;
+  }
+
+  .androidPlat{
+    max-height: 100% * 0.3;
+    max-width: 100% * 0.3;
+    aspect-ratio: 0.53 / 1;
+  }
+
+  .this-but-bold {
+    font-weight: bolder;
+  }
+
+  .iosNumEmpleado {
+    font-size: 1.9vw;
+  }
+
+  .iosNumEmpleadoText {
+    font-size: 1vw;
+  }
+
+  .androidNumEmpleado {
+    font-size: 1.9vw;
+    zoom: 0.9;
+  }
+
+  .androidNumEmpleadoText {
+    font-size: 1vw;
+    zoom: 0.7;
+  }

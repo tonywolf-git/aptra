@@ -21,8 +21,8 @@ export class MainService {
     public toasteCtrl: ToastController) { }
 
   appVersion = {
-    ios: 13,
-    android: 13
+    ios: 15,
+    android: 15
   };
 
   serverVersion = {
@@ -175,6 +175,47 @@ export class MainService {
     }
   }
 
+  async func_doRegistroWasa(datos: any, tel: any) {
+    let _elRes: any;
+    let _theUrl = 'https://sitam.tamaulipas.gob.mx/aptranotificaciones/avit';
+    const loading = await this.loadCtrl.create({
+      message: 'Confirmando datos...',
+    });
+
+    loading.present();
+
+    const options = {
+      url: _theUrl,
+      data: {
+        "email": datos.correo,
+        "password": datos.pass,
+        "NumEmpleado": datos.numEmpleado,
+        "rfc": datos.rfc,
+        "curp": datos.curp,
+        "tipo_gobierno" : datos.tipo_gobierno,
+        "numero": tel[0]
+      },
+      headers: { 'Content-Type': 'application/json' },
+    };
+
+    console.log('--- AQUI AQUI AQUI AQUI AQUI ---', options.data);
+
+    try {
+      // await Http.post(options)
+      _elRes = await Http.post(options).then(data => {
+        // console.log(JSON.parse(data.data))
+        loading.dismiss();
+        return JSON.parse(data.data);
+      })
+      return _elRes;
+    } catch (error) {
+      // console.log(error),
+      _elRes = 'error';
+      loading.dismiss();
+      return _elRes;
+    }
+  }
+
   async func_validaCodigo(id: any, codigo: any) {
     let _elRes: any;
     let _theUrl = 'https://sitam.tamaulipas.gob.mx/aptranotificaciones/verificarCodigo';
@@ -274,6 +315,112 @@ export class MainService {
 
         const toast = await this.toastCtrl.create({
           message: '¡Se ha enviado el código nuevamente!',
+          duration: 5000,
+          position: 'top'
+        });
+
+        await toast.present();
+        return JSON.parse(data);
+      })
+      loading.dismiss();
+      return JSON.parse(_elRes);
+    } catch (error) {
+      _elRes = 'error';
+      return _elRes;
+    }
+  }
+
+  async func_reenviarCodigoW(idUser: any) {
+    let _elRes: any;
+    let _theUrl = 'https://sitam.tamaulipas.gob.mx/aptranotificaciones/resetVerificacionW';
+
+    const loading = await this.loadCtrl.create({
+      message: 'Reenviando código...',
+    });
+
+    loading.present();
+    
+    const options = {
+      url: _theUrl,
+      data: {
+        id_usuario: idUser,
+      },
+      headers: { 'Content-Type': 'application/json' },
+    };
+
+    try {
+      _elRes = await Http.post(options).then(response => response.data)
+      .then(async (data) => {
+        // console.log('RESPONSE DE reenviacion:', data);
+        loading.dismiss();
+
+        const toast = await this.toastCtrl.create({
+          message: '¡Se ha enviado el código nuevamente!',
+          duration: 5000,
+          position: 'top'
+        });
+
+        await toast.present();
+        return JSON.parse(data);
+      })
+      loading.dismiss();
+      return JSON.parse(_elRes);
+    } catch (error) {
+      _elRes = 'error';
+      return _elRes;
+    }
+  }
+
+  async func_resetPass(correo: any) {
+    let _elRes: any;
+    let _theUrl = 'https://sitam.tamaulipas.gob.mx/aptranotificaciones/resetContrasena';
+
+    const loading = await this.loadCtrl.create({
+      message: 'Enviando contraseña...',
+    });
+
+    loading.present();
+    
+    const options = {
+      url: _theUrl,
+      data: {
+        email: correo,
+      },
+      headers: { 'Content-Type': 'application/json' },
+    };
+
+    try {
+      _elRes = await Http.post(options).then(response => response.data)
+      .then(async (data) => {
+        // console.log('RESPONSE DE reenviacion:', data);
+        loading.dismiss();
+
+        // "NOEXISTE"
+        // "ERROR"
+        // 1
+
+        let _msg = '';
+        let _laDataParse = JSON.parse(data);
+
+        switch (_laDataParse) {
+          case 1:
+            _msg = "¡Se ha enviado la contraseña!";
+            break;
+
+          case "NOEXISTE":
+            _msg = "El correo electrónico no está registrado en el sistema.";
+            break;
+
+          case "ERROR":
+            _msg = "Ha ocurrido un error, por favor intenta de nuevo.";
+            break;
+        
+          default:
+            break;
+        }
+
+        const toast = await this.toastCtrl.create({
+          message: _msg,
           duration: 5000,
           position: 'top'
         });

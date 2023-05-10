@@ -8,7 +8,59 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <img button (click)="fucn_goTo('tab4')" src="../../assets/etc/tab1_credencial.png" alt="credencial_img" style="display: flex; width: 90%; margin:auto; margin-top: 20px; margin-bottom: 0px;">
+
+      <!-- --- CREDENCIAL INI --- -->
+      <div (click)="fucn_goTo('tab4')" style="background: no-repeat center/100% url('../../assets/etc/tab1_credencial.png'); width: 95%; margin:auto; background-size: contain; margin-top: 20px;">
+        <div class="mini-cred-flip-card scale-this" style="margin-bottom: 0px;" [ngClass]="platform.is('ios') ? 'iosPlat' : 'androidPlat'">
+          <div class="mini-cred-flip-card-inner">
+            <div class="mini-cred-flip-card-front">
+          <div class="mini-cred-front-logo-div">
+            <img src="../../assets/credencial/front-logo.png" style="height: 80%; margin: auto;" alt="">
+          </div>
+      
+          <ion-grid class="mini-cred-front-pic-number-div">
+            <ion-row class="no-padding" style="height: 100%; width: 100%; margin:0px !important; padding:0px !important;">
+              <ion-col class="mini-cred-front-pic-number-col1" style="padding: 0px !important;">
+                <div style="height: 100%; background-color: cyan;">
+                  <img style="float: right; height: 100%" src="{{ mainService.credencialInfo.laFoto }}" alt="">
+                  <img *ngIf="mainService.credencialInfo.laFoto == ''" style="float: right; height: 100%;" src="../../assets/placeholder/profile_placehold.jpeg" alt="">
+                </div>
+              </ion-col>
+              <ion-col class="front-pic-number-col2" style="padding: 0px !important;">
+                <div class="mini-cred-front-div-empleado">
+                  <p style="color: white; font-weight: bolder;" [ngClass]="platform.is('ios') ? 'iosNumEmpleado' : 'androidNumEmpleado'">{{ mainService.credencialInfo.elNumEmpleado }}</p>
+                  <p style="color: white; font-weight: bold;" [ngClass]="platform.is('ios') ? 'iosNumEmpleadoText' : 'androidNumEmpleadoText'">NÚMERO DE EMPLEADO</p>
+                </div>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+
+          
+      
+          <div class="front-info-container">
+            <div class="mini-cred-front-div-info" style="text-align: left; margin-top: 5px; margin-bottom: 5px;">
+              <p [ngClass]="platform.is('ios') ? 'ios-info-titulo' : 'android-info-titulo'">NOMBRE</p>
+              <p [ngClass]="platform.is('ios') ? 'ios-info-titulo-text' : 'android-info-titulo-text'" *ngIf="mainService.credencialInfo.elNombre == ''">CARGANDO...</p>
+              <p [ngClass]="platform.is('ios') ? 'ios-info-titulo-text' : 'android-info-titulo-text'">{{ mainService.credencialInfo.elNombre | uppercase }}</p>
+            </div>
+            <div class="front-div-info" style="text-align: left; margin-bottom: 5px;">
+              <p [ngClass]="platform.is('ios') ? 'ios-info-titulo' : 'android-info-titulo'">DEPENDENCIA</p>
+              <p [ngClass]="platform.is('ios') ? 'ios-info-titulo-text' : 'android-info-titulo-text'" *ngIf="mainService.credencialInfo.laDependencia == ''">CARGANDO...</p>
+              <p [ngClass]="platform.is('ios') ? 'ios-info-titulo-text' : 'android-info-titulo-text'">{{ mainService.credencialInfo.laDependencia | uppercase }}</p>
+            </div>
+            <div class="front-div-info" style="text-align: left; margin-bottom: 5px;">
+              <p [ngClass]="platform.is('ios') ? 'ios-info-titulo' : 'android-info-titulo'">PUESTO</p>
+              <p [ngClass]="platform.is('ios') ? 'ios-info-titulo-text' : 'android-info-titulo-text'" *ngIf="mainService.credencialInfo.elPuesto == ''">CARGANDO...</p>
+              <p [ngClass]="platform.is('ios') ? 'ios-info-titulo-text' : 'android-info-titulo-text'">{{ mainService.credencialInfo.elPuesto | uppercase }}</p>
+            </div>
+          </div>
+        </div>
+          </div>
+        </div>
+      </div>
+      <!-- --- CREDENCIAL END --- -->
+
+  <!-- <img button (click)="fucn_goTo('tab4')" src="../../assets/etc/tab1_credencial.png" alt="credencial_img" style="display: flex; width: 90%; margin:auto; margin-top: 20px; margin-bottom: 0px;"> -->
   
   <ion-grid style="display: flex; width: 90%;">
     <ion-row>

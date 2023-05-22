@@ -10,8 +10,6 @@ import { RegistroPage } from './registro.page';
 // import Swiper from 'swiper';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
-
-
 @NgModule({
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [
@@ -20,6 +18,6 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
     IonicModule,
     RegistroPageRoutingModule
   ],
-  declarations: [RegistroPage]
+  declarations: [RegistroPage],
 })
 export class RegistroPageModule {}

@@ -63,11 +63,11 @@ export class AppComponent {
     if (localStorage.getItem("userCurp") === null) {
       console.log('NO CURP GUARDADO');
     } else {
-      console.log(localStorage.getItem("userCurp"));
+      // console.log(localStorage.getItem("userCurp"));
       this.mainService.userCurp = localStorage['userCurp'];
       this.mainService.tipo_gobierno = Number(localStorage['tipo_gobierno'])
 
-      console.log('VALIDANDO:', this.mainService.tipo_gobierno, this.mainService.userCurp)
+      // console.log('VALIDANDO:', this.mainService.tipo_gobierno, this.mainService.userCurp)
       
       // this.mainService.url_GET_recursos_humanos = "https://sitam.tamaulipas.gob.mx/api/obtenEmpleadoCURP/" + this.mainService.userCurp;
       switch (this.mainService.tipo_gobierno) {

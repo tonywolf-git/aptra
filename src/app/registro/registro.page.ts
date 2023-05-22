@@ -24,6 +24,8 @@ export class RegistroPage implements OnInit {
 
   registroDatos = {
     correo: '',
+    correo_seudo: '',
+    correo_select: '',
     pass: '',
     passConfirma: '',
     tipo_gobierno: 0,
@@ -115,6 +117,9 @@ export class RegistroPage implements OnInit {
   }
 
   checkPasoUno() {
+    // console.log(this.registroDatos.correo, this.registroDatos.correo_select);
+    this.registroDatos.correo = this.registroDatos.correo_seudo + this.registroDatos.correo_select;
+    // console.log(this.registroDatos.correo);
     let _correoValido = false;
     let _contraseñasIguales = false;
 
@@ -249,7 +254,7 @@ export class RegistroPage implements OnInit {
           
             if (_validRFC == true && _validCURP == true) {
               let _response = await this.mainService.func_doRegistroWasa(this.registroDatos, tel);
-              console.log(_response);
+              // console.log(_response);
             
               switch (_response) {
                 case 'EMAILEXISTENTE':
@@ -372,3 +377,10 @@ export class RegistroPage implements OnInit {
     }
   }
 }
+
+
+// Martin rodriguez treviño 
+// 210
+
+// Rafael reyes urbina 
+// 254

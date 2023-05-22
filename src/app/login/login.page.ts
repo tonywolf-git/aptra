@@ -103,19 +103,19 @@ export class LoginPage implements OnInit {
         if (_res == 'error') {
           this.mainService.alertThis('Error', 'Hubo un error, por favor intenta nuevamente.')
         } else {
-          console.log('ASUMO QUE EL LOGIN EStÁ BIEN')
-          console.log(_res);
+          // console.log('ASUMO QUE EL LOGIN EStÁ BIEN')
+          // console.log(_res);
           let elSlice = _res.split(',');
           // console.log('EL SLICE:', elSlice)
           this.mainService.userCurp = elSlice[0];
           this.mainService.url_LOGIN_qr = elSlice[1];
           this.mainService.tipo_gobierno = Number(elSlice[2]);
 
-          console.log('CHECANDO CURPS Y LO OTRO:', this.mainService.userCurp, this.mainService.url_LOGIN_qr, this.mainService.tipo_gobierno);
+          // console.log('CHECANDO CURPS Y LO OTRO:', this.mainService.userCurp, this.mainService.url_LOGIN_qr, this.mainService.tipo_gobierno);
 
           switch (this.mainService.tipo_gobierno) {
             case 1:
-              console.log('ENTRÓ AQUI')
+              // console.log('ENTRÓ AQUI')
               this.mainService.url_GET_recursos_humanos = "https://sitam.tamaulipas.gob.mx/api/obtenEmpleadoCURP/" + this.mainService.userCurp;
               break;
 

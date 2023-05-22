@@ -64,7 +64,7 @@ export class Tab2Page {
     axios.get(_theUrl).then(response => response.data)
     .then((data) => {
       this.avisosIsLoaded = true;
-      console.log(data, typeof data, data.length);
+      // console.log(data, typeof data, data.length);
       this.avisosAxios = [];
       for (let x = 0; x < data.length; x++) {
         this.avisosAxios.push({title: data[x].titulo_notificacion, text: data[x].notificacion, splicePipe: false, id: x, activo: data[x].activo})

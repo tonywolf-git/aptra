@@ -21,8 +21,8 @@ export class MainService {
     public toasteCtrl: ToastController) { }
 
   appVersion = {
-    ios: 15,
-    android: 15
+    ios: 16,
+    android: 16
   };
 
   serverVersion = {
@@ -79,7 +79,7 @@ export class MainService {
       }
 
       if (this.tipo_gobierno == 2) {
-        console.log(_res);
+        // console.log(_res);
         /// TIPO_GOBIERNO == 2 (OPD)  INI ///
         // this.credencialInfo.laFoto = "https://cogumelolouco.com/wp-content/uploads/2012/07/filhote-de-golden-retriever.jpg"
         this.credencialInfo.laFoto = _res.imagen;
@@ -198,8 +198,6 @@ export class MainService {
       headers: { 'Content-Type': 'application/json' },
     };
 
-    console.log('--- AQUI AQUI AQUI AQUI AQUI ---', options.data);
-
     try {
       // await Http.post(options)
       _elRes = await Http.post(options).then(data => {
@@ -276,7 +274,7 @@ export class MainService {
         // --- SUSCRIBIRSE AL TOPICO GENERAL INI ---
         FCM.subscribeTo({ topic: "laroca" })
         .then((r) => {
-          console.log('YA ERES PARTE DE TEST');
+          // console.log('YA ERES PARTE DE TEST');
         }).catch((err) => alert(err));
         return data;
       })
@@ -456,7 +454,7 @@ export class MainService {
 
       FCM.unsubscribeFrom({ topic: "laroca" })
       .then((r) => {
-        console.log('YA NO ERES PARTE DE TEST');
+        // console.log('YA NO ERES PARTE DE TEST');
       }).catch((err) => alert(err));
     });
   }
@@ -480,7 +478,7 @@ export class MainService {
         text: 'Actualizar',
         role: 'info',
         handler: () => {
-          console.log('More Info clicked')
+          // console.log('More Info clicked')
           window.open(_storeUrl, '_blank')
         }
       },
@@ -501,8 +499,8 @@ export class MainService {
     try {
       await Http.get(options).then(response => response.data)
       .then(async (data) => {
-        console.log(JSON.parse(data)[0]["version"]);
-        console.log(JSON.parse(data)[0]["version_ios"]);
+        // console.log(JSON.parse(data)[0]["version"]);
+        // console.log(JSON.parse(data)[0]["version_ios"]);
         // loading.dismiss();
         this.serverVersion["android"] = JSON.parse(data)[0]["version"];
         this.serverVersion["ios"] = JSON.parse(data)[0]["version_ios"];

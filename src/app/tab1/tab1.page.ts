@@ -32,7 +32,7 @@ export class Tab1Page {
     public platform: Platform) {}
 
   async ngOnInit() {
-    console.log('Platform:', this.platform.is('ios'));
+    // console.log('Platform:', this.platform.is('ios'));
     this.menuCtrl.enable(true);
     this.menuCtrl.swipeGesture(true);
     moment.locale('es-MX');   

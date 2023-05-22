@@ -1,32 +1,63 @@
 <ion-content>
-  <div class="login_bg">
+  <!-- <div class="login_bg">
     <img src="../../assets/login/apptra_logo.png" class="login_icon" alt="icon">
   </div>
 
   <div class="logo_container">
     <img src="../../assets/login/app_logo_alt.png" class="login_logo" alt="icon">
-  </div>
+  </div> -->
+
+  <img src="../../assets/login/aptra-registro.jpg" alt="">
   
   <div style="display: flex !important;">
     <swiper-container #swiper scrollbar="true" allow-touch-move="false" auto-height="true">
       <swiper-slide style="text-align: center; padding-bottom: 30px;" swiperSlide>
-        <div style="width: 100%;">
-          <ion-list class="main_content_list">
+        <div style="width: 100%; padding: 30px;">
             <p style="color: #A1193E; font-size: 20px; width: 85%; margin: auto; margin-bottom: 20px;">Asocia tu correo electrónico</p>
-            <ion-item>
+            <ion-grid style="width: 100%; margin:0px; padding:0px;">
+              <ion-row>
+                <ion-col>
+                  <ion-item>
+                    <ion-input [(ngModel)]="registroDatos.correo_seudo" type="email" placeholder="Usuario..." helperText="Introduce tu correo electrónico"></ion-input>
+                  </ion-item>
+                </ion-col>
+                <ion-col>
+                  <ion-item>
+                    <!-- <ion-select [(ngModel)]="registroDatos.correo_select" justify="start" placeholder="@" >  
+                      <ion-select-option value="@tamaulipas.gob.mx">@tamaulipas.gob.mx</ion-select-option>
+                      <ion-select-option value="@gmail.com">@gmail.com</ion-select-option>
+                      <ion-select-option value="@outlook.com">@outlook.com</ion-select-option>
+                      <ion-select-option value="@hotmail.com">@hotmail.com</ion-select-option>
+                    </ion-select> -->
+
+                    <ion-select color="tertiary" aria-label="entidad" interface="popover" placeholder="@..." [(ngModel)]="registroDatos.correo_select">
+                      <ion-select-option value="@tamaulipas.gob.mx">@tamaulipas.gob.mx</ion-select-option>
+                      <ion-select-option value="@gmail.com">@gmail.com</ion-select-option>
+                      <ion-select-option value="@outlook.com">@outlook.com</ion-select-option>
+                      <ion-select-option value="@hotmail.com">@hotmail.com</ion-select-option>
+                    </ion-select>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+
+            <br>
+
+            <!-- <ion-item>
               <ion-label color="tertiary" position="floating">Correo Electrónico</ion-label>
               <ion-input [(ngModel)]="registroDatos.correo" type="email" helperText="Enter a valid email" ngModel email errorText="Invalid email"></ion-input>
-            </ion-item>
+            </ion-item> -->
+
             <ion-item style="border: solid black 0px;">
               <ion-label color="tertiary" position="floating">Contraseña</ion-label>
               <ion-input [(ngModel)]="registroDatos.pass" type="password"></ion-input>
             </ion-item>
-            
+            <br>
             <ion-item style="border: solid black 0px;">
               <ion-label color="tertiary" position="floating">Repetir Contraseña</ion-label>
               <ion-input [(ngModel)]="registroDatos.passConfirma" type="password" enterkeyhint="go" (keypress)="keyPress($event, $event)"></ion-input>
             </ion-item>
-          </ion-list>
+
         </div>
       </swiper-slide>
       
@@ -47,16 +78,19 @@
                 <ion-select-option color="tertiary" value="2">OPD</ion-select-option>
               </ion-select>
             </ion-item>
+            <br>
 
             <ion-item counter="true" [disabled]="registroDatos.tipo_gobierno == 2">
               <ion-label color="tertiary" position="floating">Número de empleado</ion-label>
               <ion-input [(ngModel)]="registroDatos.numEmpleado" minlength="5" maxlength="5" type="tel"></ion-input>
             </ion-item>
+            <br>
 
             <ion-item counter="true" style="border: solid black 0px;">
               <ion-label color="tertiary" position="floating">RFC (Incluida en la homoclave)</ion-label>
               <ion-input [(ngModel)]="registroDatos.rfc" minlength="13" maxlength="13" type="text" oninput="this.value = this.value.toUpperCase()"></ion-input>
             </ion-item>
+            <br>
             
             <ion-item counter="true" style="border: solid black 0px;">
               <ion-label color="tertiary" position="floating">CURP</ion-label>

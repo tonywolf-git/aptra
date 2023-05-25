@@ -18,7 +18,7 @@
               <ion-row>
                 <ion-col>
                   <ion-item>
-                    <ion-input [(ngModel)]="registroDatos.correo_seudo" type="email" placeholder="Usuario..." helperText="Introduce tu correo electrónico"></ion-input>
+                    <ion-input [(ngModel)]="registroDatos.correo_seudo" type="email" placeholder="Usuario..." helperText="Introduce tu correo electrónico" (ionBlur)="usuarioChanged($event)"></ion-input>
                   </ion-item>
                 </ion-col>
                 <ion-col>
@@ -49,13 +49,21 @@
             </ion-item> -->
 
             <ion-item style="border: solid black 0px;">
-              <ion-label color="tertiary" position="floating">Contraseña</ion-label>
-              <ion-input [(ngModel)]="registroDatos.pass" type="password"></ion-input>
+              <ion-input [(ngModel)]="registroDatos.pass" [clearOnEdit]="false" placeholder="Contraseña" type="{{ passType }}"></ion-input>
+              <ion-button (click)="passwordType('normal')" fill="clear">
+                <ion-icon color="tertiary" *ngIf="passType == 'text'" slot="icon-only" name="eye-off-outline"></ion-icon>
+                <ion-icon color="tertiary" *ngIf="passType == 'password'" slot="icon-only" name="eye-outline"></ion-icon>
+              </ion-button>
             </ion-item>
+
             <br>
+
             <ion-item style="border: solid black 0px;">
-              <ion-label color="tertiary" position="floating">Repetir Contraseña</ion-label>
-              <ion-input [(ngModel)]="registroDatos.passConfirma" type="password" enterkeyhint="go" (keypress)="keyPress($event, $event)"></ion-input>
+              <ion-input [(ngModel)]="registroDatos.passConfirma" enterkeyhint="go" (keypress)="keyPress($event, $event)" [clearOnEdit]="false" placeholder="Repetir Contraseña" type="{{ passTypeRepeat }}"></ion-input>
+              <ion-button (click)="passwordType('normal')" fill="clear">
+                <ion-icon color="tertiary" *ngIf="passType == 'text'" slot="icon-only" name="eye-off-outline"></ion-icon>
+                <ion-icon color="tertiary" *ngIf="passType == 'password'" slot="icon-only" name="eye-outline"></ion-icon>
+              </ion-button>
             </ion-item>
 
         </div>

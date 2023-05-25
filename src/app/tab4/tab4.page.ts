@@ -164,7 +164,7 @@ export class Tab4Page implements OnInit {
   }
 
   async func_descargaPDF() {
-    console.log(this.mainService.url_LOGIN_qr)
+    // console.log(this.mainService.url_LOGIN_qr)
     window.open("https://sitam.tamaulipas.gob.mx/registroaptraempleado/pdfempleado?" + this.mainService.url_LOGIN_qr, '_blank')
   }
 }

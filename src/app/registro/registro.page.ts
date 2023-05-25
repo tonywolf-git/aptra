@@ -20,6 +20,9 @@ export class RegistroPage implements OnInit {
   step_name = 'Siguiente'
   swiperCtrl: any;
 
+  passType = 'password';
+  passTypeRepeat = 'password'
+
   opcion_codigo = 'c';
 
   registroDatos = {
@@ -353,6 +356,20 @@ export class RegistroPage implements OnInit {
     }
   }
 
+  async usuarioChanged(event: any) {
+    if (this.registroDatos.correo_seudo.indexOf("@") > -1) {
+      // console.log('hola?', this.registroDatos.correo_seudo)
+
+      this.registroDatos.correo_seudo = this.registroDatos.correo_seudo.substring(0, this.registroDatos.correo_seudo.indexOf("@"));
+      const alert = await this.alertCtrl.create({
+        header: 'Alerta',
+        message: 'No debes introducir el dominio ("@tamaulipas.gob.mx", por ejemplo) en este campo, utiliza el siguiente campo de selección. <br><br> :)',
+        buttons: ['OK'],
+      });
+      await alert.present();
+    }
+  }
+
   func_prevSlide() {
     // console.log(this.step_registro);
     this.swiperCtrl.slidePrev();
@@ -374,6 +391,24 @@ export class RegistroPage implements OnInit {
     if (input['key'] == 'Enter') {
       event.stopPropagation();
       this.func_doRegistro();
+    }
+  }
+
+  passwordType(type: any) {
+    if (type == 'normal') {
+      if (this.passType == "password") {
+        this.passType = "text";
+        this.passTypeRepeat = "text";
+      } else {
+        this.passType = "password";
+        this.passTypeRepeat = "password";
+      }
+    } else {
+      if (this.passTypeRepeat == "password") {
+        this.passTypeRepeat = "text";
+      } else {
+        this.passTypeRepeat = "password";
+      }
     }
   }
 }

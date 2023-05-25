@@ -1,6 +1,12 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="end">
+      <ion-button (click)="func_showQR();">
+        <ion-icon slot="icon-only" ios="qr-code-outline" md="qr-code-outline"></ion-icon>
+      </ion-button>
+      <ion-button (click)="credencialClick();">
+        <ion-icon slot="icon-only" ios="sync-outline" md="sync-outline"></ion-icon>
+      </ion-button>
       <ion-menu-button auto-hide="false"></ion-menu-button>
     </ion-buttons>
     <ion-title>Mi Credencial</ion-title>
@@ -11,7 +17,7 @@
   <!-- <app-explore-container name="Tab 4 page"></app-explore-container> -->
 
   <div style="width: 100%; margin: auto; text-align: center; margin-top: 25px;">
-    <ion-button color="gobred" style="width: 90%; margin: auto; text-align: center;" (click)="func_descargaPDF()">Descargar Constancia</ion-button>
+    <ion-button color="gobred" class="ion-text-wrap" style="width: 90%; margin: auto; text-align: center;" (click)="func_descargaPDF()">Descargar Constancia</ion-button>
   </div>
 
   <div class="flip-card" style="margin-bottom: 20px;">
@@ -27,7 +33,7 @@
         <ion-grid class="front-pic-number-div" [ngClass]="{'watermarked': flipped === false}" attr.data-watermark="{{ elCURP }}">
           <ion-row class="no-padding" style="height: 100%; width: 100%; margin:0px !important; padding:0px !important;">
             <ion-col class="front-pic-number-col1" style="padding: 0px !important;">
-              <div style="height: 100%; background-color: cyan;">
+              <div style="height: 100%;">
                 <img style="float: right; height: 100%" src="{{ laFoto }}" alt="">
                 <!-- <img style="float: right; max-width: 70%;" src="{{ laFoto }}" alt=""> -->
                 <img *ngIf="laFoto == ''" style="float: right; height: 100%;" src="../../assets/placeholder/profile_placehold.jpeg" alt="">
@@ -36,8 +42,10 @@
             </ion-col>
             <ion-col class="front-pic-number-col2" style="padding: 0px !important;">
               <div class="front-div-empleado">
-                <h1 style="font-weight: bolder;">{{ elNumEmpleado }}</h1>
-                <h6>NÚMERO DE EMPLEADO</h6>
+                <p style="font-size: clamp(3vw, 6vw, 30px); padding: 0px; margin: 0px; margin-bottom: 5px; font-weight: bolder;">{{ elNumEmpleado }}</p>
+                <p style="font-size: clamp(1vw, 4vw, 22px); padding: 0px; margin: 0px;">NÚMERO DE EMPLEADO</p>
+                <!-- <h1>{{ elNumEmpleado }}</h1>
+                <h6>NÚMERO DE EMPLEADO</h6> -->
               </div>
             </ion-col>
           </ion-row>
@@ -46,24 +54,33 @@
         <!-- <div class="front-info-container"> -->
         <div class="front-info-container" [ngClass]="{'watermarked': flipped === false}" attr.data-watermark="{{ elCURP }}">
           <div class="front-div-info">
-            <span class="this-but-bold info-titulo">NOMBRE</span><br>
+            <p class="this-but-bold info-titulo">NOMBRE</p>
+            <p *ngIf="elNombre == ''" class="info-titulo-text this-but-bold">CARGANDO...</p>
+            <p class="info-titulo-text this-but-bold">{{ elNombre | uppercase }}</p>
+            <!-- <span class="this-but-bold info-titulo">NOMBRE</span><br>
             <span *ngIf="elNombre == ''" class="info-titulo-text this-but-bold">CARGANDO...</span>
+            <span class="info-titulo-text this-but-bold">{{ elNombre | uppercase }}</span> -->
             <!-- <span *ngIf="elNombre == ''" class="info-titulo-text this-but-bold">DON DOGGO HUESONSON PEREZ</span> -->
-            <span class="info-titulo-text this-but-bold">{{ elNombre | uppercase }}</span>
             <!-- <span class="info-titulo-text this-but-bold">NARAHIM CIJAHU EMMANUELLE CIRILO RODRIGUEZ MARTINEZ</span> -->
           </div>
           <div class="front-div-info">
-            <span class="this-but-bold info-titulo">DEPENDENCIA</span><br>
+            <p class="this-but-bold info-titulo">DEPENDENCIA</p>
+            <p *ngIf="laDependencia == ''" class="info-titulo-text this-but-bold">CARGANDO...</p>
+            <p class="info-titulo-text this-but-bold">{{ laDependencia | uppercase }}</p>
+            <!-- <span class="this-but-bold info-titulo">DEPENDENCIA</span><br>
             <span *ngIf="laDependencia == ''" class="info-titulo-text this-but-bold">CARGANDO...</span>
+            <span class="info-titulo-text this-but-bold">{{ laDependencia | uppercase }}</span> -->
             <!-- <span *ngIf="laDependencia == ''" class="info-titulo-text this-but-bold">SECRETARÍA DE ADMINISTRACIÓN (DE HUESOS)</span> -->
-            <span class="info-titulo-text this-but-bold">{{ laDependencia | uppercase }}</span>
             <!-- <span class="info-titulo-text this-but-bold">SECRETARÍA EJECUTIVA DEL SISTEMA ESTATAL ANTICORRUPCIÓN TAMAULIPAS</span> -->
           </div>
           <div class="front-div-info">
-            <span class="this-but-bold info-titulo">PUESTO</span><br>
+            <p class="this-but-bold info-titulo">PUESTO</p>
+            <p *ngIf="elPuesto == ''" class="info-titulo-text this-but-bold">CARGANDO...</p>
+            <p class="info-titulo-text this-but-bold">{{ elPuesto | uppercase }}</p>
+            <!-- <span class="this-but-bold info-titulo">PUESTO</span><br>
             <span *ngIf="elPuesto == ''" class="info-titulo-text this-but-bold">CARGANDO...</span>
+            <span class="info-titulo-text this-but-bold">{{ elPuesto | uppercase }}</span> -->
             <!-- <span *ngIf="elPuesto == ''" class="info-titulo-text this-but-bold">DESC. PUESTO</span> -->
-            <span class="info-titulo-text this-but-bold">{{ elPuesto | uppercase }}</span>
             <!-- <span class="info-titulo-text this-but-bold">JEFE DE UNIDAD DE EJECUCION DE MEDIDAS DE TRATAMIENTO EN INTERNAMIENTO</span> -->
           </div>
         </div>
@@ -76,24 +93,35 @@
             <ion-col size="7" style="display: flex; align-items: center;">
               <div class="back-info-container" (click)="credencialClick();">
                 <div class="back-div-info">
-                  <span class="this-but-bold back-info-titulo">CURP</span><br>
+                  <p class="this-but-bold back-info-titulo">CURP</p>
+                  <p *ngIf="elNombre == ''" class="back-info-titulo-text this-but-bold">CARGANDO CURP...</p>
+                  <p class="back-info-titulo-text this-but-bold">{{ elCURP | uppercase }}</p>
+                  <!-- <span class="this-but-bold back-info-titulo">CURP</span><br>
                   <span *ngIf="elNombre == ''" class="back-info-titulo-text this-but-bold">CARGANDO CURP...</span>
-                  <span class="back-info-titulo-text this-but-bold">{{ elCURP | uppercase }}</span>
+                  <span class="back-info-titulo-text this-but-bold">{{ elCURP | uppercase }}</span> -->
                 </div>
                 <div class="back-div-info">
-                  <span class="this-but-bold back-info-titulo">ALERGIAS</span><br>
+                  <p class="this-but-bold back-info-titulo">ALERGIAS</p>
+                  <p *ngIf="elAlergia == ''" class="back-info-titulo-text this-but-bold">CARGANDO...</p>
+                  <p *ngIf="elAlergia != null" class="back-info-titulo-text this-but-bold">{{ elAlergia | uppercase }}</p>
+                  <p *ngIf="elAlergia == null" class="back-info-titulo-text this-but-bold">NINGUNA</p>
+                  <!-- <span class="this-but-bold back-info-titulo">ALERGIAS</span><br>
                   <span *ngIf="elAlergia == ''" class="back-info-titulo-text this-but-bold">CARGANDO...</span>
                   <span *ngIf="elAlergia != null" class="back-info-titulo-text this-but-bold">{{ elAlergia | uppercase }}</span>
-                  <span *ngIf="elAlergia == null" class="back-info-titulo-text this-but-bold">NINGUNA</span>
+                  <span *ngIf="elAlergia == null" class="back-info-titulo-text this-but-bold">NINGUNA</span> -->
                   <!-- <span class="back-info-titulo-text this-but-bold">ASPIRINA (DATO PENDIENTE, SIN API)</span> -->
                   <!-- <span *ngIf="laDependencia == ''" class="back-info-titulo-text this-but-bold">ASPIRINA (DATO PENDIENTE, SIN API)</span> -->
                   <!-- <span class="back-info-titulo-text this-but-bold">{{ laDependencia }}</span> -->
                 </div>
                 <div class="back-div-info">
-                  <span class="this-but-bold back-info-titulo">TIPO DE SANGRE</span><br>
+                  <p class="this-but-bold back-info-titulo">TIPO DE SANGRE</p>
+                  <p *ngIf="elTipoSangre == ''" class="back-info-titulo-text this-but-bold">CARGANDO...</p>
+                  <p *ngIf="elTipoSangre != null" class="back-info-titulo-text this-but-bold">{{ elTipoSangre | uppercase }}</p>
+                  <p *ngIf="elTipoSangre == null" class="back-info-titulo-text this-but-bold">NO DISPONIBLE</p>
+                  <!-- <span class="this-but-bold back-info-titulo">TIPO DE SANGRE</span><br>
                   <span *ngIf="elTipoSangre == ''" class="back-info-titulo-text this-but-bold">CARGANDO...</span>
                   <span *ngIf="elTipoSangre != null" class="back-info-titulo-text this-but-bold">{{ elTipoSangre | uppercase }}</span>
-                  <span *ngIf="elTipoSangre == null" class="back-info-titulo-text this-but-bold">NO DISPONIBLE</span>
+                  <span *ngIf="elTipoSangre == null" class="back-info-titulo-text this-but-bold">NO DISPONIBLE</span> -->
                   <!-- <span class="back-info-titulo-text this-but-bold">AB+ (DATO PENDIENTE, SIN API)</span> -->
                   <!-- <span *ngIf="elPuesto == ''" class="back-info-titulo-text this-but-bold">AB+ (DATO PENDIENTE, SIN API)</span> -->
                   <!-- <span class="back-info-titulo-text this-but-bold">{{ elPuesto }}</span> -->
@@ -129,7 +157,8 @@
                 </div> -->
               </ion-col>
               <ion-col class="back-qr-vigencia-container">
-                <h6 style="color: rgb(45, 45, 45);">VIGENCIA<br>31/12/2028</h6>
+                <p class="back-qr-vigencia-text">VIGENCIA<br>31/12/2028</p>
+                <!-- <h6 style="color: rgb(45, 45, 45);">VIGENCIA<br>31/12/2028</h6> -->
               </ion-col>
             </ion-row>
           </ion-grid>          

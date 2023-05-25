@@ -131,7 +131,7 @@
   }
 
   .front-div-info {
-    margin-bottom: 10px;
+    // margin-bottom: 10px;
   }
 
    /* Style the back side */
@@ -156,18 +156,25 @@
   }
 
   .back-div-info {
-    margin-bottom: 5px;
+    margin-bottom: 0px;
   }
 
   .back-info-titulo {
+    margin: 0px;
+    padding: 0px;
     color: #A1193E;
-    font-size: 0.8em;
+    // font-size: 0.8em;
+    font-size: clamp(1vw, 3vw, 16px);
     // margin-bottom: 5px;
   }
 
   .back-info-titulo-text {
+    margin: 0px;
+    padding: 0px;
     color: #53555B;
-    font-size: 0.7em;
+    // font-size: 0.7em;
+    font-size: clamp(1vw, 3vw, 16px);
+    margin-bottom: 0.6vh;
   }
   
   .back-firma-container {
@@ -198,6 +205,13 @@
     padding: 0px !important;
   }
 
+  .back-qr-vigencia-text {
+    margin: 0px !important;
+    padding: 0px !important;
+    color: rgb(45, 45, 45);
+    font-size: clamp(2vw, 4vw, 20px);
+  }
+
   .back-qr-vigencia-container h6 {
     margin: 0px !important;
     padding: 0px !important;
@@ -214,15 +228,19 @@
 
   .info-titulo {
     color: #BC936C;
-    font-size: 14px;
-    // font-size: 2vw;
-    margin-bottom: 5px;
+    // font-size: 14px;
+    font-size: clamp(1vw, 3vw, 16px);
+    margin:0px;
+    padding:0px;
   }
 
   .info-titulo-text {
     color: white;
-    font-size: 12px;
-    // font-size: 2.5vw;
+    // font-size: 12px;
+    font-size: clamp(1vw, 3vw, 16px);
+    margin:0px;
+    padding:0px;
+    margin-bottom: 1vh;
   }
 
   /// MODAL STUFF INI ///

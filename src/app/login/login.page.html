@@ -15,9 +15,20 @@
       </ion-item>
 
       <ion-item style="border: solid black 0px;">
-        <ion-label color="tertiary" position="floating">Contraseña</ion-label>
-        <ion-input [(ngModel)]="loginData.password" (keypress)="keyPress($event, $event)" type="password"></ion-input>
+        <ion-input [(ngModel)]="loginData.password" (keypress)="keyPress($event, $event)" type="{{ passType }}" [clearOnEdit]="false" placeholder="Contraseña"></ion-input>
+        <ion-button (click)="passwordType()" fill="clear">
+          <ion-icon color="tertiary" *ngIf="passType == 'text'" slot="icon-only" name="eye-off-outline"></ion-icon>
+          <ion-icon color="tertiary" *ngIf="passType == 'password'" slot="icon-only" name="eye-outline"></ion-icon>
+        </ion-button>
       </ion-item>
+
+      <!-- <ion-item>
+        <ion-input type="{{ passType }}" [clearOnEdit]="false" placeholder="Password"></ion-input>
+        <ion-button (click)="passwordType()" fill="clear">
+          <ion-icon *ngIf="passType == 'text'" slot="icon-only" name="eye-off-outline"></ion-icon>
+          <ion-icon *ngIf="passType == 'password'" slot="icon-only" name="eye-outline"></ion-icon>
+        </ion-button>
+     </ion-item> -->
 
       <span class="main_content_space_20"></span>
       <!-- <ion-button id="open-modal" style="display: flex; text-transform: none !important; margin: auto; font-size: 12px;" color="gobred" fill="clear">Olvidé mi contraseña</ion-button> -->

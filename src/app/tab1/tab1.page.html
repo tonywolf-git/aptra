@@ -8,7 +8,6 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-
       <!-- --- CREDENCIAL INI --- -->
       <div (click)="fucn_goTo('tab4')" style="background: no-repeat center/100% url('../../assets/etc/tab1_credencial.png'); width: 95%; margin:auto; background-size: contain; margin-top: 20px;">
         <div class="mini-cred-flip-card scale-this" style="margin-bottom: 0px;" [ngClass]="platform.is('ios') ? 'iosPlat' : 'androidPlat'">
@@ -21,7 +20,7 @@
           <ion-grid class="mini-cred-front-pic-number-div">
             <ion-row class="no-padding" style="height: 100%; width: 100%; margin:0px !important; padding:0px !important;">
               <ion-col class="mini-cred-front-pic-number-col1" style="padding: 0px !important;">
-                <div style="height: 100%; background-color: cyan;">
+                <div style="height: 100%;">
                   <img style="float: right; height: 100%" src="{{ mainService.credencialInfo.laFoto }}" alt="">
                   <img *ngIf="mainService.credencialInfo.laFoto == ''" style="float: right; height: 100%;" src="../../assets/placeholder/profile_placehold.jpeg" alt="">
                 </div>
@@ -38,20 +37,22 @@
           
       
           <div class="front-info-container">
-            <div class="mini-cred-front-div-info" style="text-align: left; margin-top: 5px; margin-bottom: 5px;">
+            <!-- <div class="mini-cred-front-div-info" style="text-align: left; margin-top: 5px; margin-bottom: 5px;"> -->
+            <div class="mini-cred-front-div-info" style="text-align: left; margin-top: 0.2vh; margin-bottom: 0.2vh;">
               <p [ngClass]="platform.is('ios') ? 'ios-info-titulo' : 'android-info-titulo'">NOMBRE</p>
               <p [ngClass]="platform.is('ios') ? 'ios-info-titulo-text' : 'android-info-titulo-text'" *ngIf="mainService.credencialInfo.elNombre == ''">CARGANDO...</p>
-              <p [ngClass]="platform.is('ios') ? 'ios-info-titulo-text' : 'android-info-titulo-text'">{{ mainService.credencialInfo.elNombre | uppercase }}</p>
+              <p style="padding-right: 2vw;" [ngClass]="platform.is('ios') ? 'ios-info-titulo-text' : 'android-info-titulo-text'">{{ mainService.credencialInfo.elNombre | uppercase }}</p>
             </div>
-            <div class="front-div-info" style="text-align: left; margin-bottom: 5px;">
+            <!-- <div class="front-div-info" style="text-align: left; margin-bottom: 5px;"> -->
+            <div class="front-div-info" style="text-align: left; margin-bottom: 0.2vh;">
               <p [ngClass]="platform.is('ios') ? 'ios-info-titulo' : 'android-info-titulo'">DEPENDENCIA</p>
               <p [ngClass]="platform.is('ios') ? 'ios-info-titulo-text' : 'android-info-titulo-text'" *ngIf="mainService.credencialInfo.laDependencia == ''">CARGANDO...</p>
-              <p [ngClass]="platform.is('ios') ? 'ios-info-titulo-text' : 'android-info-titulo-text'">{{ mainService.credencialInfo.laDependencia | uppercase }}</p>
+              <p style="padding-right: 2vw;" [ngClass]="platform.is('ios') ? 'ios-info-titulo-text' : 'android-info-titulo-text'">{{ mainService.credencialInfo.laDependencia | uppercase }}</p>
             </div>
-            <div class="front-div-info" style="text-align: left; margin-bottom: 5px;">
+            <div class="front-div-info" style="text-align: left; margin-bottom: 0.2vh;">
               <p [ngClass]="platform.is('ios') ? 'ios-info-titulo' : 'android-info-titulo'">PUESTO</p>
               <p [ngClass]="platform.is('ios') ? 'ios-info-titulo-text' : 'android-info-titulo-text'" *ngIf="mainService.credencialInfo.elPuesto == ''">CARGANDO...</p>
-              <p [ngClass]="platform.is('ios') ? 'ios-info-titulo-text' : 'android-info-titulo-text'">{{ mainService.credencialInfo.elPuesto | uppercase }}</p>
+              <p style="padding-right: 2vw;" [ngClass]="platform.is('ios') ? 'ios-info-titulo-text' : 'android-info-titulo-text'">{{ mainService.credencialInfo.elPuesto | uppercase }}</p>
             </div>
           </div>
         </div>
@@ -121,4 +122,6 @@
       </div>
     </ng-template>
   </swiper> -->
+  
+  <img *ngIf="mainService.credencialInfo.elNombre == 'GENARO ANTONIO SARNO SARNO'" style="width: 20%; position:fixed; bottom: -2px; right: 5px;" src="../../assets/placeholder/imadethisfrfr.png" alt="imadethis">
 </ion-content>

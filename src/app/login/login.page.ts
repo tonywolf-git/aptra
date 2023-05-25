@@ -27,6 +27,8 @@ export class LoginPage implements OnInit {
     password: ''
   }
 
+  passType = "password";
+
   constructor(public mainService: MainService,
     public menuCtrl: MenuController,
     public modalCtrl: ModalController,
@@ -259,6 +261,14 @@ export class LoginPage implements OnInit {
     if (input['key'] == 'Enter') {
       event.stopPropagation();
       this.func_doLogin();
+    }
+  }
+
+  passwordType() {
+    if (this.passType == "password") {
+      this.passType = "text";
+    } else {
+      this.passType = "password";
     }
   }
 }

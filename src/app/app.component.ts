@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MenuController, ModalController, NavController } from '@ionic/angular';
+import { AlertController, MenuController, ModalController, NavController } from '@ionic/angular';
 import { LoginPage } from './login/login.page';
 import { PerfilPage } from './perfil/perfil.page';
 import { RegistroPage } from './registro/registro.page';
@@ -37,7 +37,8 @@ export class AppComponent {
     public menuCtrl: MenuController,
     public routerCtrl: Router,
     public toasteCtrl: ToastController,
-    public platformCtrl: Platform) {}
+    public platformCtrl: Platform,
+    public alertCtrl: AlertController) {}
 
   profilePic = 'none';
 
@@ -139,7 +140,30 @@ export class AppComponent {
   }
 
   async func_logOut() {
-    this.mainService.func_doLogOut();
+    const alert = await this.alertCtrl.create({
+      header: 'Cerrar Sesión',
+      message: '¿Quieres cerrar esta sesión?',
+      buttons: [
+        {
+          text: 'No',
+          role: 'cancel',
+          handler: async (input) => {
+            console.log('Acción cancelada.')
+          }
+        },
+        {
+          text: 'Si',
+          role: 'ok',
+          handler: async (input) => {
+            this.mainService.func_doLogOut();
+          }
+        },
+      ],
+    });
+
+    this.menuCtrl.close().then(async succ => {
+      await alert.present();
+    });
   }
 
   async func_openHome() {

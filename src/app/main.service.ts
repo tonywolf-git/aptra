@@ -21,8 +21,8 @@ export class MainService {
     public toasteCtrl: ToastController) { }
 
   appVersion = {
-    ios: 20,
-    android: 20
+    ios: 22,
+    android: 22
   };
 
   serverVersion = {
@@ -275,7 +275,7 @@ export class MainService {
         FCM.subscribeTo({ topic: "laroca" })
         .then((r) => {
           // console.log('YA ERES PARTE DE TEST');
-        }).catch((err) => alert(err));
+        }).catch((err) => console.log(err));
         return data;
       })
       // --- SUSCRIBIRSE AL TOPICO GENERAL END ---
@@ -455,7 +455,7 @@ export class MainService {
       FCM.unsubscribeFrom({ topic: "laroca" })
       .then((r) => {
         // console.log('YA NO ERES PARTE DE TEST');
-      }).catch((err) => alert(err));
+      }).catch((err) => console.log(err));
     });
   }
 

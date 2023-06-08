@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { ModalController, ToastController } from '@ionic/angular';
 import { MainService } from '../main.service';
 import QRCode from 'easyqrcodejs';
 import { AfterViewInit, ElementRef, ViewChild } from '@angular/core';
@@ -19,7 +19,8 @@ export class Tab4Page implements OnInit {
 
   constructor(public mainService: MainService,
     public modalCtrl: ModalController,
-    public platformCtrl: Platform) { }
+    public platformCtrl: Platform,
+    public tosteCtrl: ToastController) { }
 
   info: any;
   laFoto = '';
@@ -32,6 +33,7 @@ export class Tab4Page implements OnInit {
   elTipoSangre = '';
   flipped = false;
   water_this_mark = false;
+  credencial_interactiva_toggle = true;
 
   async ngOnInit() {
     this.laFoto = this.mainService.credencialInfo.laFoto;
@@ -98,7 +100,7 @@ export class Tab4Page implements OnInit {
       });
     }
 
-    this.water_this_mark =true;
+    this.water_this_mark = true;
   }
 
   ionViewDidLeave() {
@@ -167,8 +169,63 @@ export class Tab4Page implements OnInit {
     // console.log(this.mainService.url_LOGIN_qr)
     window.open("https://sitam.tamaulipas.gob.mx/registroaptraempleado/pdfempleado?" + this.mainService.url_LOGIN_qr, '_blank')
   }
-}
 
+  async func_credencial_interactiva_toggle() {
+    if (this.credencial_interactiva_toggle == true) {
+      this.func_show_toste('Credencial Interactiva desactivada!');
+      this.credencial_interactiva_toggle = false;
+      if (this.flipped == true) {
+        this.credencialClick();
+        this.func_force_watermarks();
+      } else {
+        this.func_force_watermarks();
+      }
+    } else {
+      this.func_show_toste('Credencial Interactiva activada!');
+      this.credencial_interactiva_toggle = true;
+      this.func_force_watermarks();
+    }
+  }
+
+  async func_force_watermarks() {
+    setTimeout(succ => {
+      document.querySelectorAll('.watermarked').forEach(el => {
+        if (el instanceof HTMLElement) {
+          el.dataset["watermark"] = (el.dataset["watermark"] + ' ').repeat(300);
+        }
+      });
+      let _elstring = this.mainService.url_LOGIN_qr;
+        
+      let _elStringURL = 'https://sitam.tamaulipas.gob.mx/registroaptraempleado/qr?' + _elstring;
+      var options = {
+       text: _elStringURL,
+       height: 50,
+       width: 50
+     }
+ 
+     new QRCode(this.qrcode.nativeElement, options);
+ 
+     document.querySelector('canvas')!.style.width = "auto";
+     document.querySelector('canvas')!.style.height = "95%";
+     document.querySelector('canvas')!.style.verticalAlign = "middle";
+    }, 1);
+  }
+
+  async func_show_toste(msg: string) {
+    const toast = await this.tosteCtrl.create({
+      message: msg,
+      buttons: [
+        {
+          text: 'OK',
+          role: 'cancel',
+        }
+      ],
+      duration: 5000,
+      position: 'top'
+    });
+    await toast.present();
+  }
+}
 
   // component: any;
   // componentProps?: { [key: string]: any };

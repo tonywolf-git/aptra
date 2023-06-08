@@ -30,11 +30,12 @@
                       <ion-select-option value="@hotmail.com">@hotmail.com</ion-select-option>
                     </ion-select> -->
 
-                    <ion-select color="tertiary" aria-label="entidad" interface="popover" placeholder="@..." [(ngModel)]="registroDatos.correo_select">
+                    <ion-select color="tertiary" aria-label="entidad" interface="popover" placeholder="@..." [(ngModel)]="registroDatos.correo_select" (ionChange)="select_correo_otro()">
                       <ion-select-option value="@tamaulipas.gob.mx">@tamaulipas.gob.mx</ion-select-option>
                       <ion-select-option value="@gmail.com">@gmail.com</ion-select-option>
                       <ion-select-option value="@outlook.com">@outlook.com</ion-select-option>
                       <ion-select-option value="@hotmail.com">@hotmail.com</ion-select-option>
+                      <ion-select-option value="otro">Otro...</ion-select-option>
                     </ion-select>
                   </ion-item>
                 </ion-col>

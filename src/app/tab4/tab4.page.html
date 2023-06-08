@@ -1,11 +1,17 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="end">
+      <ion-button *ngIf="credencial_interactiva_toggle == true;" (click)="credencialClick();">
+        <ion-icon slot="icon-only" ios="sync-outline" md="sync-outline"></ion-icon>
+      </ion-button>
+      
       <ion-button (click)="func_showQR();">
         <ion-icon slot="icon-only" ios="qr-code-outline" md="qr-code-outline"></ion-icon>
       </ion-button>
-      <ion-button (click)="credencialClick();">
-        <ion-icon slot="icon-only" ios="sync-outline" md="sync-outline"></ion-icon>
+      
+      <ion-button (click)="func_credencial_interactiva_toggle();">
+        <ion-icon *ngIf="credencial_interactiva_toggle == true;" slot="icon-only" ios="power-outline" md="power-outline"></ion-icon>
+        <ion-icon *ngIf="credencial_interactiva_toggle == false;" slot="icon-only" ios="radio-button-off-outline" md="radio-button-off-outline"></ion-icon>
       </ion-button>
       <ion-menu-button auto-hide="false"></ion-menu-button>
     </ion-buttons>
@@ -20,7 +26,7 @@
     <ion-button color="gobred" class="ion-text-wrap" style="width: 90%; margin: auto; text-align: center;" (click)="func_descargaPDF()">Descargar Constancia</ion-button>
   </div>
 
-  <div class="flip-card" style="margin-bottom: 20px;">
+  <div *ngIf="credencial_interactiva_toggle == true;" class="flip-card" style="margin-bottom: 20px;">
     <div class="flip-card-inner" id="credencial">
       <div class="flip-card-front" (click)="credencialClick();">
 
@@ -187,6 +193,123 @@
       </ion-content>
     </ng-template>
   </ion-modal> -->
+
+
+  <!-- CLON DE LA CREDENCIAL -- INI -- -->
+
+  <div *ngIf="credencial_interactiva_toggle == false;" class="clone-flip-card" style="margin-bottom: 20px;">
+    <div class="clone-flip-card-inner" id="credencial">
+      <div class="clone-flip-card-front">
+        <div class="front-logo-div" [ngClass]="{'watermarked': flipped === false}" attr.data-watermark="{{ elCURP }}">
+          <img src="../../assets/credencial/front-logo.png" style="height: 80%; margin: auto;" alt="">
+        </div>
+
+        <ion-grid class="front-pic-number-div" [ngClass]="{'watermarked': flipped === false}" attr.data-watermark="{{ elCURP }}">
+          <ion-row class="no-padding" style="height: 100%; width: 100%; margin:0px !important; padding:0px !important;">
+            <ion-col class="front-pic-number-col1" style="padding: 0px !important;">
+              <div style="height: 100%;">
+                <img style="float: right; height: 100%" src="{{ laFoto }}" alt="">
+                <img *ngIf="laFoto == ''" style="float: right; height: 100%;" src="../../assets/placeholder/profile_placehold.jpeg" alt="">
+              </div>
+            </ion-col>
+            <ion-col class="front-pic-number-col2" style="padding: 0px !important;">
+              <div class="front-div-empleado">
+                <p style="font-size: clamp(3vw, 6vw, 30px); padding: 0px; margin: 0px; margin-bottom: 5px; font-weight: bolder;">{{ elNumEmpleado }}</p>
+                <p style="font-size: clamp(1vw, 4vw, 22px); padding: 0px; margin: 0px;">NÚMERO DE EMPLEADO</p>
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+        <div class="front-info-container" [ngClass]="{'watermarked': flipped === false}" attr.data-watermark="{{ elCURP }}">
+          <div class="front-div-info">
+            <p class="this-but-bold info-titulo">NOMBRE</p>
+            <p *ngIf="elNombre == ''" class="info-titulo-text this-but-bold">CARGANDO...</p>
+            <p class="info-titulo-text this-but-bold">{{ elNombre | uppercase }}</p>
+          </div>
+          <div class="front-div-info">
+            <p class="this-but-bold info-titulo">DEPENDENCIA</p>
+            <p *ngIf="laDependencia == ''" class="info-titulo-text this-but-bold">CARGANDO...</p>
+            <p class="info-titulo-text this-but-bold">{{ laDependencia | uppercase }}</p>
+          </div>
+          <div class="front-div-info">
+            <p class="this-but-bold info-titulo">PUESTO</p>
+            <p *ngIf="elPuesto == ''" class="info-titulo-text this-but-bold">CARGANDO...</p>
+            <p class="info-titulo-text this-but-bold">{{ elPuesto | uppercase }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="credencial_interactiva_toggle == false;" class="clone-flip-card" style="margin-bottom: 20px;">
+    <div class="clone-flip-card-inner" id="credencial">
+      <div class="clone-flip-card-back watermarked" attr.data-watermark="{{ elCURP }}">
+        <ion-grid>
+          <ion-row style="margin-top: 10px;">
+            <ion-col size="7" style="display: flex; align-items: center;">
+              <div class="back-info-container">
+                <div class="back-div-info">
+                  <p class="this-but-bold back-info-titulo">CURP</p>
+                  <p *ngIf="elNombre == ''" class="back-info-titulo-text this-but-bold">CARGANDO CURP...</p>
+                  <p class="back-info-titulo-text this-but-bold">{{ elCURP | uppercase }}</p>
+                </div>
+                <div class="back-div-info">
+                  <p class="this-but-bold back-info-titulo">ALERGIAS</p>
+                  <p *ngIf="elAlergia == ''" class="back-info-titulo-text this-but-bold">CARGANDO...</p>
+                  <p *ngIf="elAlergia != null" class="back-info-titulo-text this-but-bold">{{ elAlergia | uppercase }}</p>
+                  <p *ngIf="elAlergia == null" class="back-info-titulo-text this-but-bold">NINGUNA</p>
+                </div>
+                <div class="back-div-info">
+                  <p class="this-but-bold back-info-titulo">TIPO DE SANGRE</p>
+                  <p *ngIf="elTipoSangre == ''" class="back-info-titulo-text this-but-bold">CARGANDO...</p>
+                  <p *ngIf="elTipoSangre != null" class="back-info-titulo-text this-but-bold">{{ elTipoSangre | uppercase }}</p>
+                  <p *ngIf="elTipoSangre == null" class="back-info-titulo-text this-but-bold">NO DISPONIBLE</p>
+                </div>
+              </div>
+            </ion-col>
+            <ion-col style="display: flex; align-items: center;">
+              <img style="width: 65%; margin: auto;" src="../../assets/credencial/tamaulogo001.png" alt="ESCUDO_TAMAULIPAS_DORADO">
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <div class="back-firma-container">
+                <img style="width: 55%; margin: auto; margin-top: 10px;" src="../../assets/credencial/firma_lavin.png" alt="FIMRA_LAVIN">
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+        <div class="back-qr-container" (click)="func_showQR()">
+          <ion-grid>
+            <ion-row style="height: 100%;">
+              <ion-col style="height: 100%;">
+                <div button class="back-qr">
+                  <div id="qrcode" #qrcode></div>
+                </div>
+              </ion-col>
+              <ion-col class="back-qr-vigencia-container">
+                <p class="back-qr-vigencia-text">VIGENCIA<br>31/12/2028</p>
+              </ion-col>
+            </ion-row>
+          </ion-grid>          
+        </div>
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <div style="height: 20%; display: flex;">
+                <img style="width: 55%; margin: auto; opacity: 0; background-color: teal;" src="../../assets/credencial/firma_lavin.png" alt="FIMRA_LAVIN">
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+    </div>
+  </div>
+  <!-- CLON DE LA CREDENCIAL -- END -- -->
+  
 </ion-content>
 
 <!-- 

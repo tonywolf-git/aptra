@@ -105,7 +105,7 @@ export class Tab1Page {
       // alert(`subscribed to topic`)
       console.log('ERES PARTE DE LA ROCA :)');
     })
-    .catch((err) => alert(err));
+    .catch((err) => console.log(err));
   }
 
   fucn_goTo(where: string) {

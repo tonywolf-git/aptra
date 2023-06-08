@@ -377,6 +377,46 @@ export class RegistroPage implements OnInit {
     this.checkTitle();
   }
 
+  async select_correo_otro() {
+    if (this.registroDatos.correo_select == 'otro') {
+      // this.registroDatos.correo_select = '@yahoo.com'
+      const alert = await this.alertCtrl.create({
+        header: 'Alerta',
+        message: 'Escribe el dominio de correo que deseas agregar.<br><br>Asegurate de no agregar un seudónimo o múltiples "@" en el campo.',
+        inputs: [
+          {
+            placeholder: '@ejemplo.com',
+            type: 'email',
+            attributes: {
+              required: 'true'
+            },
+            value: "@"
+          }
+        ],
+        buttons: [
+          {
+            text: 'OK',
+            handler: async (input) => {
+              let _elInput = input[0];
+              _elInput = _elInput.slice(_elInput.indexOf("@"));
+              this.registroDatos.correo_select = _elInput;
+
+              const toast = await this.toastCtrl.create({
+                message: 'El correo electrónico cambió a: ' + this.registroDatos.correo_seudo + this.registroDatos.correo_select,
+                duration: 5000,
+                position: 'top'
+              });
+      
+              await toast.present();
+            }
+          }
+        ],
+        
+      });
+      await alert.present();
+    }
+  }
+
   // MODAL STUFF INI
   onWillDismiss(event: Event) {
     const ev = event as CustomEvent<OverlayEventDetail<string>>;

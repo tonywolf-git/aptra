@@ -190,8 +190,12 @@ export class RegistroPage implements OnInit {
         case 'MALOSDATOS':
           this.mainService.alertThis('Error', 'Los datos ingresados no concuerdan con el registro, favor de verificarlos.');
           break;
-          
 
+        case 'ISCOP':
+          // this.mainService.alertThis('Error', 'MALDITO.');
+          this.mainService.alertThis('Error', 'Por motivos de seguridad, tu registro no puede ser completado.');
+          break;
+          
         case 'error':
           this.mainService.alertThis('Error', 'Ha ocurrido un error, por favor intente más tarde.');
           break;
@@ -274,8 +278,13 @@ export class RegistroPage implements OnInit {
                 case 'MALOSDATOS':
                   this.mainService.alertThis('Error', 'Los datos ingresados no concuerdan con el registro, favor de verificarlos.');
                   break;
+
+                case 'ISCOP':
+                  this.mainService.alertThis('Error', 'Por motivos de seguridad, tu registro no puede ser completado.');
+                  break;
               
                 case 'error':
+                  // console.log('CAE AQUI')
                   this.mainService.alertThis('Error', 'Ha ocurrido un error, por favor intente más tarde.');
                   break;
               

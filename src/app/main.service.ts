@@ -247,6 +247,47 @@ export class MainService {
     }
   }
 
+  async func_cambiaPass(pass:any) {
+    // console.log('Si funca:', this.credencialInfo.elCURP, pass);
+
+    let _elRes: any;
+    let _theUrl = 'https://sitam.tamaulipas.gob.mx/aptranotificaciones/CambioContrasena?curp=' + this.credencialInfo.elCURP + '&password=' + pass;
+    // let _theUrl = 'https://sitam.tamaulipas.gob.mx/aptranotificaciones/CambioContrasena?curp=VAAH890316HTSRCC09&password=hector89';
+
+    const loading = await this.loadCtrl.create({
+      message: 'Cambiando tu contraseña...',
+    });
+
+    loading.present();
+
+    const options = {
+      url: _theUrl,
+      // data: {
+      //   curp: this.credencialInfo.elCURP,
+      //   password: pass,
+      // },
+      // headers: { 'Content-Type': 'application/json' },
+    };
+    try {
+      _elRes = await Http.post(options).then(response => {
+        // console.log(response["data"])
+        if (response["data"] == 'FUNCIONO') {
+          loading.dismiss();
+          return true
+        } else {
+          loading.dismiss();
+          return false
+        }
+      });
+      loading.dismiss();
+      return _elRes;
+    } catch (error) {
+      loading.dismiss();
+      return false;
+    }
+    
+  }
+
   async func_doLogin(email: any, password: any) {
     let _elRes: any;
     let _theUrl = 'https://sitam.tamaulipas.gob.mx/aptranotificaciones/loginAptra';

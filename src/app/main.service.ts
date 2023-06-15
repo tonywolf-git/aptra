@@ -21,8 +21,8 @@ export class MainService {
     public toasteCtrl: ToastController) { }
 
   appVersion = {
-    ios: 23,
-    android: 23
+    ios: 24,
+    android: 24
   };
 
   serverVersion = {
@@ -162,7 +162,7 @@ export class MainService {
     try {
       // await Http.post(options)
       _elRes = await Http.post(options).then(data => {
-        // console.log(JSON.parse(data.data))
+        console.log(JSON.parse(data.data))
         loading.dismiss();
         return JSON.parse(data.data);
       })

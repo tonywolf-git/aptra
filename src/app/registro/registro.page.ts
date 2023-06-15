@@ -195,6 +195,11 @@ export class RegistroPage implements OnInit {
           // this.mainService.alertThis('Error', 'MALDITO.');
           this.mainService.alertThis('Error', 'Por motivos de seguridad, tu registro no puede ser completado.');
           break;
+
+        case 'DONALUDI':
+          // this.mainService.alertThis('Error', 'MALDITO.');
+          this.mainService.alertThis('Error', 'Tu registro no concuerda con la fecha acordada para tu dependencia.');
+          break;
           
         case 'error':
           this.mainService.alertThis('Error', 'Ha ocurrido un error, por favor intente más tarde.');
@@ -281,6 +286,10 @@ export class RegistroPage implements OnInit {
 
                 case 'ISCOP':
                   this.mainService.alertThis('Error', 'Por motivos de seguridad, tu registro no puede ser completado.');
+                  break;
+
+                case 'DONALUDI':
+                  this.mainService.alertThis('Error', 'Tu registro no concuerda con la fecha acordada para tu dependencia.');
                   break;
               
                 case 'error':

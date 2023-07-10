@@ -49,7 +49,8 @@ export class LoginPage implements OnInit {
     // console.log(_res, typeof _res);
     if (typeof _res == "number") {
       if (_res == 0) {
-        this.mainService.alertThis('Error', 'Datos incorrectos, porfavor intenta de nuevo.')
+        this.mainService.alertThis('¡Oh no!', 'El correo electrónico y/o la contraseña son incorrectos, por favor intenta nuevamente.')
+        // this.mainService.alertThis('¡Oh no!', 'Datos incorrectos, porfavor intenta de nuevo.')
       }
     } else {
       if (_res.includes("NOVERIFICADO_")) {
@@ -103,7 +104,8 @@ export class LoginPage implements OnInit {
         
       } else {
         if (_res == 'error') {
-          this.mainService.alertThis('Error', 'Hubo un error, por favor intenta nuevamente.')
+          console.log(_res);
+          this.mainService.alertThis('Error', 'Hubo un error, por favor intenta nuevamente.');
         } else {
           // console.log('ASUMO QUE EL LOGIN EStÁ BIEN')
           // console.log(_res);
@@ -271,4 +273,12 @@ export class LoginPage implements OnInit {
       this.passType = "password";
     }
   }
+
+  async func_doPruebaGet() {
+    console.log('PRUEbA GET')
+  };
+
+  async func_doPruebaPost() {
+    console.log('PRUEbA POST')
+  };
 }

@@ -195,17 +195,17 @@
       4 - VERIFICACION CODIGO
      -->
 
+    <!-- <ion-button (click)="checkPasoDosWasa();" *ngIf="step_registro == 2" style="display: flex; text-transform: none !important; margin: auto; font-size: 12px; font-weight: bold; margin-bottom: 15px; margin-top: 25px; width: 75vw;" color="gobred">Enviar código por&nbsp;<span style="color: #25D366 !important;">WhatsApp™</span></ion-button> -->
      <ion-grid>
       <ion-row>
         <ion-col *ngIf="step_registro == 1 || step_registro == 2">
-          <ion-button (click)="func_prevSlide();" style="width: 50%; text-transform: none !important; --border-radius: 10px; font-size: 15px;" color="gobred">Regresar</ion-button>
+          <ion-button (click)="func_prevSlide();" style="width: 50%; text-transform: none !important; --border-radius: 10px; font-size: 15px;" color="light">Regresar</ion-button>
         </ion-col>
         <ion-col>
           <ion-button (click)="func_doRegistro();" class="ion-text-wrap" style="width: 50%; text-transform: none !important; --border-radius: 10px; font-size: 15px;" color="gobred">{{ step_name }}</ion-button>
         </ion-col>
       </ion-row>
      </ion-grid>
-    <ion-button (click)="checkPasoDosWasa();" *ngIf="step_registro == 2" style="display: flex; text-transform: none !important; margin: auto; font-size: 12px; font-weight: bold; margin-bottom: 50px;" color="gobred" fill="clear">Enviar código por&nbsp;<span style="color: #25D366 !important;">WhatsApp™</span></ion-button>
     <ion-button (click)="func_goBack();" style="display: flex; text-transform: none !important; margin: auto; font-size: 12px; font-weight: bold; margin-bottom: 50px;" color="gobred" fill="clear">Ya tengo una cuenta</ion-button>
   </div>
 </ion-content>

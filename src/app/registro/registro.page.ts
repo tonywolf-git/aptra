@@ -100,7 +100,8 @@ export class RegistroPage implements OnInit {
 
       case 2:
         // console.log('NUM EMPLEADO | RFC | CURP');
-        this.checkPasoDos();
+        // this.checkPasoDos();
+        this.checkPasoDosWasa();
         break;
 
       case 3:

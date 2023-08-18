@@ -12,32 +12,22 @@
   <div style="display: flex !important;">
     <swiper-container #swiper scrollbar="true" allow-touch-move="false" auto-height="true">
       <swiper-slide style="text-align: center; padding-bottom: 30px;" swiperSlide>
-        <div style="width: 100%; padding: 30px;">
+        <div style="width: 100%; padding: 0px;">
             <p style="color: #A1193E; font-size: 20px; width: 85%; margin: auto; margin-bottom: 20px;">Asocia tu correo electrónico</p>
-            <ion-grid style="width: 100%; margin:0px; padding:0px;">
-              <ion-row>
-                <ion-col>
-                  <ion-item>
-                    <ion-input [(ngModel)]="registroDatos.correo_seudo" type="email" placeholder="Usuario..." helperText="Introduce tu correo electrónico" (ionBlur)="usuarioChanged($event)"></ion-input>
-                  </ion-item>
+            <ion-grid style="margin:0px; padding:0px;">
+              <ion-row style="width: 78vw; margin: auto;">
+                <ion-col size="6">
+                  <!-- <ion-input [(ngModel)]="registroDatos.correo_seudo" type="email" placeholder="Usuario..." helperText="Introduce tu correo electrónico" (ionBlur)="usuarioChanged($event)"></ion-input> -->
+                  <ion-input (ionBlur)="usuarioChanged($event)" placeholder="Usuario..." type="email" [(ngModel)]="registroDatos.correo_seudo" class="global-input-text-select" style="height: 100%;"></ion-input>
                 </ion-col>
-                <ion-col>
-                  <ion-item>
-                    <!-- <ion-select [(ngModel)]="registroDatos.correo_select" justify="start" placeholder="@" >  
-                      <ion-select-option value="@tamaulipas.gob.mx">@tamaulipas.gob.mx</ion-select-option>
-                      <ion-select-option value="@gmail.com">@gmail.com</ion-select-option>
-                      <ion-select-option value="@outlook.com">@outlook.com</ion-select-option>
-                      <ion-select-option value="@hotmail.com">@hotmail.com</ion-select-option>
-                    </ion-select> -->
-
-                    <ion-select color="tertiary" aria-label="entidad" interface="popover" placeholder="@..." [(ngModel)]="registroDatos.correo_select" (ionChange)="select_correo_otro()">
+                <ion-col size="6">
+                    <ion-select style="--border-radius: 10px; border-radius: 10px; background-color: rgb(245,247,250); border: 2px solid rgb(240,240,255); padding-left: 10px;" color="none" aria-label="entidad" fill="none" interface="popover" placeholder="@..." [(ngModel)]="registroDatos.correo_select" (ionChange)="select_correo_otro()">
                       <ion-select-option value="@tamaulipas.gob.mx">@tamaulipas.gob.mx</ion-select-option>
                       <ion-select-option value="@gmail.com">@gmail.com</ion-select-option>
                       <ion-select-option value="@outlook.com">@outlook.com</ion-select-option>
                       <ion-select-option value="@hotmail.com">@hotmail.com</ion-select-option>
                       <ion-select-option value="otro">Otro...</ion-select-option>
                     </ion-select>
-                  </ion-item>
                 </ion-col>
               </ion-row>
             </ion-grid>
@@ -48,25 +38,40 @@
               <ion-label color="tertiary" position="floating">Correo Electrónico</ion-label>
               <ion-input [(ngModel)]="registroDatos.correo" type="email" helperText="Enter a valid email" ngModel email errorText="Invalid email"></ion-input>
             </ion-item> -->
-
+<!-- 
             <ion-item style="border: solid black 0px;">
               <ion-input [(ngModel)]="registroDatos.pass" [clearOnEdit]="false" placeholder="Contraseña" type="{{ passType }}"></ion-input>
               <ion-button (click)="passwordType('normal')" fill="clear">
                 <ion-icon color="tertiary" *ngIf="passType == 'text'" slot="icon-only" name="eye-off-outline"></ion-icon>
                 <ion-icon color="tertiary" *ngIf="passType == 'password'" slot="icon-only" name="eye-outline"></ion-icon>
               </ion-button>
-            </ion-item>
+            </ion-item> -->
+
+            <div class="global-password-container">
+              <input placeholder="Contraseña" type="{{ passType }}" [(ngModel)]="registroDatos.pass" (keypress)="keyPress($event, $event)" class="global-input-password" />
+              <ion-button (click)="passwordType('normal')" fill="clear" class="global-input-password-button">
+                <ion-icon color="tertiary" *ngIf="passType == 'text'" slot="icon-only" name="eye-off-outline"></ion-icon>
+                <ion-icon color="tertiary" *ngIf="passType == 'password'" slot="icon-only" name="eye-outline"></ion-icon>
+              </ion-button>
+            </div>
 
             <br>
 
-            <ion-item style="border: solid black 0px;">
+            <!-- <ion-item style="border: solid black 0px;">
               <ion-input [(ngModel)]="registroDatos.passConfirma" enterkeyhint="go" (keypress)="keyPress($event, $event)" [clearOnEdit]="false" placeholder="Repetir Contraseña" type="{{ passTypeRepeat }}"></ion-input>
               <ion-button (click)="passwordType('normal')" fill="clear">
                 <ion-icon color="tertiary" *ngIf="passType == 'text'" slot="icon-only" name="eye-off-outline"></ion-icon>
                 <ion-icon color="tertiary" *ngIf="passType == 'password'" slot="icon-only" name="eye-outline"></ion-icon>
               </ion-button>
-            </ion-item>
+            </ion-item> -->
 
+            <div class="global-password-container">
+              <input placeholder="Repetir Contraseña" type="{{ passTypeRepeat }}" [(ngModel)]="registroDatos.passConfirma" (keypress)="keyPress($event, $event)" class="global-input-password" />
+              <ion-button (click)="passwordType('normal')" fill="clear" class="global-input-password-button">
+                <ion-icon color="tertiary" *ngIf="passType == 'text'" slot="icon-only" name="eye-off-outline"></ion-icon>
+                <ion-icon color="tertiary" *ngIf="passType == 'password'" slot="icon-only" name="eye-outline"></ion-icon>
+              </ion-button>
+            </div>
         </div>
       </swiper-slide>
       
@@ -79,33 +84,46 @@
 
       <swiper-slide style="text-align: center; padding-bottom: 30px;" swiperSlide>
         <div style="width: 100%;">
-          <ion-list class="main_content_list">
+          <!-- <ion-list class="main_content_list"> -->
             <p style="color: #A1193E; font-size: 20px; width: 85%; margin: auto; margin-bottom: 20px;">Confirmación de datos</p>
-            <ion-item>
-              <ion-select color="tertiary" aria-label="entidad" interface="popover" placeholder="Selecciona tu entidad de Gobierno" [(ngModel)]="registroDatos.tipo_gobierno" (ionChange)="registroDatos.numEmpleado = ''; registroDatos.rfc = ''; registroDatos.curp = '';">
+            <!-- <ion-item> -->
+
+              <ion-select style="justify-content: center;
+              align-content: center;
+              align-items: center; margin: auto; --border-radius: 10px; border-radius: 10px; background-color: rgb(245,247,250); border: 2px solid rgb(240,240,255); padding-left: 10px; width: 75vw;" color="none" aria-label="entidad" fill="none" interface="popover" placeholder="Selecciona tu entidad de Gobierno" [(ngModel)]="registroDatos.tipo_gobierno" (ionChange)="registroDatos.numEmpleado = ''; registroDatos.rfc = ''; registroDatos.curp = '';">
                 <ion-select-option color="tertiary" value="1">Gobierno Central</ion-select-option>
                 <ion-select-option color="tertiary" value="2">OPD</ion-select-option>
               </ion-select>
-            </ion-item>
+
+              <!-- <ion-select color="tertiary" aria-label="entidad" interface="popover" placeholder="Selecciona tu entidad de Gobierno" [(ngModel)]="registroDatos.tipo_gobierno" (ionChange)="registroDatos.numEmpleado = ''; registroDatos.rfc = ''; registroDatos.curp = '';">
+                <ion-select-option color="tertiary" value="1">Gobierno Central</ion-select-option>
+                <ion-select-option color="tertiary" value="2">OPD</ion-select-option>
+              </ion-select> -->
+            <!-- </ion-item> -->
             <br>
 
-            <ion-item counter="true" [disabled]="registroDatos.tipo_gobierno == 2">
+            <!-- <ion-item counter="true" [disabled]="registroDatos.tipo_gobierno == 2">
               <ion-label color="tertiary" position="floating">Número de empleado</ion-label>
               <ion-input [(ngModel)]="registroDatos.numEmpleado" minlength="5" maxlength="5" type="tel"></ion-input>
-            </ion-item>
-            <br>
+            </ion-item> -->
+            
+            <ion-input [disabled]="registroDatos.tipo_gobierno == 2" placeholder="Número de Empleado" [(ngModel)]="registroDatos.numEmpleado" class="global-input-text" style="margin-bottom: 20px;" minlength="5" maxlength="5" type="tel"></ion-input>
 
-            <ion-item counter="true" style="border: solid black 0px;">
+            <!-- <ion-item counter="true" style="border: solid black 0px;">
               <ion-label color="tertiary" position="floating">RFC (Incluida en la homoclave)</ion-label>
               <ion-input [(ngModel)]="registroDatos.rfc" minlength="13" maxlength="13" type="text" oninput="this.value = this.value.toUpperCase()"></ion-input>
-            </ion-item>
-            <br>
-            
-            <ion-item counter="true" style="border: solid black 0px;">
+            </ion-item> -->
+
+            <ion-input oninput="this.value = this.value.toUpperCase()" placeholder="RFC (Incluida en la homoclave)" minlength="13" maxlength="13" type="text" [(ngModel)]="registroDatos.rfc" class="global-input-text" style="margin-bottom: 20px;"></ion-input>
+
+            <!-- <ion-item counter="true" style="border: solid black 0px;">
               <ion-label color="tertiary" position="floating">CURP</ion-label>
               <ion-input [(ngModel)]="registroDatos.curp" minlength="18" maxlength="18" type="text" oninput="this.value = this.value.toUpperCase()" enterkeyhint="go" (keypress)="keyPress($event, $event)"></ion-input>
-            </ion-item>
-          </ion-list>
+            </ion-item> -->
+
+            <ion-input oninput="this.value = this.value.toUpperCase()" enterkeyhint="go" (keypress)="keyPress($event, $event)" placeholder="CURP" minlength="18" maxlength="18" type="text" [(ngModel)]="registroDatos.curp" class="global-input-text" style="margin-bottom: 20px;"></ion-input>
+
+          <!-- </ion-list> -->
         </div>
       </swiper-slide>
 
@@ -196,7 +214,7 @@
      -->
 
     <!-- <ion-button (click)="checkPasoDosWasa();" *ngIf="step_registro == 2" style="display: flex; text-transform: none !important; margin: auto; font-size: 12px; font-weight: bold; margin-bottom: 15px; margin-top: 25px; width: 75vw;" color="gobred">Enviar código por&nbsp;<span style="color: #25D366 !important;">WhatsApp™</span></ion-button> -->
-     <ion-grid>
+     <!-- <ion-grid>
       <ion-row>
         <ion-col *ngIf="step_registro == 1 || step_registro == 2">
           <ion-button (click)="func_prevSlide();" style="width: 50%; text-transform: none !important; --border-radius: 10px; font-size: 15px;" color="light">Regresar</ion-button>
@@ -205,7 +223,14 @@
           <ion-button (click)="func_doRegistro();" class="ion-text-wrap" style="width: 50%; text-transform: none !important; --border-radius: 10px; font-size: 15px;" color="gobred">{{ step_name }}</ion-button>
         </ion-col>
       </ion-row>
-     </ion-grid>
+     </ion-grid> -->
+
+
+     <ion-button (click)="func_doRegistro();" class="global-button" color="gobred">{{ step_name }}</ion-button><br>
+     <ion-button *ngIf="step_registro == 1 || step_registro == 2" (click)="func_prevSlide();" class="global-button" color="light">Regresar</ion-button><br>
+
+
+
     <ion-button (click)="func_goBack();" style="display: flex; text-transform: none !important; margin: auto; font-size: 12px; font-weight: bold; margin-bottom: 50px;" color="gobred" fill="clear">Ya tengo una cuenta</ion-button>
   </div>
 </ion-content>

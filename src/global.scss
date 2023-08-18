@@ -60,6 +60,10 @@
     }
 }
 
+input:focus {
+    outline:none;
+  }
+
 ion-toolbar {
     // --background: #19422d !important;
     --background: url("../src/assets/main/main_bg.jpg") center center/cover no-repeat !important;
@@ -137,6 +141,15 @@ ion-toolbar {
         background-color: cyan;
     }
   }
+
+
+.global-input-text { padding: 15px; border: 2px solid rgb(240,240,255); background-color: rgb(245,247,250); display: block; margin: auto; width: 75vw; border-radius: 10px; }
+.global-input-text-select { padding: 15px; border: 2px solid rgb(240,240,255); background-color: rgb(245,247,250); display: block; margin: auto; width: 100%; border-radius: 10px; }
+.global-password-container {position: relative;}
+.global-input-password { padding: 15px; border: 2px solid rgb(240,240,255); background-color: rgb(245,247,250); display: block; margin: auto; width: 75vw; border-radius: 10px; padding-right: 15vw; }
+.global-input-password-button { padding: 0px; position: absolute; right: 12vw; top: 10%; }
+.global-button { display: block; margin: auto; width: 75vw; height: 5.5vh; --border-radius: 10px; text-transform: none;}
+
 
 
 

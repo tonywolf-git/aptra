@@ -188,7 +188,7 @@ export class Tab4Page implements OnInit {
   }
 
   async func_force_watermarks() {
-    setTimeout(succ => {
+    setTimeout((succ:any) => {
       document.querySelectorAll('.watermarked').forEach(el => {
         if (el instanceof HTMLElement) {
           el.dataset["watermark"] = (el.dataset["watermark"] + ' ').repeat(300);

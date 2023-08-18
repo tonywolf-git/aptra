@@ -21,8 +21,8 @@ export class MainService {
     public toasteCtrl: ToastController) { }
 
   appVersion = {
-    ios: 25,
-    android: 25
+    ios: 30,
+    android: 30
   };
 
   serverVersion = {

@@ -4,6 +4,7 @@ import { OverlayEventDetail } from '@ionic/core/components';
 import Swiper from 'swiper';
 import { MainService } from '../main.service';
 import { ToastController } from '@ionic/angular';
+import { IonicSafeString } from '@ionic/angular';
 
 @Component({
   selector: 'app-registro',
@@ -147,7 +148,7 @@ export class RegistroPage implements OnInit {
         this.checkTitle();
         this.swiperCtrl.slideNext();
     } else {
-      this.mainService.alertThis('Error', 'Datos incorrectos, favor de verificarlos.');
+      this.mainService.alertThis('Aviso Importante', 'Por favor, verifica los datos que ingresaste.');
     }
   }
 
@@ -181,25 +182,25 @@ export class RegistroPage implements OnInit {
           this.step_registro = 0;
           this.checkTitle();
           this.swiperCtrl.slideTo(0);
-          this.mainService.alertThis('Error', 'El correo electrónico ya está registrado, intenta con otro.');
+          this.mainService.alertThis('Aviso Importante', 'El correo electrónico ya está registrado.');
           break;
           
         case 'DATOSREPETIDOS':
-          this.mainService.alertThis('Error', 'Los datos ingresados ya se encuentran registrados, prueba con otros o contacta al administrador del sistema.');
+          this.mainService.alertThis('Aviso Importante', 'Los datos ingresados ya se encuentran registrados.');
           break;
 
         case 'MALOSDATOS':
-          this.mainService.alertThis('Error', 'Los datos ingresados no concuerdan con el registro, favor de verificarlos.');
+          this.mainService.alertThis('Aviso Importante', 'Los datos ingresados no coinciden con tu registro en Recursos Humanos.');
           break;
 
         case 'ISCOP':
           // this.mainService.alertThis('Error', 'MALDITO.');
-          this.mainService.alertThis('Error', 'Por motivos de seguridad, tu registro no puede ser completado.');
+          this.mainService.alertThis('Aviso Importante', 'Por motivos de seguridad, tu registro no puede ser completado.');
           break;
 
         case 'DONALUDI':
           // this.mainService.alertThis('Error', 'MALDITO.');
-          this.mainService.alertThis('Error', 'Tu registro no concuerda con la fecha acordada para tu dependencia.');
+          this.mainService.alertThis('Aviso Importante', 'Tu dependencia todavia no está en el calendario de registro.');
           break;
           
         case 'error':
@@ -217,7 +218,7 @@ export class RegistroPage implements OnInit {
         this.swiperCtrl.slideNext();
       }
     } else {
-      this.mainService.alertThis('Error', 'Datos incorrectos, favor de verificarlos.');
+      this.mainService.alertThis('Aviso Importante', 'Por favor, verifica los datos que ingresaste.');
     }
   }
 
@@ -274,23 +275,24 @@ export class RegistroPage implements OnInit {
                   this.step_registro = 0;
                   this.checkTitle();
                   this.swiperCtrl.slideTo(0);
-                  this.mainService.alertThis('Error', 'El correo electrónico ya está registrado, intenta con otro.');
+                  this.mainService.alertThis('Aviso Importante', 'El correo electrónico ya está registrado.');
+                  
                   break;
 
                 case 'DATOSREPETIDOS':
-                  this.mainService.alertThis('Error', 'Los datos ingresados ya se encuentran registrados, prueba con otros o contacta al administrador del sistema.');
+                  this.mainService.alertThis('Aviso Importante', 'Los datos ingresados ya se encuentran registrados.');
                   break;
               
                 case 'MALOSDATOS':
-                  this.mainService.alertThis('Error', 'Los datos ingresados no concuerdan con el registro, favor de verificarlos.');
+                  this.mainService.alertThis('Aviso Importante', 'Los datos ingresados no coinciden con tu registro en Recursos Humanos.');
                   break;
 
                 case 'ISCOP':
-                  this.mainService.alertThis('Error', 'Por motivos de seguridad, tu registro no puede ser completado.');
+                  this.mainService.alertThis('Aviso Importante', 'Por motivos de seguridad, tu registro no puede ser completado.');
                   break;
 
                 case 'DONALUDI':
-                  this.mainService.alertThis('Error', 'Tu registro no concuerda con la fecha acordada para tu dependencia.');
+                  this.mainService.alertThis('Aviso Importante', 'Tu dependencia todavía no está en el calendario de registro.');
                   break;
               
                 case 'error':
@@ -309,7 +311,7 @@ export class RegistroPage implements OnInit {
                 this.swiperCtrl.slideNext();
               }
             } else {
-              this.mainService.alertThis('Error', 'Datos incorrectos, favor de verificarlos.');
+              this.mainService.alertThis('Aviso Importante', 'Por favor, verifica los datos que ingresaste.');
             }
           },
         }
@@ -382,7 +384,7 @@ export class RegistroPage implements OnInit {
       this.registroDatos.correo_seudo = this.registroDatos.correo_seudo.substring(0, this.registroDatos.correo_seudo.indexOf("@"));
       const alert = await this.alertCtrl.create({
         header: 'Alerta',
-        message: 'No debes introducir el dominio ("@tamaulipas.gob.mx", por ejemplo) en este campo, utiliza el siguiente campo de selección. <br><br> :)',
+        message: new IonicSafeString('No debes introducir el dominio ("@tamaulipas.gob.mx", por ejemplo) en este campo, utiliza el siguiente campo de selección. <br><br> :)'),
         buttons: ['OK'],
       });
       await alert.present();

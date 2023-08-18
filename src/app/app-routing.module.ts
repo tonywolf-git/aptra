@@ -33,6 +33,10 @@ const routes: Routes = [
   {
     path: 'modal-qr',
     loadChildren: () => import('./modal-qr/modal-qr.module').then( m => m.ModalQRPageModule)
+  },
+  {
+    path: 'cambia-pass',
+    loadChildren: () => import('./cambia-pass/cambia-pass.module').then( m => m.CambiaPassPageModule)
   }
 ];
 @NgModule({

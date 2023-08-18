@@ -33,6 +33,18 @@
     max-width: 50%;
 }
 
+.input-container {
+  padding: 30px;
+}
+
+.input-login {
+  margin-bottom: 20px;
+}
+
+input:focus {
+  outline:none;
+}
+
   /// MODAL STUFF INI ///
   ion-modal {
     padding: 20px;

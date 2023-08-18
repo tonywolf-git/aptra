@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController, ModalController, Platform, ToastController } from '@ionic/angular';
 import { MainService } from '../main.service';
+import { CambiaPassPage } from '../cambia-pass/cambia-pass.page';
 
 @Component({
   selector: 'app-perfil',
@@ -58,7 +59,7 @@ export class PerfilPage implements OnInit {
     await alert.present();
   }
 
-  async func_cambia_pass() {
+  async OLD_func_cambia_pass() {
     // console.log('Si, ya funca.')
 
     const alert = await this.alertCtrl.create({
@@ -89,7 +90,7 @@ export class PerfilPage implements OnInit {
               }
             } else {
               this.userPass = input[0];
-              this.func_show_toste('ERROR: Las contraseñas no son iguales, intenta de nuevo.')
+              this.func_show_toste('ALERTA: Las contraseñas no son iguales, intenta de nuevo.')
               this.func_cambia_pass();
             }
             // let _response = await this.mainService.func_validaCodigo(_elId, input[0]);
@@ -134,6 +135,16 @@ export class PerfilPage implements OnInit {
 
   func_dismissModal() {
     this.modalCtrl.dismiss();
+  }
+
+  async func_cambia_pass() {
+    console.log('SI');
+    this.modalCtrl.dismiss().then(async (succ:any) => {
+      const modal = await this.modalCtrl.create({
+        component: CambiaPassPage,
+      });
+      modal.present();
+    })
   }
 
   async func_show_toste(msg: string) {

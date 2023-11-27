@@ -4,7 +4,6 @@ import { OverlayEventDetail } from '@ionic/core/components';
 import Swiper from 'swiper';
 import { MainService } from '../main.service';
 import { ToastController } from '@ionic/angular';
-import { IonicSafeString } from '@ionic/angular';
 
 @Component({
   selector: 'app-registro',
@@ -49,6 +48,8 @@ export class RegistroPage implements OnInit {
     e: '',
     f: '',
   }
+
+  elCodigoNew = '';
   
   constructor(public modalCtrl: ModalController,
     public mainService: MainService,
@@ -94,20 +95,22 @@ export class RegistroPage implements OnInit {
         
       case 1:
         // console.log('CONFIRMAR QUE VAMOS A SOLICITAR MAS COSAS');
-        this.step_registro+=1;
-        this.checkTitle();
-        this.swiperCtrl.slideNext();
+        // this.step_registro+=1;
+        // this.checkTitle();
+        // this.swiperCtrl.slideNext();
+                this.checkPasoDosWasa();
         break;
 
       case 2:
         // console.log('NUM EMPLEADO | RFC | CURP');
         // this.checkPasoDos();
-        this.checkPasoDosWasa();
+                this.checkPasoTres();
+        // this.checkPasoDosWasa();
         break;
 
       case 3:
         // console.log('YA TE LO ENVIAMOS, PONLO');
-        this.checkPasoTres();
+        // this.checkPasoTres();
         break;
 
       default:
@@ -122,11 +125,15 @@ export class RegistroPage implements OnInit {
   }
 
   checkPasoUno() {
-    // console.log(this.registroDatos.correo, this.registroDatos.correo_select);
-    this.registroDatos.correo = this.registroDatos.correo_seudo + this.registroDatos.correo_select;
-    // console.log(this.registroDatos.correo);
+    let _telefonoValido = false;
     let _correoValido = false;
     let _contraseñasIguales = false;
+
+    if (this.registroDatos['celular'].length == 10 && this.registroDatos['celular'].match(/^[0-9]+$/) != null ) {
+      _telefonoValido = true;
+    } else {
+      _telefonoValido = false;
+    }
 
     if (this.registroDatos.pass == this.registroDatos.passConfirma && this.registroDatos.pass.length > 0) {
       _contraseñasIguales = true;
@@ -134,19 +141,17 @@ export class RegistroPage implements OnInit {
       _contraseñasIguales = false;
     }
     
-    //pattern(/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/)
     var re = /^\S+@\S+\.\S+$/;
     if (re.test(this.registroDatos.correo) == true) {
       _correoValido = true;
     } else {
       _correoValido = false;
     }
-    // console.log(_correoValido, _contraseñasIguales)
 
-    if (_correoValido == true && _contraseñasIguales == true) {
+    if (_telefonoValido == true && _contraseñasIguales == true) {
         this.step_registro += 1;
         this.checkTitle();
-        this.swiperCtrl.slideNext();
+        // this.swiperCtrl.slideNext();
     } else {
       this.mainService.alertThis('Aviso Importante', 'Por favor, verifica los datos que ingresaste.');
     }
@@ -181,7 +186,7 @@ export class RegistroPage implements OnInit {
         case 'EMAILEXISTENTE':
           this.step_registro = 0;
           this.checkTitle();
-          this.swiperCtrl.slideTo(0);
+          // this.swiperCtrl.slideTo(0);
           this.mainService.alertThis('Aviso Importante', 'El correo electrónico ya está registrado.');
           break;
           
@@ -215,7 +220,7 @@ export class RegistroPage implements OnInit {
         this.registroDatos.idUser = _response
         this.step_registro += 1;
         this.checkTitle();
-        this.swiperCtrl.slideNext();
+        // this.swiperCtrl.slideNext();
       }
     } else {
       this.mainService.alertThis('Aviso Importante', 'Por favor, verifica los datos que ingresaste.');
@@ -250,7 +255,7 @@ export class RegistroPage implements OnInit {
           },
         },
         {
-          text: 'OK',
+          text: 'Aceptar',
           role: 'confirm',
           handler: async (tel) => {
             this.registroDatos.celular = tel[0];
@@ -274,7 +279,7 @@ export class RegistroPage implements OnInit {
                 case 'EMAILEXISTENTE':
                   this.step_registro = 0;
                   this.checkTitle();
-                  this.swiperCtrl.slideTo(0);
+                  // this.swiperCtrl.slideTo(0);
                   this.mainService.alertThis('Aviso Importante', 'El correo electrónico ya está registrado.');
                   
                   break;
@@ -308,7 +313,7 @@ export class RegistroPage implements OnInit {
                 this.registroDatos.idUser = _response
                 this.step_registro += 1;
                 this.checkTitle();
-                this.swiperCtrl.slideNext();
+                // this.swiperCtrl.slideNext();
               }
             } else {
               this.mainService.alertThis('Aviso Importante', 'Por favor, verifica los datos que ingresaste.');
@@ -318,11 +323,75 @@ export class RegistroPage implements OnInit {
       ]
     });
 
-    await alert.present();
+    // await alert.present();
+
+    // this.registroDatos.celular = tel[0];
+
+    console.log('BEFORE CHECK', this.registroDatos)
+    if (this.registroDatos.numEmpleado.length == 5) {
+      _validNumEmpleado = true;
+    }
+  
+    if (this.registroDatos.rfc.length == 13) {
+      _validRFC = true;
+    }
+  
+    if (this.registroDatos.curp.length == 18) {
+      _validCURP = true;
+    }
+  
+    if (_validRFC == true && _validCURP == true) {
+      let _response = await this.mainService.func_doRegistroWasa(this.registroDatos, this.registroDatos['celular']);
+      // console.log(_response);
+    
+      switch (_response) {
+        case 'EMAILEXISTENTE':
+          this.step_registro = 0;
+          this.checkTitle();
+          // this.swiperCtrl.slideTo(0);
+          this.mainService.alertThis('Aviso Importante', 'El correo electrónico ya está registrado.');
+          
+          break;
+
+        case 'DATOSREPETIDOS':
+          this.mainService.alertThis('Aviso Importante', 'Los datos ingresados ya se encuentran registrados.');
+          break;
+      
+        case 'MALOSDATOS':
+          this.mainService.alertThis('Aviso Importante', 'Los datos ingresados no coinciden con tu registro en Recursos Humanos.');
+          break;
+
+        case 'ISCOP':
+          this.mainService.alertThis('Aviso Importante', 'Por motivos de seguridad, tu registro no puede ser completado.');
+          break;
+
+        case 'DONALUDI':
+          this.mainService.alertThis('Aviso Importante', 'Tu dependencia todavía no está en el calendario de registro.');
+          break;
+      
+        case 'error':
+          // console.log('CAE AQUI')
+          this.mainService.alertThis('Error', 'Ha ocurrido un error, por favor intente más tarde.');
+          break;
+      
+        default:
+          break;
+      }
+    
+      if (typeof _response == 'number' ) {
+        this.registroDatos.idUser = _response
+        this.step_registro += 1;
+        this.checkTitle();
+        // this.swiperCtrl.slideNext();
+      }
+    } else {
+      this.mainService.alertThis('Aviso Importante', 'Por favor, verifica los datos que ingresaste.');
+    }
   }
 
   async checkPasoTres() {
-    let _elCodigo = this.elCodigo.a + this.elCodigo.b + this.elCodigo.c + this.elCodigo.d + this.elCodigo.e + this.elCodigo.f;
+    // let _elCodigo = this.elCodigo.a + this.elCodigo.b + this.elCodigo.c + this.elCodigo.d + this.elCodigo.e + this.elCodigo.f;
+    let _elCodigo = this.elCodigoNew;
     let _response = await this.mainService.func_validaCodigo(this.registroDatos.idUser, _elCodigo);
 
     if (_response == 1 || _response == '1') {
@@ -361,15 +430,17 @@ export class RegistroPage implements OnInit {
         break;
 
       case 1:
-        this.step_name = 'Siguiente';
+        // this.step_name = 'Siguiente';
+                this.step_name = "Enviar código";
         break;
 
       case 2:
-        this.step_name = "Enviar código";
+        // this.step_name = "Enviar código";
+                this.step_name = "Verificar";
         break;
 
       case 3:
-        this.step_name = "Finalizar";
+        // this.step_name = "Finalizar";
         break;
     
       default:
@@ -383,9 +454,9 @@ export class RegistroPage implements OnInit {
 
       this.registroDatos.correo_seudo = this.registroDatos.correo_seudo.substring(0, this.registroDatos.correo_seudo.indexOf("@"));
       const alert = await this.alertCtrl.create({
-        header: 'Alerta',
-        message: new IonicSafeString('No debes introducir el dominio ("@tamaulipas.gob.mx", por ejemplo) en este campo, utiliza el siguiente campo de selección. <br><br> :)'),
-        buttons: ['OK'],
+        header: 'Aviso',
+        message: 'No debes introducir el dominio ("@tamaulipas.gob.mx", por ejemplo) en este campo, utiliza el siguiente campo de selección.',
+        buttons: ['Aceptar'],
       });
       await alert.present();
     }
@@ -393,16 +464,20 @@ export class RegistroPage implements OnInit {
 
   func_prevSlide() {
     // console.log(this.step_registro);
-    this.swiperCtrl.slidePrev();
-    this.step_registro = this.step_registro-1;
-    this.checkTitle();
+    if (this.step_registro == 0) {
+      this.func_goBack();
+    } else {
+      // this.swiperCtrl.slidePrev();
+      this.step_registro = this.step_registro-1;
+      this.checkTitle();
+    }
   }
 
   async select_correo_otro() {
     if (this.registroDatos.correo_select == 'otro') {
       // this.registroDatos.correo_select = '@yahoo.com'
       const alert = await this.alertCtrl.create({
-        header: 'Alerta',
+        header: 'Aviso',
         message: 'Escribe el dominio de correo que deseas agregar.<br><br>Asegurate de no agregar un seudónimo o múltiples "@" en el campo.',
         inputs: [
           {
@@ -416,7 +491,7 @@ export class RegistroPage implements OnInit {
         ],
         buttons: [
           {
-            text: 'OK',
+            text: 'Aceptar',
             handler: async (input) => {
               let _elInput = input[0];
               _elInput = _elInput.slice(_elInput.indexOf("@"));
@@ -472,11 +547,15 @@ export class RegistroPage implements OnInit {
       }
     }
   }
+
+  func_maskTelefono(number:any) {
+    return '(834) 175 0259'
+  }
+
+  // CODEXPERIMENTAL INI //
+  experimento_forceSlide() {
+    this.step_registro += 1;
+    // this.swiperCtrl.slideNext();
+  }
+  // CODEXPERIMENTAL END //
 }
-
-
-// Martin rodriguez treviño 
-// 210
-
-// Rafael reyes urbina 
-// 254

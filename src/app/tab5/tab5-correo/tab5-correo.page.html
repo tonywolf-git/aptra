@@ -1,0 +1,104 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button default-href="#"></ion-back-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-menu-button auto-hide="false"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>{{ correo.recepcion }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <!-- <ion-grid>
+    <ion-row class="ion-text-center">
+      <ion-col>
+        {{ correo.recepcion }}
+      </ion-col>
+    </ion-row>
+  </ion-grid> -->
+
+  <ion-grid style="width: 90%; margin-top: 30px;">  
+    <ion-row>
+      <ion-col size="3">
+        <div class="avatar-circle">
+          <span class="initials">{{ getLetra(correo.documento.nombrefirmante) }}</span>
+        </div>
+      </ion-col>
+      <ion-col size="6" class="ion-text-left colu-one" style="margin-right: 20px;">
+        <div>
+          <ion-row style="margin-bottom: 6px;">
+            {{ correo.documento.nombrefirmante | titlecase }}
+          </ion-row>
+          <ion-row text-center style="margin-bottom: 3px; color: #757575;">
+            {{ func_convertDate(correo.fechaRecepcion) | titlecase }}
+          </ion-row>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <div class="correo-cuerpo">
+    <p>
+      De: {{ correo["documento"]["nombre"] }}<br>
+      {{ correo["documento"]["tipo"] | uppercase }}<br>
+      {{ correo.recepcion }}<br>
+      {{ correo["documento"]["lugar"] }}<br>
+      Asunto:
+    </p>
+    <div [innerHTML]="correo['documento']['contenido']"></div>
+  </div>
+
+  <span style="display: block; margin: auto; width: 85%; margin-top: 5px; margin-bottom: 10px;">
+    Recepcionado {{ func_convertDateRecepcion(correo["fechaRecepcionDate"], correo["fechaRecepcion"]) | titlecase }} por
+    {{ correo_recibidoPor }}.
+  </span>
+
+  <div *ngIf="correo['anexoRecepcion'].length > 0">
+    <ion-item lines="none" style="margin-bottom: -10px;">
+      <ion-icon name="attach-outline" slot="start"></ion-icon>
+      <ion-label>
+        Anexo Recepción
+      </ion-label>
+    </ion-item>
+    <ion-list class="list-anexos">
+      <ion-item button *ngFor="let anexo of correo['anexoRecepcion']; index as pp" (click)="func_abrirAnexo(anexo)" detail="true">
+        <ion-label class="ion-text-wrap">Ver Documento</ion-label>
+        <!-- <ion-label class="ion-text-wrap"><a href="{{ anexo }}" target="_blank">Ver Documento</a></ion-label> -->
+      </ion-item>
+    </ion-list>
+  </div>
+
+  <div *ngIf="correo['documento']['anexos'].length > 0">
+    <ion-item lines="none" style="margin-bottom: -10px;">
+      <ion-icon name="attach-outline" slot="start"></ion-icon>
+      <ion-label>
+        Anexos
+      </ion-label>
+    </ion-item>
+    <ion-list class="list-anexos">
+      <ion-item *ngFor="let anexo of correo['documento']['anexos']" detail="true" (click)="func_abrirAnexo(anexo['archivo'])">
+        <!-- <ion-label><a href="{{ anexo['archivo'] }}" target="_blank">{{ anexo['descripcion'] }}</a></ion-label> -->
+        <ion-label>{{ anexo['descripcion'] }}</ion-label>
+      </ion-item>
+    </ion-list>
+  </div>
+
+  <ion-grid style="width: 100%; margin-top: 10px;">
+    <ion-row>
+      <ion-col class="ion-text-center">
+        <ion-button class="boton-correos" color="gobred" (click)="func_goBitacora()" style="text-transform: none !important;">
+          <ion-icon slot="end" name="timer"></ion-icon>
+          Bitacora
+        </ion-button>
+      </ion-col>
+      <ion-col class="ion-text-center" *ngIf="func_getPermiso('turnar') == true;">
+        <ion-button class="boton-correos" color="gobred" (click)="func_goTurnado()" style="text-transform: none !important;">
+          <ion-icon slot="end" name="return-up-forward"></ion-icon>
+          Turnar
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

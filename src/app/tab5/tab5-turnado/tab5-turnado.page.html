@@ -1,0 +1,58 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button default-href="#"></ion-back-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-menu-button auto-hide="false"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Turnar Oficio<br>{{ correo["recepcion"] }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+    <ion-searchbar animated placeholder="Buscar Área" (search)="($event)" (ionInput)="onSearchTerm($event)"></ion-searchbar>
+  
+    <div scrolly="true" style="max-height:60%">
+      <ion-list>
+        <ion-item button *ngFor="let item of areasFiltro" (click)="func_agregarTurnado(item)">
+          <div style="padding-top: 10px; padding-bottom: 10px;">
+            <!-- {{ item['titular']['name'] }}<br> -->
+            {{ (item['titular'] ?? {})['name'] || "El sin nombre" }}<br>
+            <div style="color: rgb(115,115,115); font-size: 12px;">{{ item['nombre'] | uppercase }}</div>
+          </div>
+        </ion-item>
+      </ion-list>
+    </div>
+  
+    <div>
+      <ion-list *ngIf="elTurnado['nombre'] != ''">
+        <ion-list-header>
+          <ion-label>Turnar a:</ion-label>
+        </ion-list-header>
+  
+        <ion-item>
+          <ion-label>
+            <h2 class="ion-text-wrap">{{ elTurnado["titular"]["name"] }}</h2>
+            <p>{{ elTurnado['nombre'] | uppercase }}</p>
+          </ion-label>
+          <ion-button color="medium" fill="clear" (click)="func_eliminarTurnado()">
+            <ion-icon slot="icon-only" name="close-circle-outline"></ion-icon>
+          </ion-button>
+        </ion-item>
+        <ion-item lines="none">
+          <!-- <ion-label>Para finiquitar</ion-label> -->
+          <!-- <ion-checkbox color="gobred" [(ngModel)]="finiquito" slot="start"></ion-checkbox> -->
+          <ion-checkbox [(ngModel)]="finiquito" justify="start" color="gobred" labelPlacement="start">Para finiquitar</ion-checkbox>
+        </ion-item>
+      </ion-list>
+    </div>
+  </ion-content>
+  
+  <ion-footer class="ion-no-border" style="background-image: none !important;">
+    <ion-toolbar class="elFooterRec">
+      <ion-button class="global-button" (click)="func_doTurnado()" shape="block" color="gobred">
+        Turnado
+      </ion-button>
+    </ion-toolbar>
+  </ion-footer>

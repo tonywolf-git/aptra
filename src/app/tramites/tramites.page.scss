@@ -1,0 +1,22 @@
+.card-container-tramites {
+    width: 38vw;
+    height: 38vw;
+    box-sizing: border-box;
+    background: #FFFFFF;
+    border: 1px solid #D9D9D9;
+    border-radius: 6px;
+    margin: auto;
+}
+
+.tramites-segment-block {
+    width: 100%;
+}
+
+.tramites-segment-content {
+    width: 90%;
+    margin: auto;
+}
+
+ion-modal {
+    --border-radius: 5vw;
+}

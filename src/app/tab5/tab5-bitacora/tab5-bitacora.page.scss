@@ -1,0 +1,19 @@
+.bitacora-circle {
+    width: 20px;
+    height: 20px;
+    background-color: rgba(170,0,51);;
+    text-align: center;
+    border-radius: 80%;
+    -webkit-border-radius: 80%;
+    -moz-border-radius: 80%;
+}
+
+.button-login {
+    width: 85%;
+    margin: auto;
+    margin-top: 20px;
+    --background: rgba(170,0,51);
+    --border-radius: 3.25px;
+    text-transform: none;
+    margin-bottom: 20px;
+}

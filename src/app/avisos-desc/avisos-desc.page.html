@@ -1,0 +1,78 @@
+<ion-header class="ion-no-border">
+  <div class="global-header-style">
+    <img class="global-fixed-aptra-header" src="../../assets/login/apptra_logo.png" alt="headd">
+    <div style="display: flex; flex: 1 1; width: 100%; height: 20vh; padding-bottom: 2vh;">
+      <ion-grid style="display: flex; flex-direction: column-reverse; bottom: 0px;">
+        <ion-row class="ion-text-center">
+          <ion-col size="6">
+            <ion-button (click)="mainService.func_toggleMenu()" fill="clear" color="none" style="float: left; color: white;">
+              <ion-icon style="font-size: 7vh;" name="menu-outline"></ion-icon>
+            </ion-button>
+          </ion-col>
+          <ion-col size="6" style="align-self: center;">
+            <div style="float: right; vertical-align: middle; font-weight: bold;" class="ion-text-wrap">Hola, {{ mainService.credencialInfo.elNombre.split(" ")[0] | titlecase }}</div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+  </div>
+</ion-header>
+
+<ion-content [fullscreen]="true" style="--background: #efefef !important;">
+  <ion-button (click)="mainService.func_nav_go_back()" fill="clear" class="global-registro-back" color="none" style="background-color: white; margin-top: 2vh !important; margin-left: 3vw; padding-top: 0px !important;">
+    <ion-icon  slot="icon-only" name="chevron-back-outline"></ion-icon>
+  </ion-button>
+
+  <p style="color: #A61B41; font-size: 20px; width: 90%; margin: auto; margin-top: 0px; margin-bottom: 10px; margin-top: 10px; text-align: left !important; font-weight: bold;">{{ aviso['title'] | uppercase }}</p>
+
+  <ion-item detail="false" style="border-radius: 5px; width: 93vw; margin:auto;" lines="none">
+    <ion-label class="ion-text-wrap">
+      <!-- <ion-row style="display: flex; align-items: center; padding:0px !important; margin: 0px !important; width: 100%;">
+        <ion-col>
+          <p style="color: #C59F79; font-weight: 700; font-size: 14px; text-align: left !important;" class="this-but-bolder">{{ aviso['title'] | uppercase }}</p>
+        </ion-col>
+      </ion-row> -->
+
+      <ion-row>
+        <ion-col>
+          <div class="ion-text-wrap" style="float: left; color: #A21A3F; font-size: 12px;" fill="clear">{{ mainService.func_moment_getDif(aviso["fecha"]) }}</div>
+        </ion-col>
+      </ion-row>
+
+      <p style="margin: auto; color: #1E232C; margin-bottom: 10px; margin-top: 10px; width: 98%;">
+        {{ aviso["text"] }}
+      </p>
+    </ion-label>
+  </ion-item>
+
+  <div *ngIf="aviso['anexos'].length > 0">
+    <p style="color: #A61B41; font-size: 20px; width: 90%; margin: auto; margin-top: 0px; margin-bottom: 10px; margin-top: 10px; text-align: left !important; font-weight: bold;">Anexos</p>
+    
+    <ion-item *ngFor="let _anexo of aviso['anexos']" [button]="true" detail="true" lines="none" (click)="mainService.func_service_openURL(_anexo['url'])" style="border-radius: 5px; width: 93vw; margin:auto; margin-top: 10px;">
+      <ion-icon color="gobred" slot="start" name="open-outline" size="small"></ion-icon>
+      <ion-label class="ion-text-wrap" style="font-size: 13px;">{{ _anexo['nombre'] }}</ion-label>
+    </ion-item>
+  </div>
+  
+  <ion-row style="margin-top:20px;">
+    <!-- ESCONDIDO PORQUE NECESITABA UNPDATE RAPIDO, REGRESAR (16/NOV/2023) INI -->
+    <!-- <ion-col button>
+      <div class="card-container" style="border: 0px solid black !important">
+        <div class="card-content">
+          <img style="width: 50%; margin: auto;" src="../../assets/icon/ico_tramites.png" alt="">
+          <div class="card-text">Anexo</div>
+        </div>
+      </div>
+    </ion-col> -->
+    <!-- ESCONDIDO PORQUE NECESITABA UNPDATE RAPIDO, REGRESAR (16/NOV/2023) END -->
+  
+    <!-- <ion-col button>
+      <div class="card-container">
+        <div class="card-content">
+          <img style="width: 50%; margin: auto;" src="../../assets/icon/ico_cred.png" alt="">
+          <div class="card-text">Credencial</div>
+        </div>
+      </div>
+    </ion-col> -->
+  </ion-row>
+</ion-content>

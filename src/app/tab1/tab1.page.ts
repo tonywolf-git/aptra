@@ -25,6 +25,9 @@ export class Tab1Page {
   elPuesto = '';
   elNombre = '';
 
+  efemeridesSemanales: any = [];
+  efemeridesMensuales: any = [];
+
   constructor(public mainService: MainService,
     public routerCtrl: Router,
     public menuCtrl: MenuController,
@@ -32,12 +35,11 @@ export class Tab1Page {
     public platform: Platform) {}
 
   async ngOnInit() {
-    // console.log('Platform:', this.platform.is('ios'));
     this.menuCtrl.enable(true);
     this.menuCtrl.swipeGesture(true);
     moment.locale('es-MX');   
-    // console.log('URL:', this.mainService.url_GET_recursos_humanos);
-    
+
+    // ESTO ES PORQUE EL SERVICOR SE INUNDÓ -- INI --
     const loading = await this.loadingCtrl.create({
       message: 'Cargando información...',
     });
@@ -47,24 +49,56 @@ export class Tab1Page {
     await this.mainService.func_get(this.mainService.url_GET_recursos_humanos).then(async succ => {
       this.loadingCtrl.dismiss();
       this.mainService.checkVersion();
+      
+      await this.mainService.func_checkTelefono().then(_msg => {
+        // console.log('ESTE ES EL LOG', _msg)
+        switch (_msg) {
+          case true:
+            // NO PASA NADA, NO SE MUESTRA EL HEADER-WARNING
+            this.mainService.service_bool_telefono = true;
+            // this.mainService.func_alertNoTelefono();
+            break;
+          case false:
+            // NO TIENE TELÉFONO REGISTRADO, SE ACTIVA EL HEADER-WARNING Y UNA ALERTA PARA INTRODUCIR UNO
+            this.mainService.service_bool_telefono = false;
+            this.mainService.func_alertNoTelefono();
+            break;
+          case 'error':
+            // NO PASA NADA; ES UN ERROR DE SERVIDOR, PROBABLEMENTE
+            this.mainService.service_bool_telefono = false;
+            break;
+        
+          default:
+            break;
+        }
+      });
     });
+
+    await this.mainService.func_get_efemerides();
+
+    let _weekStart = moment().startOf('week');
+    let _weekEnd = moment().endOf('week');
+    let _monthStart = moment().startOf('month');
+    let _monthEnd = moment().endOf('month');
+    // let _theNow = moment();
+    // console.log(_theNow.isBetween(_weekStart, _weekEnd));
+
+    for (let x = 0; x < this.mainService.service_efemerides.length; x++) {
+      let _theNow = moment(this.mainService.service_efemerides[x]['fecha'], 'YYYY-MM-DD');
+      if (_theNow.isBetween(_weekStart, _weekEnd) == true) {
+        this.efemeridesSemanales.push(this.mainService.service_efemerides[x]);
+      }
+
+      if (_theNow.isBetween(_monthStart, _monthEnd) == true) {
+        this.efemeridesMensuales.push(this.mainService.service_efemerides[x]);
+      }
+    }
+    // console.log(this.efemeridesSemanales)
+    // ESTO ES PORQUE EL SERVICOR SE INUNDÓ -- INI --
     
     let _eventos = await this.mainService.getSemana();
-    // _eventos.push({
-    //   fecha: "2023-04-14",
-    //   id: 666,
-    //   titulo: "Prueba Uno"
-    // })
-
-    // _eventos.push({
-    //   fecha: "2023-04-15",
-    //   id: 667,
-    //   titulo: "Prueba Dos"
-    // })
 
     this.tuSemana = [];
-
-    // console.log("_eventos:", _eventos)
 
     if (_eventos.length > 0) {
       for (let x = 0; x < _eventos.length; x++) {
@@ -100,7 +134,7 @@ export class Tab1Page {
   }
 
   func_forceTopic() {
-    FCM.subscribeTo({ topic: "laroca" })
+    FCM.subscribeTo({ topic: "larocatest" })
     .then((r) => {
       // alert(`subscribed to topic`)
       console.log('ERES PARTE DE LA ROCA :)');

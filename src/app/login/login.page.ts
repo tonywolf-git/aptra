@@ -45,23 +45,34 @@ export class LoginPage implements OnInit {
   }
 
   async func_doLogin() {
-    let _res = await this.mainService.func_doLogin(this.loginData['email'], this.loginData['password']);
+    let _res: any = [];
+    if (this.loginData['email'].indexOf('@') > -1) {
+      _res = await this.mainService.func_doLogin(this.loginData['email'], this.loginData['password']);
+    } else {
+      _res = await this.mainService.func_doLoginTel(this.loginData['email'], this.loginData['password']);
+    }
+
+
+
     // console.log(_res, typeof _res);
     if (typeof _res == "number") {
       if (_res == 0) {
-        this.mainService.alertThis('¡Oh no!', 'El correo electrónico y/o la contraseña son incorrectos, por favor intenta nuevamente.')
-        // this.mainService.alertThis('¡Oh no!', 'Datos incorrectos, porfavor intenta de nuevo.')
+        if (this.loginData['email'].indexOf('@') > -1) {
+          this.mainService.alertThis('¡Revisa tus datos!', 'El correo electrónico y/o la contraseña son incorrectos, por favor intenta nuevamente.')
+        } else {
+          this.mainService.alertThis('¡Revisa tus datos!', 'El teléfono y/o la contraseña son incorrectos, por favor intenta nuevamente.')
+        }
       }
     } else {
       if (_res.includes("NOVERIFICADO_")) {
         let _elId = _res.split('_')[1];
         this.mainService.func_reenviarCodigo(_elId).then(async succ => {
           const alert = await this.alertCtrl.create({
-            header: 'Alerta',
+            header: 'Aviso',
             message: 'Tu correo aun no ha sido verificado, se envió un código de 6 dígitos al correo electrónico para que lo hagas, escríbelo aquí:',
             buttons: [
               {
-                text: 'OK',
+                text: 'Aceptar',
                 role: 'ok',
                 handler: async (input) => {
                   let _response = await this.mainService.func_validaCodigo(_elId, input[0]);
@@ -104,7 +115,6 @@ export class LoginPage implements OnInit {
         
       } else {
         if (_res == 'error') {
-          console.log(_res);
           this.mainService.alertThis('Error', 'Hubo un error, por favor intenta nuevamente.');
         } else {
           // console.log('ASUMO QUE EL LOGIN EStÁ BIEN')
@@ -131,7 +141,7 @@ export class LoginPage implements OnInit {
               break;
           }
 
-          this.navCtrl.navigateRoot('tabs');
+          this.navCtrl.navigateRoot('tab1');
           localStorage.setItem('userCurp', this.mainService.userCurp);
           localStorage.setItem('userQR', this.mainService.url_LOGIN_qr);
           localStorage.setItem('tipo_gobierno', String(this.mainService.tipo_gobierno));
@@ -146,7 +156,7 @@ export class LoginPage implements OnInit {
       message: 'Código no valido, intenta nuevamente:',
       buttons: [
         {
-          text: 'OK',
+          text: 'Aceptar',
           role: 'ok',
           handler: async (input) => {
             let _response = await this.mainService.func_validaCodigo(_elId, input[0]);
@@ -188,11 +198,11 @@ export class LoginPage implements OnInit {
   async func_resetPass() {
     const alert = await this.alertCtrl.create({
       header: 'Recuperar Contraseña',
-      message: 'Indica el correo electrónico al que se enviará el código de verificación.',
+      message: 'Indica el correo electrónico o teléfono (registrado previamente) al que se enviará el código de verificación.',
       inputs: [
         {
           type: 'email',
-          placeholder: 'correo@correo.com',
+          placeholder: 'Correo o teléfono...',
         }
       ],
       buttons: [
@@ -203,7 +213,7 @@ export class LoginPage implements OnInit {
           },
         },
         {
-          text: 'OK',
+          text: 'Aceptar',
           role: 'confirm',
           handler: async (correo) => {
             this.mainService.func_resetPass(correo[0]);
@@ -250,7 +260,7 @@ export class LoginPage implements OnInit {
     
       let _elRes = await Http.post(options);
       // console.log(_elRes);
-      this.mainService.alertThis('Alerta', _elRes['data']);
+      this.mainService.alertThis('Aviso', _elRes['data']);
     
       // or...
       // const response = await Http.request({ ...options, method: 'POST' })

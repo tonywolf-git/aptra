@@ -1,0 +1,75 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button default-href="#"></ion-back-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-menu-button auto-hide="false"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Bitácora<br>{{ correo.recepcion }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <ion-list style="width: 95%; margin: auto;">
+    <div *ngFor="let entry of bitacora">
+      <ion-grid>  
+        <ion-row>
+          <ion-col size="1">
+            <div class="bitacora-circle">
+            </div>
+          </ion-col>
+          <ion-col size="8" class="ion-text-left colu-one" style="margin-right: 20px;">
+            <div>
+              <ion-row style="margin-bottom: 6px;">
+                {{ entry.usuario.titulo }} {{ entry.usuario.name }} {{ entry.usuario.lastname }}
+              </ion-row>
+              <ion-row style="margin-bottom: 6px;">
+               <!-- <span style="color: #757575">"{{ quitaTags(entry.contenido) }}"</span>  -->
+               <span style="color: #757575" [innerHTML]="entry.contenido"></span> 
+              </ion-row>
+              <ion-row>
+               <span style="color: #757575">{{ func_convertDate(entry.fecha) }}</span> 
+              </ion-row>
+            </div>
+          </ion-col>
+          <ion-col size="2" class="colu-two">
+            <div>
+              <ion-row text-center style="margin-bottom: 3px;">
+                <div style="margin-left: 5px;" class="status ion-text-center"><div class="status-text">{{ entry.tipo | titlecase }}</div></div>
+              </ion-row>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+  </ion-list>
+
+  <ion-item style="width: 80%; margin: auto; border: 1px solid #CACACA; border-radius: 4px;">
+    <ion-textarea [(ngModel)]="contenido" rows="8" placeholder="Dar seguimiento a este tema..."></ion-textarea>
+  </ion-item>
+
+  <ion-item button lines="none" style="margin-bottom: -10px;">
+    <ion-icon name="attach-outline" slot="start"></ion-icon>
+    <label for="file">Seleccionar archivo <span style="color: #757575;"> (opcional)</span></label>
+  </ion-item>
+
+  <ion-item *ngIf="data.anexoBitacora != ''" ion-button lines="none" style="margin-bottom: -10px;">
+    <ion-icon name="checkmark" slot="start"></ion-icon>
+    <label><span style="color: #757575;">"{{ data['anexoBitacora'] }}"</span></label>
+  </ion-item>
+
+  <ion-button (click)="agregarBitacora();" shape="round" expand="full" class="button-login">
+    Agregar
+  </ion-button>
+
+  <form [hidden]="true" action="#" id="form">
+    <input id="file" type="file" name='anexoBitacora' [(ngModel)]="data['anexoBitacora']" value="">
+    <input type="text" name="envio" [(ngModel)]="data['envio']" value="">
+    <input type="text" name="contenido" [(ngModel)]="data['contenido']" value="">
+    <input type="text" name="fecha" [(ngModel)]="data['fecha']" value="">
+    <input type="text" name="hora" [(ngModel)]="data['hora']" value="">
+    <input type="text" name="usuario" [(ngModel)]="data['usuario']" value="">
+  </form>
+</ion-content>

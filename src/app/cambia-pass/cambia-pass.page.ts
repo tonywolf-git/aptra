@@ -71,7 +71,7 @@ export class CambiaPassPage implements OnInit {
       message: msg,
       buttons: [
         {
-          text: 'OK',
+          text: 'Aceptar',
           role: 'cancel',
         }
       ],

@@ -24,6 +24,31 @@ const routes: Routes = [
         loadChildren: () => import('../tab4/tab4.module').then(m => m.Tab4PageModule)
       },
       {
+        path: 'tab5',
+        children: [
+          {
+            path: '',
+            loadChildren: () => import('../tab5/tab5.module').then(m => m.Tab5PageModule)
+          },
+          {
+            path: 'home',
+            loadChildren: () => import('../tab5/tab5-home/tab5-home-routing.module').then(m => m.Tab5HomePageRoutingModule)
+          },
+          {
+            path: 'correo',
+            loadChildren: () => import('../tab5/tab5-correo/tab5-correo-routing.module').then(m => m.Tab5CorreoPageRoutingModule)
+          },
+          {
+            path: 'correo/bitacora',
+            loadChildren: () => import('../tab5/tab5-bitacora/tab5-bitacora-routing.module').then(m => m.Tab5BitacoraPageRoutingModule)
+          },
+          {
+            path: 'correo/turnado',
+            loadChildren: () => import('../tab5/tab5-turnado/tab5-turnado-routing.module').then(m => m.Tab5TurnadoPageRoutingModule)
+          },
+        ],
+      },
+      {
         path: '',
         redirectTo: '/tabs/tab1',
         pathMatch: 'full'

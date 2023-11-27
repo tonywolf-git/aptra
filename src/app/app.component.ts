@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 import { PrivacyScreen } from '@capacitor-community/privacy-screen';
 import { Platform } from '@ionic/angular';
 import { ToastController } from '@ionic/angular';
-
+import * as moment from 'moment';
 
 register();
 
@@ -52,6 +52,8 @@ export class AppComponent {
   async ngOnInit() {
     console.log('IT HAS BEGUN');
 
+    moment.locale('es-mx');
+
     const disable = async () => {
       await PrivacyScreen.disable();
     };
@@ -62,7 +64,7 @@ export class AppComponent {
     // this.navCtrl.navigateRoot('tabs');
 
     if (localStorage.getItem("userCurp") === null) {
-      console.log('NO CURP GUARDADO');
+      // console.log('NO CURP GUARDADO');
     } else {
       // console.log(localStorage.getItem("userCurp"));
       this.mainService.userCurp = localStorage['userCurp'];
@@ -74,6 +76,7 @@ export class AppComponent {
       switch (this.mainService.tipo_gobierno) {
         case 1:
           this.mainService.url_GET_recursos_humanos = "https://sitam.tamaulipas.gob.mx/api/obtenEmpleadoCURP/" + this.mainService.userCurp;
+          // this.mainService.url_GET_recursos_humanos = "https://testsitam.tamaulipas.gob.mx/api/obtenEmpleadoCURP/" + this.mainService.userCurp;
           break;
 
         case 2:
@@ -87,7 +90,8 @@ export class AppComponent {
       // console.log(this.mainService.url_GET_recursos_humanos)
       // console.log(this.mainService.userCurp);
       this.mainService.url_LOGIN_qr = localStorage['userQR']
-      this.navCtrl.navigateRoot('tabs');
+      // this.navCtrl.navigateRoot('tab1');
+      this.navCtrl.navigateRoot('tab1');
     }
     
     const addListeners = async () => {
@@ -145,17 +149,17 @@ export class AppComponent {
       message: '¿Quieres cerrar esta sesión?',
       buttons: [
         {
-          text: 'No',
-          role: 'cancel',
-          handler: async (input) => {
-            console.log('Acción cancelada.')
-          }
-        },
-        {
-          text: 'Si',
+          text: 'Aceptar',
           role: 'ok',
           handler: async (input) => {
             this.mainService.func_doLogOut();
+          }
+        },
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: async (input) => {
+            console.log('Acción cancelada.')
           }
         },
       ],
@@ -168,7 +172,8 @@ export class AppComponent {
 
   async func_openHome() {
     this.menuCtrl.close().then(msg => {
-      let _where = 'tabs/' + 'tab1';
+      // let _where = 'tabs/' + 'tab1';
+      let _where = 'tab1';
       this.routerCtrl.navigateByUrl(_where);
     });
   }

@@ -1,23 +1,257 @@
 <ion-content>
+
+  <!-- EXPERIMENTAL INI -->
+  <!-- EXPERIMENTAL END -->
+
+  <ion-button (click)="func_prevSlide();" fill="clear" class="global-registro-back" color="none">
+    <ion-icon  slot="icon-only" name="chevron-back-outline"></ion-icon>
+  </ion-button>
+
+  <div style="display: flex !important;" *ngIf="registroDatos['correo_seudo'] == 'masmorra'">
+    <swiper-container #swiper scrollbar="true" allow-touch-move="false" auto-height="false">
+      <swiper-slide style="text-align: center; padding-bottom: 30px;" swiperSlide>
+        <div style="width: 100%; padding: 0px;">
+          <p style="color: #A61B41; font-size: 30px; width: 85%; margin: auto; margin-bottom: 20px; text-align: left; font-weight: bold;">¡Comencemos!</p>
+          <p style="color: #838BA1; font-size: 16px; width: 85%; margin: auto; margin-bottom: 40px; text-align: left; font-weight: bold;">Por favor, ingresa los datos correctamente</p>
+          <br>
+
+          <input placeholder="Número de Teléfono" [(ngModel)]="registroDatos['celular']" type="tel" class="global-input-password" /><br>
+          <input placeholder="Correo Electrónico" [(ngModel)]="registroDatos['correo']" type="email" class="global-input-password" /><br>
+          <div class="global-password-container">
+            <input placeholder="Contraseña" type="{{ passType }}" [(ngModel)]="registroDatos.pass" (keypress)="keyPress($event, $event)" class="global-input-password" />
+            <ion-button (click)="passwordType('normal')" fill="clear" class="global-input-password-button">
+              <ion-icon color="tertiary" *ngIf="passType == 'text'" slot="icon-only" name="eye-off-outline"></ion-icon>
+              <ion-icon color="tertiary" *ngIf="passType == 'password'" slot="icon-only" name="eye-outline"></ion-icon>
+            </ion-button>
+          </div>
+          <br>
+          
+          <div class="global-password-container">
+            <input placeholder="Repetir Contraseña" type="{{ passTypeRepeat }}" [(ngModel)]="registroDatos.passConfirma" (keypress)="keyPress($event, $event)" class="global-input-password" />
+            <ion-button (click)="passwordType('normal')" fill="clear" class="global-input-password-button">
+              <ion-icon color="tertiary" *ngIf="passType == 'text'" slot="icon-only" name="eye-off-outline"></ion-icon>
+              <ion-icon color="tertiary" *ngIf="passType == 'password'" slot="icon-only" name="eye-outline"></ion-icon>
+            </ion-button>
+          </div>
+        </div>
+      </swiper-slide>
+
+      <swiper-slide style="text-align: left; padding-bottom: 30px;" swiperSlide>
+        <div style="width: 100%;">
+          <p style="color: #A61B41; font-size: 30px; width: 85%; margin: auto; margin-bottom: 20px; text-align: left; font-weight: bold;">Enrolamiento</p>
+          <p style="color: #838BA1; font-size: 16px; width: 85%; margin: auto; margin-bottom: 40px; text-align: left; font-weight: bold;">Este proceso tardará unos minutos</p>
+          
+          <ion-select style="justify-content: center; align-content: center; align-items: center; margin: auto; --border-radius: 10px; border-radius: 10px; background-color: rgb(245,247,250); border: 2px solid rgb(240,240,255); padding-left: 10px; width: 85vw;" color="none" aria-label="entidad" fill="none" interface="popover" placeholder="Entidad Gubernamental" [(ngModel)]="registroDatos.tipo_gobierno" (ionChange)="registroDatos.numEmpleado = ''; registroDatos.rfc = ''; registroDatos.curp = '';">
+            <ion-select-option color="tertiary" value="1">Gobierno Central</ion-select-option>
+            <ion-select-option color="tertiary" value="2">OPD</ion-select-option>
+          </ion-select>
+          <br>
+          
+          <input oninput="this.value = this.value.toUpperCase()" placeholder="Número de Empleado" [disabled]="registroDatos.tipo_gobierno != 1" minlength="5" maxlength="5" type="tel" [(ngModel)]="registroDatos.numEmpleado" class="global-input-password" style="margin-bottom: 20px;"/>
+          <input oninput="this.value = this.value.toUpperCase()" placeholder="RFC (Incluida en la homoclave)" minlength="13" maxlength="13" ype="text" [(ngModel)]="registroDatos.rfc" class="global-input-password" style="margin-bottom: 20px;"/>
+          <input oninput="this.value = this.value.toUpperCase()" placeholder="CURP" (keypress)="keyPress($event, $event)" enterkeyhint="go" minlength="18" maxlength="18" ype="text" [(ngModel)]="registroDatos.curp" class="global-input-password" style="margin-bottom: 20px;"/>
+        </div>
+      </swiper-slide>
+
+      <swiper-slide style="text-align: center; padding-bottom: 30px;" swiperSlide>
+        <div style="width: 100%;">          
+          <p style="color: #A61B41; font-size: 30px; width: 85%; margin: auto; margin-bottom: 20px; text-align: left; font-weight: bold;">Verificación</p>
+          <p style="color: #838BA1; font-size: 16px; width: 85%; margin: auto; margin-bottom: 40px; text-align: left; font-weight: bold;">Para continuar, ingresa el código de verificación que enviamos a tu número de teléfono</p>
+          
+          <ion-list class="main_content_list">
+            <ion-item style="margin-bottom: 20px;">
+              <ion-input [(ngModel)]="elCodigoNew" type="tel" minlength="6" maxlength="6" class="ion-text-center" class="el-codigo-new" placeholder="XXXXXX"></ion-input>
+            </ion-item>            
+            <p style="color: #BC936C; font-size: 14px; width: 85%; margin: auto; margin-bottom: 10px;">Ingrese el código de 6 digitos que le enviamos</p>
+            <!-- <ion-button *ngIf="opcion_codigo == 'c'" (click)="func_reenviarCodigo()" class="ion-text-wrap" style="display: flex; text-transform: none !important; margin: auto; font-size: 12px; font-weight: bold;" color="gobmustard" fill="clear">¿No recibió el código?</ion-button>
+            <ion-button *ngIf="opcion_codigo == 'w'" (click)="func_reenviarCodigoW()" class="ion-text-wrap" style="display: flex; text-transform: none !important; margin: auto; font-size: 12px; font-weight: bold;" color="gobmustard" fill="clear">¿No recibió el código?</ion-button> -->
+          </ion-list>
+        </div>
+      </swiper-slide>
+    </swiper-container>
+  </div>
+
+  <div style="display: flex !important;" >
+    <!-- STEP ONE INI -->
+    <div style="width: 100%; padding: 0px;" *ngIf="step_registro == 0">
+      <p style="color: #A61B41; font-size: 30px; width: 85%; margin: auto; margin-bottom: 20px; text-align: left; font-weight: bold;">¡Comencemos!</p>
+      <p style="color: #838BA1; font-size: 16px; width: 85%; margin: auto; margin-bottom: 40px; text-align: left; font-weight: bold;">Por favor, ingresa los datos correctamente</p>
+      <br>
+  
+      <input placeholder="Número de Teléfono" maxlength="10" minlength="10" [(ngModel)]="registroDatos['celular']" type="tel" class="global-input-password" /><br>
+      <!-- <input placeholder="Correo Electrónico" [(ngModel)]="registroDatos['correo']" type="email" class="global-input-password" /><br> -->
+      <div class="global-password-container">
+        <input placeholder="Contraseña" type="{{ passType }}" [(ngModel)]="registroDatos.pass" (keypress)="keyPress($event, $event)" class="global-input-password" />
+        <ion-button (click)="passwordType('normal')" fill="clear" class="global-input-password-button">
+          <ion-icon color="tertiary" *ngIf="passType == 'text'" slot="icon-only" name="eye-off-outline"></ion-icon>
+          <ion-icon color="tertiary" *ngIf="passType == 'password'" slot="icon-only" name="eye-outline"></ion-icon>
+        </ion-button>
+      </div>
+      <br>
+      
+      <div class="global-password-container">
+        <input placeholder="Repetir Contraseña" type="{{ passTypeRepeat }}" [(ngModel)]="registroDatos.passConfirma" (keypress)="keyPress($event, $event)" class="global-input-password" />
+        <ion-button (click)="passwordType('normal')" fill="clear" class="global-input-password-button">
+          <ion-icon color="tertiary" *ngIf="passType == 'text'" slot="icon-only" name="eye-off-outline"></ion-icon>
+          <ion-icon color="tertiary" *ngIf="passType == 'password'" slot="icon-only" name="eye-outline"></ion-icon>
+        </ion-button>
+      </div>
+    </div>
+    <!-- STEP ONE END -->
+  
+    <!-- STEP TWO INI -->
+    <div style="width: 100%;" *ngIf="step_registro == 1">
+      <p style="color: #A61B41; font-size: 30px; width: 85%; margin: auto; margin-bottom: 20px; text-align: left; font-weight: bold;">Enrolamiento</p>
+      <p style="color: #838BA1; font-size: 16px; width: 85%; margin: auto; margin-bottom: 40px; text-align: left; font-weight: bold;">Este proceso tardará unos minutos</p>
+      
+      <ion-select style="justify-content: center; align-content: center; align-items: center; margin: auto; --border-radius: 10px; border-radius: 10px; background-color: rgb(245,247,250); border: 2px solid rgb(240,240,255); padding-left: 10px; width: 85vw;" color="none" aria-label="entidad" fill="none" interface="popover" placeholder="Entidad Gubernamental" [(ngModel)]="registroDatos.tipo_gobierno" (ionChange)="registroDatos.numEmpleado = ''; registroDatos.rfc = ''; registroDatos.curp = '';">
+        <ion-select-option color="tertiary" value="1">Gobierno Central</ion-select-option>
+        <ion-select-option color="tertiary" value="2">OPD</ion-select-option>
+      </ion-select>
+      <br>
+      
+      <input oninput="this.value = this.value.toUpperCase()" placeholder="Número de Empleado" [disabled]="registroDatos.tipo_gobierno != 1" minlength="5" maxlength="5" type="tel" [(ngModel)]="registroDatos.numEmpleado" class="global-input-password" style="margin-bottom: 20px;"/>
+      <input oninput="this.value = this.value.toUpperCase()" placeholder="RFC (Incluida en la homoclave)" minlength="13" maxlength="13" ype="text" [(ngModel)]="registroDatos.rfc" class="global-input-password" style="margin-bottom: 20px;"/>
+      <input oninput="this.value = this.value.toUpperCase()" placeholder="CURP" (keypress)="keyPress($event, $event)" enterkeyhint="go" minlength="18" maxlength="18" ype="text" [(ngModel)]="registroDatos.curp" class="global-input-password" style="margin-bottom: 20px;"/>
+    </div>
+    <!-- STEP TWO END -->
+  
+    <!-- STEP THREE INI -->
+    <div style="width: 100%;" *ngIf="step_registro == 2">          
+      <p style="color: #A61B41; font-size: 30px; width: 85%; margin: auto; margin-bottom: 20px; text-align: left; font-weight: bold;">Verificación</p>
+      <p style="color: #838BA1; font-size: 16px; width: 85%; margin: auto; margin-bottom: 40px; text-align: left; font-weight: bold;">Para continuar, ingresa el código de verificación que enviamos a tu número de teléfono</p>
+      
+      <ion-list class="main_content_list">
+        <ion-item style="margin-bottom: 20px;">
+          <ion-input [(ngModel)]="elCodigoNew" type="tel" minlength="6" maxlength="6" class="ion-text-center" class="el-codigo-new" placeholder="XXXXXX"></ion-input>
+        </ion-item>            
+        <p style="color: #BC936C; font-size: 14px; width: 85%; margin: auto; margin-bottom: 10px;">Ingrese el código de 6 digitos que le enviamos</p>
+        <!-- <ion-button *ngIf="opcion_codigo == 'c'" (click)="func_reenviarCodigo()" class="ion-text-wrap" style="display: flex; text-transform: none !important; margin: auto; font-size: 12px; font-weight: bold;" color="gobmustard" fill="clear">¿No recibió el código?</ion-button>
+        <ion-button *ngIf="opcion_codigo == 'w'" (click)="func_reenviarCodigoW()" class="ion-text-wrap" style="display: flex; text-transform: none !important; margin: auto; font-size: 12px; font-weight: bold;" color="gobmustard" fill="clear">¿No recibió el código?</ion-button> -->
+      </ion-list>
+    </div>
+    <!-- STEP THREE END -->
+  </div>
+
+
+  <div style="text-align: center; margin: auto; margin-top: 20px;">
+    <ion-button (click)="func_doRegistro();" class="global-button" color="gobred">{{ step_name }}</ion-button><br>
+  </div>
+
+  <!-- <ion-button (click)="experimento_forceSlide()"></ion-button> -->
+</ion-content>
+
+<!-- this.step_registro -->
+<ion-footer *ngIf="this.step_registro == 2" class="ion-no-border" style="background-color: white;">
+  <ion-button (click)="func_reenviarCodigoW()" class="ion-text-wrap" style="display: flex; text-transform: none !important; margin: auto; font-size: 14px; font-weight: bold;" color="dark" fill="clear">¿No recibiste el código de verficiación? <span style="color: #A61B41; margin-left: 10px;">Reenviar</span></ion-button>
+</ion-footer>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- OLD SHIT INI -->
   <!-- <div class="login_bg">
     <img src="../../assets/login/apptra_logo.png" class="login_icon" alt="icon">
   </div>
 
   <div class="logo_container">
-    <img src="../../assets/login/app_logo_alt.png" class="login_logo" alt="icon">
+    <img src="../../assets/login/app_logo_alt.jpg" class="login_logo" alt="icon">
   </div> -->
 
-  <img src="../../assets/login/aptra-registro.jpg" alt="">
+  <!-- <img src="../../assets/login/aptra-registro.jpg" alt=""> -->
   
-  <div style="display: flex !important;">
-    <swiper-container #swiper scrollbar="true" allow-touch-move="false" auto-height="true">
-      <swiper-slide style="text-align: center; padding-bottom: 30px;" swiperSlide>
-        <div style="width: 100%; padding: 0px;">
-            <p style="color: #A1193E; font-size: 20px; width: 85%; margin: auto; margin-bottom: 20px;">Asocia tu correo electrónico</p>
-            <ion-grid style="margin:0px; padding:0px;">
+  <!-- <ion-button (click)="func_prevSlide();" color="light">Regresar</ion-button> -->
+
+  <!-- SLIDE DEDICADA A WHATSAPP
+  <swiper-slide *ngIf="step_name == 'Whatsapp'" style="text-align: center; padding-bottom: 30px;" swiperSlide>
+  <div style="width: 100%;">
+    <p style="color: #A1193E; font-size: 20px; width: 85%; margin: auto; margin-bottom: 20px;">Asocie su número de celular </p>
+    <p style="color: #BC936C; font-size: 16px; width: 85%; margin: auto;">Para continuar con el registro, APTRA™ le enviará un código de verificación a su WhatsApp™</p>
+    <ion-list class="main_content_list">
+      <ion-grid>
+        <ion-row>
+          <ion-col size="4">
+            <ion-item>
+              <ion-input style="text-align: center;" disabled placeholder="+52"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col>
+            <ion-item>
+              <ion-input style="text-align: center;" placeholder="8341750246"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+            
+      <ion-button class="ion-text-wrap" style="display: flex; text-transform: none !important; margin: auto; font-size: 12px; font-weight: bold;" color="gobmustard" fill="clear">Prefiero no asociar mi número celular y autenticarme con mi correro electrónico</ion-button>
+    </ion-list>
+  </div>
+</swiper-slide> -->
+<!-- <ion-button *ngIf="step_registro == 1 || step_registro == 2" (click)="func_prevSlide();" class="global-button" color="light">Regresar</ion-button><br> -->
+<!-- <swiper-container #swiper scrollbar="true" allow-touch-move="false" auto-height="true"> -->
+
+              <!-- <p style="color: #A1193E; font-size: 20px; width: 85%; margin: auto; margin-bottom: 20px;">Asocia tu correo electrónico</p> -->
+            <!-- <ion-grid style="margin:0px; padding:0px;">
               <ion-row style="width: 78vw; margin: auto;">
                 <ion-col size="6">
-                  <!-- <ion-input [(ngModel)]="registroDatos.correo_seudo" type="email" placeholder="Usuario..." helperText="Introduce tu correo electrónico" (ionBlur)="usuarioChanged($event)"></ion-input> -->
                   <ion-input (ionBlur)="usuarioChanged($event)" placeholder="Usuario..." type="email" [(ngModel)]="registroDatos.correo_seudo" class="global-input-text-select" style="height: 100%;"></ion-input>
                 </ion-col>
                 <ion-col size="6">
@@ -30,10 +264,7 @@
                     </ion-select>
                 </ion-col>
               </ion-row>
-            </ion-grid>
-
-            <br>
-
+            </ion-grid> -->
             <!-- <ion-item>
               <ion-label color="tertiary" position="floating">Correo Electrónico</ion-label>
               <ion-input [(ngModel)]="registroDatos.correo" type="email" helperText="Enter a valid email" ngModel email errorText="Invalid email"></ion-input>
@@ -46,17 +277,6 @@
                 <ion-icon color="tertiary" *ngIf="passType == 'password'" slot="icon-only" name="eye-outline"></ion-icon>
               </ion-button>
             </ion-item> -->
-
-            <div class="global-password-container">
-              <input placeholder="Contraseña" type="{{ passType }}" [(ngModel)]="registroDatos.pass" (keypress)="keyPress($event, $event)" class="global-input-password" />
-              <ion-button (click)="passwordType('normal')" fill="clear" class="global-input-password-button">
-                <ion-icon color="tertiary" *ngIf="passType == 'text'" slot="icon-only" name="eye-off-outline"></ion-icon>
-                <ion-icon color="tertiary" *ngIf="passType == 'password'" slot="icon-only" name="eye-outline"></ion-icon>
-              </ion-button>
-            </div>
-
-            <br>
-
             <!-- <ion-item style="border: solid black 0px;">
               <ion-input [(ngModel)]="registroDatos.passConfirma" enterkeyhint="go" (keypress)="keyPress($event, $event)" [clearOnEdit]="false" placeholder="Repetir Contraseña" type="{{ passTypeRepeat }}"></ion-input>
               <ion-button (click)="passwordType('normal')" fill="clear">
@@ -64,78 +284,47 @@
                 <ion-icon color="tertiary" *ngIf="passType == 'password'" slot="icon-only" name="eye-outline"></ion-icon>
               </ion-button>
             </ion-item> -->
-
-            <div class="global-password-container">
-              <input placeholder="Repetir Contraseña" type="{{ passTypeRepeat }}" [(ngModel)]="registroDatos.passConfirma" (keypress)="keyPress($event, $event)" class="global-input-password" />
-              <ion-button (click)="passwordType('normal')" fill="clear" class="global-input-password-button">
-                <ion-icon color="tertiary" *ngIf="passType == 'text'" slot="icon-only" name="eye-off-outline"></ion-icon>
-                <ion-icon color="tertiary" *ngIf="passType == 'password'" slot="icon-only" name="eye-outline"></ion-icon>
-              </ion-button>
-            </div>
-        </div>
-      </swiper-slide>
-      
-      <swiper-slide style="text-align: center; padding-bottom: 30px;" swiperSlide>
+      <!-- <swiper-slide style="text-align: center; padding-bottom: 30px;" swiperSlide>
         <div style="width: 100%;">
           <p style="width: 90%; margin:auto; color: gray; margin-bottom: 20px; font-size: 30px; font-weight: bold;">Para crear tu cuenta necesitamos validar algunos datos</p>
           <p style="width: 80%; margin:auto; color: gray;">Solo te llevará un par de minutos</p>
         </div>
-      </swiper-slide>
-
-      <swiper-slide style="text-align: center; padding-bottom: 30px;" swiperSlide>
-        <div style="width: 100%;">
+      </swiper-slide> -->
           <!-- <ion-list class="main_content_list"> -->
-            <p style="color: #A1193E; font-size: 20px; width: 85%; margin: auto; margin-bottom: 20px;">Confirmación de datos</p>
-            <!-- <ion-item> -->
-
-              <ion-select style="justify-content: center;
-              align-content: center;
-              align-items: center; margin: auto; --border-radius: 10px; border-radius: 10px; background-color: rgb(245,247,250); border: 2px solid rgb(240,240,255); padding-left: 10px; width: 75vw;" color="none" aria-label="entidad" fill="none" interface="popover" placeholder="Selecciona tu entidad de Gobierno" [(ngModel)]="registroDatos.tipo_gobierno" (ionChange)="registroDatos.numEmpleado = ''; registroDatos.rfc = ''; registroDatos.curp = '';">
-                <ion-select-option color="tertiary" value="1">Gobierno Central</ion-select-option>
-                <ion-select-option color="tertiary" value="2">OPD</ion-select-option>
-              </ion-select>
-
+            <!-- <p style="color: #A1193E; font-size: 20px; width: 85%; margin: auto; margin-bottom: 20px;">Confirmación de datos</p> -->
+       <!-- <ion-item> -->
               <!-- <ion-select color="tertiary" aria-label="entidad" interface="popover" placeholder="Selecciona tu entidad de Gobierno" [(ngModel)]="registroDatos.tipo_gobierno" (ionChange)="registroDatos.numEmpleado = ''; registroDatos.rfc = ''; registroDatos.curp = '';">
                 <ion-select-option color="tertiary" value="1">Gobierno Central</ion-select-option>
                 <ion-select-option color="tertiary" value="2">OPD</ion-select-option>
               </ion-select> -->
             <!-- </ion-item> -->
-            <br>
-
             <!-- <ion-item counter="true" [disabled]="registroDatos.tipo_gobierno == 2">
               <ion-label color="tertiary" position="floating">Número de empleado</ion-label>
               <ion-input [(ngModel)]="registroDatos.numEmpleado" minlength="5" maxlength="5" type="tel"></ion-input>
             </ion-item> -->
             
-            <ion-input [disabled]="registroDatos.tipo_gobierno == 2" placeholder="Número de Empleado" [(ngModel)]="registroDatos.numEmpleado" class="global-input-text" style="margin-bottom: 20px;" minlength="5" maxlength="5" type="tel"></ion-input>
-
             <!-- <ion-item counter="true" style="border: solid black 0px;">
               <ion-label color="tertiary" position="floating">RFC (Incluida en la homoclave)</ion-label>
               <ion-input [(ngModel)]="registroDatos.rfc" minlength="13" maxlength="13" type="text" oninput="this.value = this.value.toUpperCase()"></ion-input>
             </ion-item> -->
 
-            <ion-input oninput="this.value = this.value.toUpperCase()" placeholder="RFC (Incluida en la homoclave)" minlength="13" maxlength="13" type="text" [(ngModel)]="registroDatos.rfc" class="global-input-text" style="margin-bottom: 20px;"></ion-input>
+            <!-- <ion-input oninput="this.value = this.value.toUpperCase()" placeholder="RFC (Incluida en la homoclave)" minlength="13" maxlength="13" type="text" [(ngModel)]="registroDatos.rfc" class="global-input-text" style="margin-bottom: 20px;"></ion-input> -->
+            <!-- <ion-input oninput="this.value = this.value.toUpperCase()" (keypress)="keyPress($event, $event)" placeholder="CURP" minlength="18" maxlength="18" type="text" [(ngModel)]="registroDatos.curp" class="global-input-text" style="margin-bottom: 20px;"></ion-input> -->
+            <!-- <ion-input [disabled]="registroDatos.tipo_gobierno == 2" enterkeyhint="go"  placeholder="Número de Empleado" [(ngModel)]="registroDatos.numEmpleado" class="global-input-text" style="margin-bottom: 20px;" minlength="5" maxlength="5" type="tel"></ion-input> -->
 
             <!-- <ion-item counter="true" style="border: solid black 0px;">
               <ion-label color="tertiary" position="floating">CURP</ion-label>
               <ion-input [(ngModel)]="registroDatos.curp" minlength="18" maxlength="18" type="text" oninput="this.value = this.value.toUpperCase()" enterkeyhint="go" (keypress)="keyPress($event, $event)"></ion-input>
             </ion-item> -->
 
-            <ion-input oninput="this.value = this.value.toUpperCase()" enterkeyhint="go" (keypress)="keyPress($event, $event)" placeholder="CURP" minlength="18" maxlength="18" type="text" [(ngModel)]="registroDatos.curp" class="global-input-text" style="margin-bottom: 20px;"></ion-input>
-
           <!-- </ion-list> -->
-        </div>
-      </swiper-slide>
-
-      <swiper-slide style="text-align: center; padding-bottom: 30px;" swiperSlide>
-        <div style="width: 100%;">
-          <p style="color: #A1193E; font-size: 20px; width: 85%; margin: auto; margin-bottom: 20px;">Verificación de Código </p>
-          <p *ngIf="opcion_codigo == 'c'" style="color: #BC936C; font-size: 16px; width: 85%; margin: auto;">Hemos enviado un correo electrónico a "<b>{{ registroDatos.correo }}</b>". Por favor, revísalo.</p>
-          <p *ngIf="opcion_codigo == 'w'" style="color: #BC936C; font-size: 16px; width: 85%; margin: auto;">AVIT™ he enviado un mensaje a "<b>{{ registroDatos.celular }}</b>". Por favor, revísalo.</p>
+          <!-- <p style="color: #A1193E; font-size: 20px; width: 85%; margin: auto; margin-bottom: 20px;">Verificación de Código </p>
+          <p *ngIf="opcion_codigo == 'c'" style="color: #BC936C; font-size: 16px; width: 85%; margin: auto;">Hemos enviado un correo electrónico a "<b>{{ registroDatos.correo }}</b>". Por favor, revísalo.</p> -->
+          <!-- <p *ngIf="opcion_codigo == 'w'" style="color: #BC936C; font-size: 16px; width: 85%; margin: auto;">AVIT™ ha enviado un mensaje a
+            <br><b style="font-size: 24px;">{{ func_maskTelefono(registroDatos.celular) }}</b>
+          </p> -->
           <!-- <p style="color: #BC936C; font-size: 16px; width: 85%; margin: auto;">Hemos enviado un mensaje de WhatsApp™ al numero <b>+52 8341657934</b>. Por favor, revísalo.</p> -->
-          <ion-list class="main_content_list">
-            <ion-item style="margin-bottom: 20px;">
-              <ion-grid>
+              <!-- <ion-grid>
                 <ion-row class="otp-box">
                   <ion-col>
                     <div>
@@ -175,14 +364,9 @@
                     </div>
                   </ion-col>
                 </ion-row>
-              </ion-grid>
-            </ion-item>
-            
-            <p style="color: #BC936C; font-size: 14px; width: 85%; margin: auto; margin-bottom: 10px;">Ingrese el código de 6 digitos que le enviamos</p>
+              </ion-grid> -->
             <!-- <p style="color: #BC936C; font-size: 14px; width: 85%; margin: auto; margin-bottom: 10px;">Ingrese el código de 6 digitos que enviamos a su WhatsApp™</p> -->
 
-            <ion-button *ngIf="opcion_codigo == 'c'" (click)="func_reenviarCodigo()" class="ion-text-wrap" style="display: flex; text-transform: none !important; margin: auto; font-size: 12px; font-weight: bold;" color="gobmustard" fill="clear">¿No recibió el código?</ion-button>
-            <ion-button *ngIf="opcion_codigo == 'w'" (click)="func_reenviarCodigoW()" class="ion-text-wrap" style="display: flex; text-transform: none !important; margin: auto; font-size: 12px; font-weight: bold;" color="gobmustard" fill="clear">¿No recibió el código?</ion-button>
             <!-- <ion-button id="open-modal" class="ion-text-wrap" style="display: flex; text-transform: none !important; margin: auto; font-size: 12px; font-weight: bold;" color="gobmustard" fill="clear">¿No recibió el código?</ion-button> -->
             
             <!-- MODAL INI (NECEISTA ESTAR AQUÍ PORQUE EL DIOS DE IONIC LO DEMANDA)-->
@@ -198,14 +382,8 @@
               </swiper-slide>
             </ion-modal> -->
             <!-- MODAL END -->
-          </ion-list>
-        </div>
-      </swiper-slide>
-    </swiper-container>
-  </div>
 
-  <div style="text-align: center; margin: auto; margin-top: 20px;">
-    <!-- 
+                <!-- 
       0 - CORREO Y CONTRASEÑA
       1 - "OCUPAMOS MAS DATOS"
       2 - NUM EMPLEADO - CURP - RFC
@@ -224,40 +402,6 @@
         </ion-col>
       </ion-row>
      </ion-grid> -->
-
-
-     <ion-button (click)="func_doRegistro();" class="global-button" color="gobred">{{ step_name }}</ion-button><br>
-     <ion-button *ngIf="step_registro == 1 || step_registro == 2" (click)="func_prevSlide();" class="global-button" color="light">Regresar</ion-button><br>
-
-
-
-    <ion-button (click)="func_goBack();" style="display: flex; text-transform: none !important; margin: auto; font-size: 12px; font-weight: bold; margin-bottom: 50px;" color="gobred" fill="clear">Ya tengo una cuenta</ion-button>
-  </div>
-</ion-content>
-
-
-<!-- SLIDE DEDICADA A WHATSAPP
-  <swiper-slide *ngIf="step_name == 'Whatsapp'" style="text-align: center; padding-bottom: 30px;" swiperSlide>
-  <div style="width: 100%;">
-    <p style="color: #A1193E; font-size: 20px; width: 85%; margin: auto; margin-bottom: 20px;">Asocie su número de celular </p>
-    <p style="color: #BC936C; font-size: 16px; width: 85%; margin: auto;">Para continuar con el registro, APTRA™ le enviará un código de verificación a su WhatsApp™</p>
-    <ion-list class="main_content_list">
-      <ion-grid>
-        <ion-row>
-          <ion-col size="4">
-            <ion-item>
-              <ion-input style="text-align: center;" disabled placeholder="+52"></ion-input>
-            </ion-item>
-          </ion-col>
-          <ion-col>
-            <ion-item>
-              <ion-input style="text-align: center;" placeholder="8341750246"></ion-input>
-            </ion-item>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-            
-      <ion-button class="ion-text-wrap" style="display: flex; text-transform: none !important; margin: auto; font-size: 12px; font-weight: bold;" color="gobmustard" fill="clear">Prefiero no asociar mi número celular y autenticarme con mi correro electrónico</ion-button>
-    </ion-list>
-  </div>
-</swiper-slide> -->
+     <!-- <ion-button *ngIf="step_registro == 1 || step_registro == 2" (click)="func_prevSlide();" class="global-button" color="light">Regresar</ion-button><br> -->
+     <!-- <ion-button (click)="func_goBack();" style="display: flex; text-transform: none !important; margin: auto; font-size: 12px; font-weight: bold; margin-bottom: 50px;" color="gobred" fill="clear">Ya tengo una cuenta</ion-button> -->
+<!-- OLD SHIT END -->

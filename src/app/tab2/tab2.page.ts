@@ -61,14 +61,16 @@ export class Tab2Page {
 
   async func_getAvisos() {
     let _theUrl = 'https://sitam.tamaulipas.gob.mx/aptranotificaciones/notificaciones';
+    // let _theUrl = 'https://testsitam.tamaulipas.gob.mx/aptranotificaciones/notificaciones';
     axios.get(_theUrl).then(response => response.data)
     .then((data) => {
       this.avisosIsLoaded = true;
       // console.log(data, typeof data, data.length);
       this.avisosAxios = [];
       for (let x = 0; x < data.length; x++) {
-        this.avisosAxios.push({title: data[x].titulo_notificacion, text: data[x].notificacion, splicePipe: false, id: x, activo: data[x].activo})
+        this.avisosAxios.push({title: data[x]['notificacion'].titulo_notificacion, text: data[x]['notificacion'].notificacion, splicePipe: false, id: x, activo: data[x]['notificacion'].activo, fecha: data[x]['notificacion'].created_at['date'], anexos: data[x]['anexos'] })
       }
+      this.avisosAxios.reverse();
       // console.log(':AXIOS:', this.avisosAxios)
       this.mainService.checkVersion();
      })

@@ -1,3 +1,27 @@
 ion-refresher {
     z-index: 10;
-  }
+}
+
+ion-searchbar.custom {
+  --background: #FFFFFF;
+  --color: #000000;
+  --placeholder-color: #8391A1;
+  --icon-color: #000000;
+  --clear-button-color: #000000;
+  --border-radius: 8px;
+
+  padding: 0px;
+  margin:auto;
+  width: 93vw;
+  margin-bottom: 20px;
+  font-weight: 500;
+  font-size: 15px;
+  text-align: left;}
+
+ion-searchbar.ios.custom {
+  --cancel-button-color: #000000;
+}
+
+ion-searchbar.md.custom {
+  --cancel-button-color: #000000;
+}

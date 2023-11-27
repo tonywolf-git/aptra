@@ -1,0 +1,68 @@
+<ion-header class="ion-no-border">
+  <div class="global-header-style">
+    <img class="global-fixed-aptra-header" src="../../assets/login/apptra_logo.png" alt="headd">
+    <div style="display: flex; flex: 1 1; width: 100%; height: 20vh; padding-bottom: 2vh;">
+      <ion-grid style="display: flex; flex-direction: column-reverse; bottom: 0px;">
+        <ion-row class="ion-text-center">
+          <ion-col size="6">
+            <ion-button (click)="mainService.func_toggleMenu()" fill="clear" color="none" style="float: left; color: white;">
+              <ion-icon style="font-size: 7vh;" name="menu-outline"></ion-icon>
+            </ion-button>
+          </ion-col>
+          <ion-col size="6" style="align-self: center;">
+            <div style="float: right; vertical-align: middle; font-weight: bold;" class="ion-text-wrap">Hola, {{ mainService.credencialInfo.elNombre.split(" ")[0] | titlecase }}</div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+  </div>
+</ion-header>
+
+<ion-content [fullscreen]="true" style="--background: #efefef !important;">
+  <ion-button (click)="mainService.func_nav_go_back()" fill="clear" class="global-registro-back" color="none" style="background-color: white; margin-left: 3vw; padding-top: 0px !important;">
+    <ion-icon  slot="icon-only" name="chevron-back-outline"></ion-icon>
+  </ion-button>
+
+  <p style="color: #A61B41; font-size: 30px; width: 90%; margin: auto; margin-top: 0px; margin-bottom: 20px; text-align: left !important; font-weight: bold;">Checador</p>
+  <p style="color: #2A080F; font-size: 16px; width: 90%; margin: auto; margin-top: 20px; margin-bottom: 20px; text-align: left !important; font-weight: 400;">
+    Aquí puedes consultar tus registros de entrada al trabajo. Para continuar selecciona una fecha:
+  </p>
+
+  <!-- <ion-datetime-button ngDefaultControl [(ngModel)]="checadorDate" style="display: none !important;" class="elDateTime" datetime="date"></ion-datetime-button> -->
+
+  <!-- <ion-button class="checadorDate-button ion-text-wrap" [disabled]="true" color="none" id="open-modal">{{ func_checadorDateHumanizer(checadorDate) }}</ion-button> -->
+
+  <ion-datetime
+    style="margin: auto; border-radius: 15px; margin-bottom: 15px; width: 90vw;"
+    color="gobred"
+    ngDefaultControl [(ngModel)]="checadorDate"
+    (ionChange)="func_checadorDateChanged($event)"
+    [preferWheel]="false"
+    presentation="date"
+    id="date"
+    locale="es-MX"
+    [showDefaultButtons]="false"
+    doneText="Aceptar"
+    cancelText="Cancelar">
+  </ion-datetime>
+
+
+  <ion-button (click)="func_postChecador();" class="global-button" color="gobred"><p class="ion-text-wrap">Consultar {{ func_checadorDateHumanizer(checadorDate) }}</p></ion-button><br>
+
+  <!-- <ion-grid style="margin: auto; width: 80vw;">
+    <ion-row>
+      <ion-col size="2" style="display: flex; align-self: center; color: black; text-align: center; padding: 0px; margin: 0px; width: 100%;">
+        <ion-icon style="font-size: 3vh;" name="information-circle-outline"></ion-icon>
+      </ion-col>
+      <ion-col size="10">
+        <p style="text-align: justify;">Si la dependencia en la que laboras se encuentra adscrita al gobierno central, podrás consultar tu información.</p>
+      </ion-col>
+    </ion-row>
+  </ion-grid> -->
+
+<ion-modal [keepContentsMounted]="true" trigger="open-modal">
+  <ng-template>
+    <ion-datetime color="gobred" ngDefaultControl [(ngModel)]="checadorDate" (ionChange)="func_checadorDateChanged($event)" [preferWheel]="true" displayFormat="DD/MMMM" presentation="date" id="date" locale="es-MX" [showDefaultButtons]="true" doneText="Aceptar" cancelText="Cancelar"></ion-datetime>
+  </ng-template>
+</ion-modal>
+</ion-content>

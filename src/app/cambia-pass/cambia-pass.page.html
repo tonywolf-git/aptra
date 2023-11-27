@@ -1,4 +1,4 @@
-<ion-header>
+<!-- <ion-header>
   <ion-toolbar>
     <ion-buttons slot="end">
       <ion-button (click)="func_dismissModal();">
@@ -7,11 +7,22 @@
     </ion-buttons>
     <ion-title>Cambio de contraseña</ion-title>
   </ion-toolbar>
+</ion-header> -->
+
+<ion-header>
+  <ion-toolbar style="--background: linear-gradient(180deg, #ccb597 0%, #bf9974 100%) !important;">
+    <img class="global-fixed-aptra-header-perfil" src="../../assets/login/apptra_logo.png" alt="headd">
+    <ion-buttons slot="end">
+      <ion-button (click)="func_dismissModal();">
+        <ion-icon slot="icon-only" ios="close-outline" md="close-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
     <div class="logo_container" style="margin-top: 25px;">
-      <img src="../../assets/login/app_logo_alt.png" class="login_logo" alt="icon">
+      <img src="../../assets/login/app_logo_alt.jpg" class="login_logo" alt="icon">
     </div>
   
     <p style="color: #A1193E; text-align: center; font-size: 20px; width: 85%; margin: auto; margin-top: 20px; margin-bottom: 30px;">Aquí podrás cambiar tu contraseña actual</p>

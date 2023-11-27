@@ -72,6 +72,48 @@ ion-toolbar {
     --min-height: 10vh;
 }
 
+.global-fixed-header {
+    display: block;
+    position: fixed;
+    top: 0px;
+    z-index: -20;
+}
+
+.global-fixed-aptra-header {
+    display: block;
+    position: fixed;
+    z-index: 0;
+    height: 8vh;
+    left: 50%;
+    top: 8vh;
+    transform: translateX(-50%);
+}
+
+.global-fixed-aptra-header-perfil {
+    display: block;
+    position: fixed;
+    z-index: 0;
+    height: 4vh;
+    left: 50%;
+    top: 3vh;
+    transform: translateX(-50%);
+}
+
+.global-header-style {
+    height: 20vh;
+    width: 100vw;
+    background-image: url('assets/main/header.png');
+    background-size: 100% 100%;
+}
+
+.elFooterRec {
+    // --background: #19422d !important;
+    --background: none !important;
+    --color: white !important;
+    --height: 900px !important;
+    --min-height: 10vh;
+}
+
 .main_content_list {
     width: 90%;
     margin: auto;
@@ -143,14 +185,143 @@ ion-toolbar {
   }
 
 
-.global-input-text { padding: 15px; border: 2px solid rgb(240,240,255); background-color: rgb(245,247,250); display: block; margin: auto; width: 75vw; border-radius: 10px; }
+.global-input-text { padding: 15px; border: 2px solid rgb(240,240,255); background-color: rgb(245,247,250); display: block; margin: auto; width: 85vw; border-radius: 10px; }
 .global-input-text-select { padding: 15px; border: 2px solid rgb(240,240,255); background-color: rgb(245,247,250); display: block; margin: auto; width: 100%; border-radius: 10px; }
 .global-password-container {position: relative;}
-.global-input-password { padding: 15px; border: 2px solid rgb(240,240,255); background-color: rgb(245,247,250); display: block; margin: auto; width: 75vw; border-radius: 10px; padding-right: 15vw; }
+.global-input-password { padding: 15px; border: 2px solid rgb(240,240,255); background-color: rgb(245,247,250); display: block; margin: auto; width: 85vw; border-radius: 10px; padding-right: 15vw; }
 .global-input-password-button { padding: 0px; position: absolute; right: 12vw; top: 10%; }
-.global-button { display: block; margin: auto; width: 75vw; height: 5.5vh; --border-radius: 10px; text-transform: none;}
+.global-button { display: block; margin: auto; width: 85vw; height: 5.5vh; --border-radius: 10px; text-transform: none;}
+.global-button-outline { display: block; margin: auto; width: 85vw; height: 5.5vh; --border-radius: 10px; text-transform: none;}
 
+.global-input-password:disabled {
+    background-color: rgba(0,0,0,0.1);
+    --color: red;
+    opacity: 0.4;
+}
 
+.global-registro-back {
+    margin-left: 50px;
+    margin-top: 40px;
+    margin-bottom: 30px;
+    --color: rgb(60,60,60);
+    border: 2px solid rgba(80,80,80,0.1);
+    border-radius: 10px;
+    height: 50px;
+}
 
+// DIV PARA CENTRAR VERTICALMENTE -- INI --
+.global-vc-outer { display: table; position: absolute; top: 0; left: 0; height: 100%; width: 100%; }
+.global-vc-middle { display: table-cell; vertical-align: middle; }
+.global-vc-inner { margin-left: auto; margin-right: auto; width: 80%; }
+// DIV PARA CENTRAR VERTICALMENTE -- END --
 
-//   fcomunoz0801@gmail.com
+// COSAS DEL REC -- INI --
+.avatar-circle {
+    width: 70px;
+    height: 70px;
+    // background-color: #C4C4C4;;
+    background-color: #A1193E;
+    text-align: center;
+    border-radius: 10%;
+    -webkit-border-radius: 10%;
+    -moz-border-radius: 10%;
+  }
+  
+  .initials {
+    position: relative;
+    top: 17.5px; /* 25% of parent */
+    font-size: 36px; /* 50% of parent */
+    line-height: 35px; /* 50% of parent */
+    // color: #757575;
+    color: white;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  }
+// COSAS DEL REC -- END --
+
+// NEW SHIT INI
+div.scrollmenu {
+    overflow: auto;
+    white-space: nowrap;
+}
+
+div.scrollmenu div {
+    display: inline-block;
+    color: white;
+    text-align: center;
+    padding: 14px;
+    text-decoration: none;
+}
+  
+  .scrollmenu-card {
+    display: inline-block;
+    width: 70vw;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+}
+
+.scrollmenu-card-dia-row { width: 100%  !important; height: 9vw  !important; margin: auto  !important; border-top-left-radius: 5px  !important; border-top-right-radius: 5px  !important; background-color: #A61B41  !important; }
+.scrollmenu-card-dia-row-content { font-style: normal !important; font-weight: 700 !important; letter-spacing: -0.01em !important; color: #FFFFFF !important; display: flex !important; align-items: center !important; margin:auto !important; height: 100% !important; text-align: center !important; width: 100%; }
+.scrollmenu-card-dia-row-content-text { text-align: center !important; font-size: 3vw !important; width: 100%; }
+
+.scrollmenu-card-dianum-row {width: 100% !important; height: 9vw !important; margin: auto !important; border-bottom-left-radius: 5px !important; border-bottom-right-radius: 5px !important; background-color: #D9D9D9 !important;}
+.scrollmenu-card-dianum-row-content { font-style: normal !important; font-weight: 400 !important; font-size: 17px !important; letter-spacing: -0.01em !important; color: #4F0E1E !important; display: flex !important; align-items: center !important; margin:auto !important; height: 100% !important; text-align: center !important; }
+
+.scrollmenu-card-titulo { display: block; padding: 0px !important; font-style: normal !important; font-weight: 700 !important; font-size: 15px !important; letter-spacing: -0.01em !important; color: #C39E7B !important; text-align: left !important; }
+.scrollmenu-card-subtitulo { display: block; padding: 0px !important; font-style: normal !important; font-weight: 300 !important; font-size: 13px !important;  letter-spacing: -0.01em !important; color: black !important; text-align: left !important; }
+
+.card-col {
+    background-color: lime;
+}
+
+.card-container {
+    width: 27vw;
+    height: 27vw;
+    box-sizing: border-box;
+    background: #FFFFFF;
+    border: 1px solid #D9D9D9;
+    border-radius: 6px;
+    margin: auto;
+}
+
+.card-content {
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    vertical-align: middle;
+    border-radius: 6px;
+    height: 100%;
+}
+
+.card-text {
+    text-align: center;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 130%;
+    letter-spacing: -0.01em;
+    color: #A61B41;
+    margin-bottom: 10%;
+}
+
+.explora-container {
+    margin: auto;
+    margin-top: 5px;
+    display: flex;
+    flex-direction: column;
+    width: 95vw;
+  }
+  // NEW SHIT END
+
+  ion-alert.la-plebe {
+    // --background: cyan;
+  }
+  
+  .la-plebe .alert-message {
+    .plebe-error {
+        display: block;
+        color: red;
+        font-size: 12px;
+        margin-top: 10px;
+    }
+  }

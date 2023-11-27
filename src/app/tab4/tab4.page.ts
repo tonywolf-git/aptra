@@ -216,7 +216,7 @@ export class Tab4Page implements OnInit {
       message: msg,
       buttons: [
         {
-          text: 'OK',
+          text: 'Aceptar',
           role: 'cancel',
         }
       ],

@@ -1,0 +1,27 @@
+.theImgDiv {
+    display: flex;
+    z-index: -100;
+}
+
+.theImg {
+    z-index: -100;
+    width: 100%;
+}
+
+.zindexDiv {
+    display: block;
+    width: 100%;
+    background-color: white;
+    margin-top: -10vh;
+    border-top-left-radius: 65px;
+    border-top-right-radius: 65px;
+    padding-top: 5px;
+    z-index: 201;
+}
+
+.theDesc {
+    display: block;
+    margin: auto;
+    width: 85%;
+    text-align: justify;
+}

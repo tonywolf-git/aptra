@@ -1,22 +1,382 @@
-<ion-header>
+
+
+<ion-header class="ion-no-border">
+  <div class="global-header-style">
+    <img class="global-fixed-aptra-header" src="../../assets/login/apptra_logo.png" alt="headd">
+    <div style="display: flex; flex: 1 1; width: 100%; height: 20vh; padding-bottom: 2vh;">
+      <ion-grid style="display: flex; flex-direction: column-reverse; bottom: 0px;">
+        <ion-row class="ion-text-center">
+          <ion-col size="6">
+            <ion-button (click)="mainService.func_toggleMenu()" fill="clear" color="none" style="float: left; color: white;">
+              <ion-icon style="font-size: 7vh;" name="menu-outline"></ion-icon>
+            </ion-button>
+          </ion-col>
+          <ion-col size="6" style="align-self: center;">
+            <div style="float: right; vertical-align: middle; font-weight: bold;" class="ion-text-wrap">Hola, {{ mainService.credencialInfo.elNombre.split(" ")[0] | titlecase }}</div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+  </div>
+</ion-header>
+
+<ion-content [fullscreen]="true" style="--background: #efefef !important;">
+
+  <ion-item *ngIf="mainService.service_bool_telefono == false" (click)="mainService.func_alertNoTelefono();" color="none" lines="none" button class="warning-banner-container">
+    <ion-icon style="font-size: 4vh;" color="warning" aria-hidden="true" name="warning" slot="start"></ion-icon>
+    <ion-label class="ion-text-wrap warning-banner-content">¡Tu perfil está incompleto!<br>Presiona aquí para agregar tu teléfono celular, el cual es necesario para las nuevas funciones en APTRA™</ion-label>
+  </ion-item>
+
+  <ion-grid class="ion-text-center" style="margin-top: 30px;">
+    <ion-row style="margin-bottom: 10px;">
+      <ion-col button (click)="mainService.func_push_to('tab4', null)">
+        <div class="card-container">
+          <div class="card-content">
+            <img style="width: 50%; margin: auto;" src="../../assets/icon/ico_cred.png" alt="">
+            <div class="card-text">Credencial</div>
+          </div>
+        </div>
+      </ion-col>
+
+      <ion-col button (click)="mainService.func_push_to('tab2', null)">
+        <div class="card-container">
+          <div class="card-content">
+            <img style="width: 50%; margin: auto;" src="../../assets/icon/ico_bell.png" alt="">
+            <div class="card-text">Avisos</div>
+          </div>
+        </div>
+      </ion-col>
+
+      <ion-col button (click)="mainService.func_push_to('tab3', null)">
+        <div class="card-container">
+          <div class="card-content">
+            <img style="width: 50%; margin: auto;" src="../../assets/icon/ico_calend.png" alt="">
+            <div class="card-text">Calendario</div>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col button (click)="mainService.func_push_to('tramites', null)">
+        <div class="card-container">
+          <div class="card-content">
+            <img style="width: 50%; margin: auto;" src="../../assets/icon/ico_tramites.png" alt="">
+            <div class="card-text">Trámites</div>
+          </div>
+        </div>
+      </ion-col>
+
+      <ion-col *ngIf="mainService.tipo_gobierno == 1" button (click)="mainService.func_push_to('checador', null)">
+        <div class="card-container">
+          <div class="card-content">
+            <img style="width: 50%; margin: auto;" src="../../assets/icon/ico_clock.png" alt="">
+            <div class="card-text">Checador</div>
+          </div>
+        </div>
+      </ion-col>
+
+      <!-- <ion-col button (click)="mainService.func_push_to('ayuda', null)">
+        <div class="card-container">
+          <div class="card-content">
+            <img style="width: 50%; margin: auto;" src="../../assets/icon/ico_heeeeeelp.png" alt="">
+            <div class="card-text">Ayuda</div>
+          </div>
+        </div>
+      </ion-col> -->
+    </ion-row>
+
+    <!-- <ion-row>
+      <ion-col button (click)="mainService.func_push_to('tab5', null)">
+        <div class="card-container">
+          <div class="card-content">
+            <img style="width: 50%; margin: auto;" src="../../assets/icon/ico-rec.png" alt="">
+            <div class="card-text">REC</div>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row> -->
+  </ion-grid>
+
+  <p style="color: #A61B41; font-size: 20px; width: 90%; margin: auto; margin-top: 25px; text-align: left !important; font-weight: bold;">Efemerides de la semana</p>
+
+  <div class="scrollmenu">
+    <ion-card *ngFor="let efemeride of efemeridesSemanales" (click)="mainService.func_selectEfemeride(efemeride)" class="scrollmenu-card">
+      <img alt="Silhouette of mountains" [src]="efemeride['img_url']" />
+    
+      <ion-card-content class="ion-text-wrap" style="padding: 5px;">
+        <ion-grid style="width: 100%; padding: 0px;">
+          <ion-row>
+            <ion-col size="3">
+              <ion-row class="scrollmenu-card-dia-row">
+                <div class="scrollmenu-card-dia-row-content" style="display: flex;">
+                  <p class="scrollmenu-card-dia-row-content-text">{{ mainService.func_convertFormatDate(efemeride['fecha'], 'YYYY-MM-DD', 'shortday') }}</p>
+                </div>
+              </ion-row>
+              <ion-row class="scrollmenu-card-dianum-row">
+                <div class="scrollmenu-card-dianum-row-content">{{ mainService.func_convertFormatDate(efemeride['fecha'], 'YYYY-MM-DD', 'daynum') }}</div>
+              </ion-row>
+            </ion-col>
+
+            <ion-col size="9">
+              <div class="scrollmenu-card-titulo">{{ (efemeride['titulo'] | slice:0:55) + '...' }}</div><br>
+              <div class="scrollmenu-card-subtitulo">{{ efemeride['donde'] }}</div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- <ion-card class="scrollmenu-card">
+      <img alt="Silhouette of mountains" src="https://i.ytimg.com/vi/maKrR-TKpJQ/maxresdefault.jpg" />
+    
+      <ion-card-content class="ion-text-wrap" style="padding: 5px;">
+        <ion-grid style="width: 100%; padding: 0px;">
+          <ion-row>
+            <ion-col size="3">
+              <ion-row class="scrollmenu-card-dia-row">
+                <div class="scrollmenu-card-dia-row-content" style="display: flex;">
+                  <p class="scrollmenu-card-dia-row-content-text">SAB</p>
+                </div>
+              </ion-row>
+              <ion-row class="scrollmenu-card-dianum-row">
+                <div class="scrollmenu-card-dianum-row-content">14</div>
+              </ion-row>
+            </ion-col>
+
+            <ion-col size="9">
+              <div class="scrollmenu-card-titulo">Hola, soy una perro equisde agria de limon rancio</div><br>
+              <div class="scrollmenu-card-subtitulo">Secretaría de Perritos</div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card class="scrollmenu-card">
+      <img alt="Silhouette of mountains" src="https://steamsplay.com/wp-content/uploads/2022/08/ultrakill-how-to-change-textures-in-cybergrind-mode-0-steamsplay-com-10103558.png" />
+    
+      <ion-card-content class="ion-text-wrap" style="padding: 5px;">
+        <ion-grid style="width: 100%; padding: 0px;">
+          <ion-row>
+            <ion-col size="3">
+              <ion-row class="scrollmenu-card-dia-row">
+                <div class="scrollmenu-card-dia-row-content" style="display: flex;">
+                  <p class="scrollmenu-card-dia-row-content-text">DOM</p>
+                </div>
+              </ion-row>
+              <ion-row class="scrollmenu-card-dianum-row">
+                <div class="scrollmenu-card-dianum-row-content">15</div>
+              </ion-row>
+            </ion-col>
+
+            <ion-col size="9">
+              <div class="scrollmenu-card-titulo">Ultrakill</div><br>
+              <div class="scrollmenu-card-subtitulo">Secretaría de Disparos con Estilo</div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+    
+    <ion-card class="scrollmenu-card">
+      <img alt="Silhouette of mountains" src="https://store-images.s-microsoft.com/image/apps.55563.14303655336501012.2beb08d9-395e-453b-b5e3-0d4ac24d9d15.f9a0e430-b546-45f8-85f1-1d2b90bb84d5?mode=scale&q=90&h=1080&w=1920" />
+    
+      <ion-card-content class="ion-text-wrap" style="padding: 5px;">
+        <ion-grid style="width: 100%; padding: 0px;">
+          <ion-row>
+            <ion-col size="3">
+              <ion-row class="scrollmenu-card-dia-row">
+                <div class="scrollmenu-card-dia-row-content" style="display: flex;">
+                  <p class="scrollmenu-card-dia-row-content-text">DOM</p>
+                </div>
+              </ion-row>
+              <ion-row class="scrollmenu-card-dianum-row">
+                <div class="scrollmenu-card-dianum-row-content">666</div>
+              </ion-row>
+            </ion-col>
+
+            <ion-col size="9">
+              <div class="scrollmenu-card-titulo">DOOM</div><br>
+              <div class="scrollmenu-card-subtitulo">Secretaría Marciana Infernal</div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+    
+    <ion-card class="scrollmenu-card">
+      <img alt="Silhouette of mountains" src="https://images.nintendolife.com/aa35cce078ae0/1280x720.jpg" />
+    
+      <ion-card-content class="ion-text-wrap" style="padding: 5px;">
+        <ion-grid style="width: 100%; padding: 0px;">
+          <ion-row>
+            <ion-col size="3">
+              <ion-row class="scrollmenu-card-dia-row">
+                <div class="scrollmenu-card-dia-row-content" style="display: flex;">
+                  <p class="scrollmenu-card-dia-row-content-text">VIE</p>
+                </div>
+              </ion-row>
+              <ion-row class="scrollmenu-card-dianum-row">
+                <div class="scrollmenu-card-dianum-row-content">13</div>
+              </ion-row>
+            </ion-col>
+
+            <ion-col size="9">
+              <div class="scrollmenu-card-titulo">Banjo Kazooie</div><br>
+              <div class="scrollmenu-card-subtitulo">RARE™ Inc.</div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card class="scrollmenu-card">
+      <img alt="Silhouette of mountains" src="https://cdn.mos.cms.futurecdn.net/Yag9FkGQsPjtSr4XoAAGP5.jpg" />
+    
+      <ion-card-content class="ion-text-wrap" style="padding: 5px;">
+        <ion-grid style="width: 100%; padding: 0px;">
+          <ion-row>
+            <ion-col size="3">
+              <ion-row class="scrollmenu-card-dia-row">
+                <div class="scrollmenu-card-dia-row-content" style="display: flex;">
+                  <p class="scrollmenu-card-dia-row-content-text">DOM</p>
+                </div>
+              </ion-row>
+              <ion-row class="scrollmenu-card-dianum-row">
+                <div class="scrollmenu-card-dianum-row-content">24</div>
+              </ion-row>
+            </ion-col>
+
+            <ion-col size="9">
+              <div class="scrollmenu-card-titulo">Elden Ring</div><br>
+              <div class="scrollmenu-card-subtitulo">FromSoftware™, Hidetaka Miyasaki, el Chino Koreano Japonés</div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card> -->
+  </div>
+
+  <ion-row style="display: flex; align-items: center; padding:0px !important; margin: 0px !important;">
+    <ion-col>
+      <p style="color: #A61B41; font-size: 20px; width: 90%; margin: auto; text-align: left !important; font-weight: bold;">Explora</p>    
+    </ion-col>
+    <ion-col>
+      <ion-button (click)="mainService.func_push_to('efemerides', null)" style="float: right;" color="dark" fill="clear">Ver más</ion-button>
+    </ion-col>
+  </ion-row>
+
+  <div class="explora-container">
+    <ion-grid *ngFor="let efemeride of efemeridesMensuales.slice(0, 3)" (click)="mainService.func_selectEfemeride(efemeride)" style="background-color: white; padding: 10px; margin-bottom: 20px;">
+      <ion-row>
+        <ion-col size="7">
+          <span class="scrollmenu-card-titulo" style="display: block !important; font-size: 18px !important;">{{ (efemeride['titulo'] | slice:0:45) + '...' }}</span>
+          <span class="scrollmenu-card-subtitulo" style="display: block !important; font-size: 13px !important; margin-top: 5px !important; color: #1E232C !important;">{{ mainService.func_convertDate(efemeride['fecha'], 'YYYY-MM-DD') }}</span>
+        </ion-col>
+        <ion-col size="5">
+          <img style="border-radius: 5px;" [src]="efemeride['img_url']" alt="Nose">
+        </ion-col>
+      </ion-row>
+
+      <ion-row style="border-top: 1px solid #C8C8C8; padding-top: 5px; font-style: normal; font-weight: 300; font-size: 13px; letter-spacing: -0.01em; color: #1E232C;">
+        <span style="display: block; margin-left: 3px !important;">{{ efemeride['donde'] }}</span>
+      </ion-row>
+    </ion-grid>
+
+    <!-- <ion-grid style="background-color: white; padding: 10px; margin-bottom: 20px;">
+      <ion-row>
+        <ion-col size="7" (click)="mainService.func_push_to('efemerides-desc', null)">
+          <span class="scrollmenu-card-titulo" style="display: block !important; font-size: 18px !important;">Papa Benedicto XVI confirmado como nueva especie de Dilofosaurio.</span>
+          <span class="scrollmenu-card-subtitulo" style="display: block !important; font-size: 13px !important; margin-top: 5px !important; color: #1E232C !important;">Viernes, 28 Octubre 2023</span>
+        </ion-col>
+        <ion-col size="5">
+          <img style="border-radius: 5px;" src="https://desdelafe.mx/wp-content/uploads/2020/08/benedicto-xvi-2.jpg" alt="Nose">
+        </ion-col>
+      </ion-row>
+
+      <ion-row style="border-top: 1px solid #C8C8C8; padding-top: 5px; font-style: normal; font-weight: 300; font-size: 13px; letter-spacing: -0.01em; color: #1E232C;">
+        <span style="display: block; margin-left: 3px !important;">Secretaria de Administración</span>
+      </ion-row>
+    </ion-grid>
+
+    <ion-grid (click)="mainService.func_push_to('efemerides-desc', null)" style="background-color: white; padding: 10px; margin-bottom: 20px;">
+      <ion-row>
+        <ion-col size="7">
+          <span class="scrollmenu-card-titulo" style="display: block !important; font-size: 18px !important;">Nuevas imagenes del Papa Dilofosaurio, ¡Es confirmada su subespecie!</span>
+          <span class="scrollmenu-card-subtitulo" style="display: block !important; font-size: 13px !important; margin-top: 5px !important; color: #1E232C !important;">Viernes, 29 Octubre 2023</span>
+        </ion-col>
+        <ion-col size="5">
+          <img style="border-radius: 5px;" src="https://nypost.com/wp-content/uploads/sites/2/2020/07/Dilophosaurus-jurassic-park-01.jpg?quality=90&strip=all" alt="Nose">
+        </ion-col>
+      </ion-row>
+
+      <ion-row style="border-top: 1px solid #C8C8C8; padding-top: 5px; font-style: normal; font-weight: 300; font-size: 13px; letter-spacing: -0.01em; color: #1E232C;">
+        <span style="display: block; margin-left: 3px !important;">Secretaria de Administración</span>
+      </ion-row>
+    </ion-grid>
+
+    <ion-grid style="background-color: white; padding: 10px; margin-bottom: 20px;">
+      <ion-row>
+        <ion-col size="7">
+          <span class="scrollmenu-card-titulo" style="display: block !important; font-size: 18px !important;">Niños desaparecidos en la Ciudad del Vaticano, ¿Un ataque más del Papa Dilofosaurio?</span>
+          <span class="scrollmenu-card-subtitulo" style="display: block !important; font-size: 13px !important; margin-top: 5px !important; color: #1E232C !important;">Viernes, 31 Octubre 2023</span>
+        </ion-col>
+        <ion-col size="5">
+          <img style="border-radius: 5px;" src="https://townsquare.media/site/156/files/2017/12/National-Center-for-Missing-and-Exploited-Children.png?w=1200&h=0&zc=1&s=0&a=t&q=89" alt="Nose">
+        </ion-col>
+      </ion-row>
+
+      <ion-row style="border-top: 1px solid #C8C8C8; padding-top: 5px; font-style: normal; font-weight: 300; font-size: 13px; letter-spacing: -0.01em; color: #1E232C;">
+        <span style="display: block; margin-left: 3px !important;">Secretaria de Administración</span>
+      </ion-row>
+    </ion-grid> -->
+  </div>
+
+  <img *ngIf="mainService.credencialInfo.elNombre == 'GENARO ANTONIO SARNO SARNO'" style="width: 20%; position:fixed; bottom: -2px; right: 5px;" src="../../assets/placeholder/imadethisfrfr.png" alt="imadethis">
+  <img *ngIf="mainService.credencialInfo.elNombre == 'NICOLINA CARMELA POMPEYA SARNO BERARDI'" style="width: 20%; position:fixed; bottom: -2px; right: 5px;" src="../../assets/placeholder/stick_tia_nila.png" alt="imadethis">
+  <img *ngIf="mainService.credencialInfo.elNombre == 'TERESA JOSEFINA SARNO BERARDI'" style="width: 20%; position:fixed; bottom: -2px; right: 5px;" src="../../assets/placeholder/stick_tia_chachi.png" alt="imadethis">
+</ion-content>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- OLD SHIT INI -->
+<!-- <ion-header>
   <ion-toolbar>
     <ion-buttons slot="end">
       <ion-menu-button auto-hide="false"></ion-menu-button>
     </ion-buttons>
     <ion-title>¡Bienvenido!</ion-title>
   </ion-toolbar>
-</ion-header>
+</ion-header> -->
 
-<ion-content [fullscreen]="true">
-      <!-- --- CREDENCIAL INI --- -->
-      <div (click)="fucn_goTo('tab4')" style="background: no-repeat center/100% url('../../assets/etc/tab1_credencial.png'); width: 95%; margin:auto; background-size: contain; margin-top: 20px;">
-        <div class="mini-cred-flip-card scale-this" style="margin-bottom: 0px;" [ngClass]="platform.is('ios') ? 'iosPlat' : 'androidPlat'">
-          <div class="mini-cred-flip-card-inner">
-            <div class="mini-cred-flip-card-front">
+  <!-- --- CREDENCIAL INI --- -->
+  <!-- <div (click)="fucn_goTo('tab4')" style="background: no-repeat center/100% url('../../assets/etc/tab1_credencial.png'); width: 95%; margin:auto; background-size: contain; margin-top: 20px;">
+    <div class="mini-cred-flip-card scale-this" style="margin-bottom: 0px;" [ngClass]="platform.is('ios') ? 'iosPlat' : 'androidPlat'">
+      <div class="mini-cred-flip-card-inner">
+        <div class="mini-cred-flip-card-front">
           <div class="mini-cred-front-logo-div">
             <img src="../../assets/credencial/front-logo.png" style="height: 80%; margin: auto;" alt="">
           </div>
-      
+          
           <ion-grid class="mini-cred-front-pic-number-div">
             <ion-row class="no-padding" style="height: 100%; width: 100%; margin:0px !important; padding:0px !important;">
               <ion-col class="mini-cred-front-pic-number-col1" style="padding: 0px !important;">
@@ -33,17 +393,13 @@
               </ion-col>
             </ion-row>
           </ion-grid>
-
-          
       
           <div class="front-info-container">
-            <!-- <div class="mini-cred-front-div-info" style="text-align: left; margin-top: 5px; margin-bottom: 5px;"> -->
             <div class="mini-cred-front-div-info" style="text-align: left; margin-top: 0.2vh; margin-bottom: 0.2vh;">
               <p [ngClass]="platform.is('ios') ? 'ios-info-titulo' : 'android-info-titulo'">NOMBRE</p>
               <p [ngClass]="platform.is('ios') ? 'ios-info-titulo-text' : 'android-info-titulo-text'" *ngIf="mainService.credencialInfo.elNombre == ''">CARGANDO...</p>
               <p style="padding-right: 2vw;" [ngClass]="platform.is('ios') ? 'ios-info-titulo-text' : 'android-info-titulo-text'">{{ mainService.credencialInfo.elNombre | uppercase }}</p>
             </div>
-            <!-- <div class="front-div-info" style="text-align: left; margin-bottom: 5px;"> -->
             <div class="front-div-info" style="text-align: left; margin-bottom: 0.2vh;">
               <p [ngClass]="platform.is('ios') ? 'ios-info-titulo' : 'android-info-titulo'">DEPENDENCIA</p>
               <p [ngClass]="platform.is('ios') ? 'ios-info-titulo-text' : 'android-info-titulo-text'" *ngIf="mainService.credencialInfo.laDependencia == ''">CARGANDO...</p>
@@ -56,14 +412,12 @@
             </div>
           </div>
         </div>
-          </div>
-        </div>
       </div>
-      <!-- --- CREDENCIAL END --- -->
+    </div>
+  </div> -->
+  <!-- --- CREDENCIAL END --- -->
 
-  <!-- <img button (click)="fucn_goTo('tab4')" src="../../assets/etc/tab1_credencial.png" alt="credencial_img" style="display: flex; width: 90%; margin:auto; margin-top: 20px; margin-bottom: 0px;"> -->
-  
-  <ion-grid style="display: flex; width: 90%;">
+  <!-- <ion-grid style="display: flex; width: 90%;">
     <ion-row>
       <ion-col button (click)="fucn_goTo('tab2')">
         <img src="../../assets/etc/tab1_00_avisos.png" alt="credencial_img" style="display: flex; width: 100%; margin:auto;">
@@ -72,9 +426,9 @@
         <img src="../../assets/etc/tab1_01_calendario.png" alt="credencial_img" style="display: flex; width: 100%; margin:auto;">
       </ion-col>
     </ion-row>
-  </ion-grid>
+  </ion-grid> -->
 
-  <div style="width: 85%; margin:auto;">
+  <!-- <div style="width: 85%; margin:auto;">
     <h4 style="color: #A1193E; font-weight: bold;">Tu semana...</h4>
   </div>
 
@@ -83,13 +437,12 @@
   </div>
 
   <div *ngIf="tuSemana.length != 0" style="width: 85%; margin:auto;">
-    <!-- <h4 style="color: #A1193E; font-weight: bold;">Tu semana...</h4> -->
     <div *ngFor="let evento of tuSemana">
       <div *ngIf="evento.valido == true" style="background-color: #BC936C; color: white; padding: 2px; border-radius: 20px; margin-bottom: 10px;">
         <p style="margin-left: 15px; margin-right: 15px; font-size: 15px;"><span style="font-weight: bolder;">{{ evento['diaConvertido'] | titlecase }}</span> - {{  evento['titulo']  }}</p>
       </div>
     </div>
-  </div>
+  </div> -->
 
   <!-- <ion-button style="display: flex; margin: auto; width: 50%; margin-top: 10px; margin-bottom: 10px;" (click)="func_forceTopic()">FORZAR TÓPICO</ion-button> -->
 
@@ -122,8 +475,4 @@
       </div>
     </ng-template>
   </swiper> -->
-  
-  <img *ngIf="mainService.credencialInfo.elNombre == 'GENARO ANTONIO SARNO SARNO'" style="width: 20%; position:fixed; bottom: -2px; right: 5px;" src="../../assets/placeholder/imadethisfrfr.png" alt="imadethis">
-  <img *ngIf="mainService.credencialInfo.elNombre == 'NICOLINA CARMELA POMPEYA SARNO BERARDI'" style="width: 20%; position:fixed; bottom: -2px; right: 5px;" src="../../assets/placeholder/stick_tia_nila.png" alt="imadethis">
-  <img *ngIf="mainService.credencialInfo.elNombre == 'TERESA JOSEFINA SARNO BERARDI'" style="width: 20%; position:fixed; bottom: -2px; right: 5px;" src="../../assets/placeholder/stick_tia_chachi.png" alt="imadethis">
-</ion-content>
+<!-- OLD SHIT END --> 

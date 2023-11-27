@@ -1,18 +1,87 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="end">
-      <ion-menu-button auto-hide="false"></ion-menu-button>
-    </ion-buttons>
-    <ion-title>Mis Avisos</ion-title>
-  </ion-toolbar>
+<ion-header class="ion-no-border">
+  <div class="global-header-style">
+    <img class="global-fixed-aptra-header" src="../../assets/login/apptra_logo.png" alt="headd">
+    <div style="display: flex; flex: 1 1; width: 100%; height: 20vh; padding-bottom: 2vh;">
+      <ion-grid style="display: flex; flex-direction: column-reverse; bottom: 0px;">
+        <ion-row class="ion-text-center">
+          <ion-col size="6">
+            <ion-button (click)="mainService.func_toggleMenu()" fill="clear" color="none" style="float: left; color: white;">
+              <ion-icon style="font-size: 7vh;" name="menu-outline"></ion-icon>
+            </ion-button>
+          </ion-col>
+          <ion-col size="6" style="align-self: center;">
+            <div style="float: right; vertical-align: middle; font-weight: bold;" class="ion-text-wrap">Hola, {{ mainService.credencialInfo.elNombre.split(" ")[0] | titlecase }}</div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+  </div>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" style="--background: #efefef !important;">
+  <ion-button (click)="mainService.func_nav_go_back()" fill="clear" class="global-registro-back" color="none" style="background-color: white; margin-left: 3vw; padding-top: 0px !important;">
+    <ion-icon  slot="icon-only" name="chevron-back-outline"></ion-icon>
+  </ion-button>
+
+  <p style="color: #A61B41; font-size: 30px; width: 90%; margin: auto; margin-top: 0px; margin-bottom: 20px; text-align: left !important; font-weight: bold;">Avisos</p>
+
   <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
-  <!-- <app-explore-container name="Tab 2 page"></app-explore-container> -->
-  <ion-list>
+  
+  <!-- <ion-searchbar placeholder="Buscar" show-clear-button="always" class="custom"></ion-searchbar> -->
+  
+  <ion-list style="width: 93vw; margin: auto; background-color: rgba(250,0,0,0.0);">
+
+                                                    <!-- avisos-desc -->
+    <ion-item button (click)="mainService.func_push_to('avisos-desc', avisoAxios)" *ngFor="let avisoAxios of avisosAxios" detail="true" style="margin-bottom: 20px; border-radius: 5px;" lines="none">
+      <ion-label class="ion-text-wrap">
+        <ion-row style="display: flex; align-items: center; padding:0px !important; margin: 0px !important; width: 100%;">
+          <ion-col size="8" style="padding-left: 0px; margin-left: 0px;">
+            <p style="color: #C59F79; font-weight: 700; font-size: 14px; text-align: left !important;" class="this-but-bolder">{{ avisoAxios['title'] | uppercase }}</p>
+          </ion-col>
+          <ion-col size="4">
+            <div class="ion-text-wrap" style="float: right; color: #A21A3F; font-size: 12px;" fill="clear">{{ mainService.func_moment_getDif(avisoAxios["fecha"]) }}</div>
+          </ion-col>
+        </ion-row>
+        <p *ngIf="avisoAxios.text.length > 100 && avisoAxios.splicePipe == false" style="color: #1E232C; margin-bottom: 10px;">{{ avisoAxios.text | slice : 0:100  }}<span *ngIf="avisoAxios.text.length > 20">...</span></p>
+        <p *ngIf="avisoAxios.text.length > 100 && avisoAxios.splicePipe == true" style="color: #1E232C; margin-bottom: 10px;">{{ avisoAxios.text }}</p>
+        <p *ngIf="avisoAxios.text.length < 100 && avisoAxios.splicePipe == false" style="color: #1E232C; margin-bottom: 10px;">{{ avisoAxios.text | slice : 0:100  }}<span *ngIf="avisoAxios.text.length > 20">...</span></p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- OLD SHITE INI -->
+
+        <!-- <ion-button (click)="func_Axios_changeSlice(avisoAxios.id)" *ngIf="avisoAxios.text.length > 100 && avisoAxios.splicePipe == false" style="font-size: 12px; color: #A1193E;" fill="clear">Ver más...</ion-button> -->
+        <!-- <ion-button (click)="func_Axios_rmSlice(avisoAxios.id)" *ngIf="avisoAxios.text.length > 100 && avisoAxios.splicePipe == true" style="font-size: 12px; color: #A1193E" fill="clear">Ver menos...</ion-button> -->
+        <!-- <span style="color: #A1193E;">●</span> -->
+
+<!-- <app-explore-container name="Tab 2 page"></app-explore-container> -->
     <!-- <ion-item>
       <ion-label class="ion-text-wrap">
         <h3 style="color: #53555B; margin-top: 10px;" class="this-but-bolder">MARZO MES DE LA MUJER</h3><br>
@@ -30,16 +99,4 @@
       </ion-label>
     </ion-item> -->
 
-    <ion-item *ngFor="let avisoAxios of avisosAxios">
-      <ion-label class="ion-text-wrap">
-        <h3 style="color: #53555B; margin-top: 10px;" class="this-but-bolder">{{ avisoAxios['title'] | uppercase }}</h3><br>
-        <p *ngIf="avisoAxios.text.length > 100 && avisoAxios.splicePipe == false" style="color: rgb(50,50,50); margin-bottom: 10px;"><span style="color: #A1193E;">●</span> {{ avisoAxios.text | slice : 0:100  }}<span *ngIf="avisoAxios.text.length > 20">...</span></p>
-        <p *ngIf="avisoAxios.text.length > 100 && avisoAxios.splicePipe == true" style="color: rgb(50,50,50); margin-bottom: 10px;"><span style="color: #A1193E;">●</span> {{ avisoAxios.text }}</p>
-        <p *ngIf="avisoAxios.text.length < 100 && avisoAxios.splicePipe == false" style="color: rgb(50,50,50); margin-bottom: 10px;"><span style="color: #A1193E;">●</span> {{ avisoAxios.text | slice : 0:100  }}<span *ngIf="avisoAxios.text.length > 20">...</span></p>
-        <ion-button (click)="func_Axios_changeSlice(avisoAxios.id)" *ngIf="avisoAxios.text.length > 100 && avisoAxios.splicePipe == false" style="font-size: 12px; color: #A1193E;" fill="clear">Ver más...</ion-button>
-        <ion-button (click)="func_Axios_rmSlice(avisoAxios.id)" *ngIf="avisoAxios.text.length > 100 && avisoAxios.splicePipe == true" style="font-size: 12px; color: #A1193E" fill="clear">Ver menos...</ion-button>
-      </ion-label>
-    </ion-item>
-    
-  </ion-list>
-</ion-content>
+<!-- OLD SHITE INI -->

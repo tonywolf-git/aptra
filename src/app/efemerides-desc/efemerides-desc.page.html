@@ -1,0 +1,44 @@
+<ion-content [fullscreen]="true">
+  <ion-button (click)="mainService.func_nav_go_back()" fill="clear" class="global-registro-back" color="none" style="position: fixed; top: 2vh; background-color: white;">
+    <ion-icon  slot="icon-only" name="chevron-back-outline"></ion-icon>
+  </ion-button>
+
+  <div class="theImgDiv">
+    <img class="theImg" src="{{ efemeride['img_url'] }}" alt="dogo">
+    <!-- <img class="theImg" src="https://th.bing.com/th/id/OIP.z86nurg5VEy9ULrYNyQu0wHaE5?pid=ImgDet&rs=1" alt="dogo"> -->
+  </div>
+
+  <div class="zindexDiv">
+
+    <p style="color: #C59F79; font-size: 21px; width: 85%; margin: auto; margin-top: 40px; margin-bottom: 10px; text-align: left !important; font-weight: bold; padding-right: 2vw;">{{ efemeride['titulo'] }}</p>
+    
+    <!-- <div style="display: block; margin: auto; width: 85%; margin-bottom: 10px;">
+      <ion-icon style="width: 35px; height: 35px; background-color: rgb(205, 135, 154); padding: 5px; color: #A61B41; border-radius: 10px;" slot="icon-only" name="calendar-number-outline"></ion-icon>
+      <div class="ion-text-wrap" style="color: #A21A3F; font-size: 4vw;" fill="clear">18 de Octubre</div>
+    </div> -->
+    
+    <div style="width: 85vw; margin: auto; margin-bottom: 20px;">
+      <div style="display: inline-block; align-items: center;">
+        <ion-icon style="margin: auto; width: 35px; height: 35px; background-color: rgb(205, 135, 154); padding: 5px; margin-left: 0px; margin-bottom: -3px; color: #A61B41; border-radius: 10px;" slot="icon-only" name="calendar-number-outline"></ion-icon>
+      </div>
+      
+      <div style="display: inline-block; margin-left: 10px;">
+        <div style="display: flex; align-self: flex-end;">
+          <div class="ion-text-wrap" style="color: #A21A3F; font-size: 16px;" fill="clear">{{ efe_func_convertDate(efemeride['fecha']) }}</div>
+        </div>
+      </div>
+    </div>
+    
+    <p class="theDesc">
+      {{ efemeride['content'] }}
+    </p>
+  </div>
+</ion-content>
+
+  <!--
+    titulo: 'HALLOWEEN',
+    fecha: '2023-10-31' /*CON FORMATO "Viernes, 28 Octubre 2023",*/,
+    img_url: 'https://i.pinimg.com/originals/25/d8/e9/25d8e9f5390d4e1e58cb578b2cba6110.jpg',
+    donde: 'Secretaria de Administración',
+    content: 'loremipsum'
+  -->

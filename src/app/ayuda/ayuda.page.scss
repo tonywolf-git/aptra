@@ -1,0 +1,18 @@
+.ayuda-container {
+    display: flex;
+    margin: auto;
+    width: 90vw;
+    // background-color: white;
+    border-radius: 18px;
+    padding: 0px;
+    margin-bottom: 20px;
+}
+
+.ayuda-pregunta-text {
+    color: #4F0E1E;
+    font-weight: bold;
+}
+
+.ayuda-respuesta-container {
+    background-color: rgb(245, 245, 245);
+}

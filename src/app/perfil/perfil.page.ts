@@ -74,7 +74,7 @@ export class PerfilPage implements OnInit {
           }
         },
         {
-          text: 'OK',
+          text: 'Aceptar',
           role: 'ok',
           handler: async (input) => {
             // console.log(input)
@@ -90,7 +90,7 @@ export class PerfilPage implements OnInit {
               }
             } else {
               this.userPass = input[0];
-              this.func_show_toste('ALERTA: Las contraseñas no son iguales, intenta de nuevo.')
+              this.func_show_toste('AVISO: Las contraseñas no son iguales, intenta de nuevo.')
               this.func_cambia_pass();
             }
             // let _response = await this.mainService.func_validaCodigo(_elId, input[0]);
@@ -138,7 +138,6 @@ export class PerfilPage implements OnInit {
   }
 
   async func_cambia_pass() {
-    console.log('SI');
     this.modalCtrl.dismiss().then(async (succ:any) => {
       const modal = await this.modalCtrl.create({
         component: CambiaPassPage,
@@ -152,7 +151,7 @@ export class PerfilPage implements OnInit {
       message: msg,
       buttons: [
         {
-          text: 'OK',
+          text: 'Aceptar',
           role: 'cancel',
         }
       ],

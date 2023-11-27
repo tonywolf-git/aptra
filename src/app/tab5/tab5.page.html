@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-menu-button auto-hide="false"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Mi Correspondencia</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="global-vc-outer">
+    <div class="global-vc-middle">
+      <div class="global-vc-inner">
+        <img style="margin: auto; display: block; width: 65vw; margin-bottom: 50px;" src="../../assets/REC/logo_rec.png" alt="logoREC">
+  
+        <input placeholder="Nombre de usuario" type="text" [(ngModel)]="loginData.username" class="global-input-text" style="margin-bottom: 20px; width: 100% !important;">
+        
+        <div class="global-password-container">
+          <input placeholder="Contraseña" type="{{ passType }}" [(ngModel)]="loginData.pass" (keypress)="keyPress($event, $event)" style="width: 100% !important;" class="global-input-password" />
+          <ion-button (click)="passwordType()" fill="clear" class="global-input-password-button" style="right: 2vw !important;">
+            <ion-icon color="tertiary" *ngIf="passType == 'text'" slot="icon-only" name="eye-off-outline"></ion-icon>
+            <ion-icon color="tertiary" *ngIf="passType == 'password'" slot="icon-only" name="eye-outline"></ion-icon>
+          </ion-button>
+        </div>
+      
+        <div style="text-align: center; margin: auto; margin-top: 20px;">
+          <ion-button (click)="func_doLogin();" class="global-button" color="gobred" style="width: 100% !important;">Iniciar Sesión</ion-button><br>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>

@@ -1,0 +1,76 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-menu-button auto-hide="false"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Mi Correspondencia</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-refresher slot="fixed" (ionRefresh)="func_refresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <ion-searchbar (search)="($event)" (ionInput)="func_onSearchTerm($event)" placeholder="Buscar"></ion-searchbar>
+
+  <ion-list style="width: 95%; margin: auto;">
+    <div hidden *ngFor="let correo of correosFiltro | slice:0:show let i=index;">
+      <ion-grid>  
+        <ion-row>
+          <ion-col size="3">
+            <div class="avatar-circle">
+              <span class="initials">{{ func_getLetra(correo["documento"]["nombrefirmante"]) }}</span>
+            </div>
+          </ion-col>
+
+          <ion-col size="6" class="ion-text-left colu-one" style="margin-right: 20px;">
+            <div>
+              <ion-row style="margin-bottom: 6px;">
+                {{ correo["documento"]["nombrefirmante"] | uppercase}}
+              </ion-row>
+              <ion-row style="margin-bottom: 6px; word-wrap: break-word; word-break: break-all;" class="ion-text-wrap">
+                {{ correo["recepcion"] }} <div style="margin-left: 5px;" class="status ion-text-center"><div class="status-text">{{ correo["documento"]["estatus"] | titlecase  }}</div></div>
+              </ion-row>
+              <ion-row style="color: #757575;">
+                {{ correo["area"]["nombre"] }}
+              </ion-row>
+            </div>
+          </ion-col>
+          
+          <ion-col size="2" class="colu-two">
+            <div>
+              <ion-row class="ion-text-center" style="margin-bottom: 3px;">
+                <span style="display: block; margin: auto;">{{ func_convertDate(correo["fechaRecepcion"]) | titlecase }}</span>
+              </ion-row>
+              <ion-row>
+                <ion-button style="width: 100% !important; margin: auto !important;" fill="clear" color="medium" (click)="func_goCorreo(correo)">
+                  <ion-icon slot="icon-only" name="chevron-forward-outline"></ion-icon>
+                </ion-button>
+              </ion-row>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+
+    <ion-item *ngFor="let correo of correosFiltro | slice:0:show let i=index;" button detail="true" detail-icon="caret-forward-outline" (click)="func_goCorreo(correo)">
+      <ion-label>
+        <h3 class="ion-text-wrap">{{ correo["recepcion"] }}</h3>
+        <p class="ion-text-wrap"><span class="correo-estatus">{{ correo["documento"]["estatus"] | titlecase  }}</span> - {{ correo["documento"]["nombrefirmante"] | uppercase}}</p>
+        <!-- <h3 class="ion-text-wrap">{{ correo["documento"]["nombrefirmante"] | uppercase}}</h3>
+        <p class="ion-text-wrap"><span class="correo-estatus">{{ correo["documento"]["estatus"] | titlecase  }}</span> - {{ correo["recepcion"] }}</p> -->
+        <p class="ion-text-wrap">{{ correo["area"]["nombre"] }}</p>
+        <p class="ion-text-wrap">{{ func_convertDate(correo["fechaRecepcion"]) | titlecase }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-infinite-scroll *ngIf="show <= correosFiltro.length" threshold="100px" (ionInfinite)="func_loadData($event)">
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="Cargando correos...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+</ion-content>

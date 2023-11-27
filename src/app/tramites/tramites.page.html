@@ -1,0 +1,373 @@
+<ion-header class="ion-no-border">
+  <div class="global-header-style">
+    <img class="global-fixed-aptra-header" src="../../assets/login/apptra_logo.png" alt="headd">
+    <div style="display: flex; flex: 1 1; width: 100%; height: 20vh; padding-bottom: 2vh;">
+      <ion-grid style="display: flex; flex-direction: column-reverse; bottom: 0px;">
+        <ion-row class="ion-text-center">
+          <ion-col size="6">
+            <ion-button (click)="mainService.func_toggleMenu()" fill="clear" color="none" style="float: left; color: white;">
+              <ion-icon style="font-size: 7vh;" name="menu-outline"></ion-icon>
+            </ion-button>
+          </ion-col>
+          <ion-col size="6" style="align-self: center;">
+            <div style="float: right; vertical-align: middle; font-weight: bold;" class="ion-text-wrap">Hola, {{ mainService.credencialInfo.elNombre.split(" ")[0] | titlecase }}</div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+  </div>
+</ion-header>
+
+<ion-content [fullscreen]="true" style="--background: #efefef !important;">
+  <ion-button (click)="mainService.func_nav_go_back()" fill="clear" class="global-registro-back" color="none" style="background-color: white; margin-left: 3vw; padding-top: 0px !important;">
+    <ion-icon  slot="icon-only" name="chevron-back-outline"></ion-icon>
+  </ion-button>
+
+  <p style="color: #A61B41; font-size: 30px; width: 90%; margin: auto; margin-top: 0px; margin-bottom: 20px; text-align: left !important; font-weight: bold;">Trámites</p>
+
+  <ion-grid class="ion-text-center" style="margin-top: 0px;">
+    <ion-row style="margin-bottom: 10px;">
+      <ion-col button (click)="func_selectTramite(0)" id="modal-hija-de-dogo-0">
+        <div class="card-container-tramites">
+          <div class="card-content">
+            <img style="width: 25%; margin: auto;" src="../../assets/icon/ico_tramites.png" alt="">
+            <div class="card-text" style="padding-left: 3px; padding-right: 3px;">Bono de utiles escolares</div>
+          </div>
+        </div>
+      </ion-col>
+      
+      <ion-col button (click)="func_selectTramite(1)" id="modal-hija-de-dogo-1">
+        <div class="card-container-tramites">
+          <div class="card-content">
+            <img style="width: 25%; margin: auto;" src="../../assets/icon/ico_tramites.png" alt="">
+            <div class="card-text" style="padding-left: 3px; padding-right: 3px;">Bono del dia del niño, madre y padre</div>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <ion-row style="margin-bottom: 10px;">
+      <ion-col button (click)="func_selectTramite(2)" id="modal-hija-de-dogo-2">
+        <div class="card-container-tramites">
+          <div class="card-content">
+            <img style="width: 25%; margin: auto;" src="../../assets/icon/ico_tramites.png" alt="">
+            <div class="card-text" style="padding-left: 3px; padding-right: 3px;">Beca para hijos de Servidores Públicos</div>
+          </div>
+        </div>
+      </ion-col>
+
+      <ion-col button (click)="func_selectTramite(3)" id="modal-hija-de-dogo-3">
+        <div class="card-container-tramites">
+          <div class="card-content">
+            <img style="width: 25%; margin: auto;" src="../../assets/icon/ico_tramites.png" alt="">
+            <div class="card-text" style="padding-left: 3px; padding-right: 3px;">Beca para Servidores Publicos</div>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col button (click)="func_selectTramite(4)" id="modal-hija-de-dogo-4">
+        <div class="card-container-tramites">
+          <div class="card-content">
+            <img style="width: 25%; margin: auto;" src="../../assets/icon/ico_tramites.png" alt="">
+            <div class="card-text" style="padding-left: 3px; padding-right: 3px;">Bono de Nivel Academico</div>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-modal #modal trigger="modal-hija-de-dogo-0" [initialBreakpoint]="0.50" [breakpoints]="[0, 0.50, 0.75, 0.90]">
+    <ng-template>
+      <ion-content style="border-radius: 40px !important;">
+        <p style="color: #C59F79; font-size: 21px; width: 90%; margin: auto; margin-top: 40px; margin-bottom: 20px; text-align: left !important; font-weight: bold; padding-right: 2vw;">{{ tramitesArray[selectedTramite]['titulo'] }}</p>
+
+        <ion-segment [(ngModel)]="current_segment" value="{{ current_segment }}" mode="md" color="gobred">
+          <ion-segment-button value="desc">
+            <ion-label style="text-transform: none;">Descripción</ion-label>
+          </ion-segment-button>
+          <ion-segment-button value="info">
+            <ion-label style="text-transform: none;">Más Información</ion-label>
+          </ion-segment-button>
+        </ion-segment>
+
+        <div *ngIf="current_segment == 'desc'" class="tramites-segment-block">
+          <div class="tramites-segment-content">
+            <p style="margin-bottom: 0px; padding-bottom: 0px;"><b>{{ tramitesArray[selectedTramite]['desc']['texto'] }}</b></p>
+            <ul style="list-style-type:square; margin-top: 0px; padding-top: 0px; text-align: justify; margin-bottom: 30px;">
+              <li style="margin-top: 5px;" *ngFor="let bullet of tramitesArray[selectedTramite]['desc']['bullet_points']">{{ bullet }}</li>
+            </ul>
+            <!-- <ion-button class="global-button" color="gobred">Iniciar el Trámite</ion-button><br> -->
+          </div>
+        </div>
+        
+        <div *ngIf="current_segment == 'info'" class="tramites-segment-block">
+          <div class="tramites-segment-content">
+            <!-- <ion-button (click)="func_openURL(tramitesArray[selectedTramite]['info']['url'])" color="dark" style="margin-top: 10px; text-decoration: underline; text-transform: none; width: 100%; overflow-wrap: break-word;" fill="clear"><p class="ion-text-wrap" style="width: 100%; overflow-wrap: break-word;">{{ tramitesArray[selectedTramite]['info']['url'] }}</p></ion-button> -->
+
+            <ion-list style="width: 100%;">
+              <ion-item [button]="true" detail="true" (click)="func_openURL(tramitesArray[selectedTramite]['info']['url'])">
+                <ion-icon color="gobred" slot="start" name="open-outline" size="large"></ion-icon>
+                <ion-label class="ion-text-wrap">{{ tramitesArray[selectedTramite]['info']['url'] }}</ion-label>
+              </ion-item>
+
+              <ion-item [button]="true" detail="true" (click)="mainService.func_service_openCall(tramitesArray[selectedTramite]['info']['telefono_raw'])">
+                <ion-icon color="gobred" slot="start" name="call-outline" size="large"></ion-icon>
+                <ion-label>
+                  {{ tramitesArray[selectedTramite]['info']['telefono'] }}
+                </ion-label>
+              </ion-item>
+
+              <ion-item [button]="false" detail="false">
+                <ion-icon color="gobred" slot="start" name="business-outline" size="large"></ion-icon>
+                <ion-label>
+                  {{ tramitesArray[selectedTramite]['info']['extension'] }}
+                </ion-label>
+              </ion-item>
+            </ion-list>
+
+            <!-- <p button style="margin-bottom: 0px; padding-bottom: 0px; text-decoration: underline;">{{ tramitesArray[selectedTramite]['info']['url'] }}</p> -->
+            <!-- <p style="margin-bottom: 0px; padding-bottom: 0px;">
+              {{ tramitesArray[selectedTramite]['info']['telefono'] }}<br>
+              {{ tramitesArray[selectedTramite]['info']['extension'] }}
+            </p> -->
+          </div>
+        </div>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+
+  <ion-modal #modal trigger="modal-hija-de-dogo-1" [initialBreakpoint]="0.50" [breakpoints]="[0, 0.50, 0.75, 0.90]">
+    <ng-template>
+      <ion-content style="border-radius: 40px !important;">
+        <p style="color: #C59F79; font-size: 21px; width: 90%; margin: auto; margin-top: 40px; margin-bottom: 20px; text-align: left !important; font-weight: bold; padding-right: 2vw;">{{ tramitesArray[selectedTramite]['titulo'] }}</p>
+
+        <ion-segment [(ngModel)]="current_segment" value="{{ current_segment }}" mode="md" color="gobred">
+          <ion-segment-button value="desc">
+            <ion-label style="text-transform: none;">Descripción</ion-label>
+          </ion-segment-button>
+          <ion-segment-button value="info">
+            <ion-label style="text-transform: none;">Más Información</ion-label>
+          </ion-segment-button>
+        </ion-segment>
+
+        <div *ngIf="current_segment == 'desc'" class="tramites-segment-block">
+          <div class="tramites-segment-content">
+            <p style="margin-bottom: 0px; padding-bottom: 0px;"><b>{{ tramitesArray[selectedTramite]['desc']['texto'] }}</b></p>
+            <ul style="list-style-type:square; margin-top: 0px; padding-top: 0px; text-align: justify; margin-bottom: 30px;">
+              <li style="margin-top: 5px;" *ngFor="let bullet of tramitesArray[selectedTramite]['desc']['bullet_points']">{{ bullet }}</li>
+            </ul>
+            <!-- <ion-button class="global-button" color="gobred">Iniciar el Trámite</ion-button><br> -->
+          </div>
+        </div>
+        
+        <div *ngIf="current_segment == 'info'" class="tramites-segment-block">
+          <div class="tramites-segment-content">
+            <ion-list style="width: 100%;">
+              <ion-item [button]="true" detail="true" (click)="func_openURL(tramitesArray[selectedTramite]['info']['url'])">
+                <ion-icon color="gobred" slot="start" name="open-outline" size="large"></ion-icon>
+                <ion-label class="ion-text-wrap">{{ tramitesArray[selectedTramite]['info']['url'] }}</ion-label>
+              </ion-item>
+
+              <ion-item [button]="true" detail="true" (click)="mainService.func_service_openCall(tramitesArray[selectedTramite]['info']['telefono_raw'])">
+                <ion-icon color="gobred" slot="start" name="call-outline" size="large"></ion-icon>
+                <ion-label>
+                  {{ tramitesArray[selectedTramite]['info']['telefono'] }}
+                </ion-label>
+              </ion-item>
+
+              <ion-item [button]="false" detail="false">
+                <ion-icon color="gobred" slot="start" name="business-outline" size="large"></ion-icon>
+                <ion-label>
+                  {{ tramitesArray[selectedTramite]['info']['extension'] }}
+                </ion-label>
+              </ion-item>
+            </ion-list>
+            <!-- <ion-button (click)="func_openURL(tramitesArray[selectedTramite]['info']['url'])" color="dark" style="margin-top: 10px; text-decoration: underline; text-transform: none; width: 100%; overflow-wrap: break-word;" fill="clear"><p class="ion-text-wrap" style="width: 100%; overflow-wrap: break-word;">{{ tramitesArray[selectedTramite]['info']['url'] }}</p></ion-button> -->
+            <!-- <p button style="margin-bottom: 0px; padding-bottom: 0px; text-decoration: underline;">{{ tramitesArray[selectedTramite]['info']['url'] }}</p> -->
+            <!-- <p style="margin-bottom: 0px; padding-bottom: 0px;">
+              {{ tramitesArray[selectedTramite]['info']['telefono'] }}<br>
+              {{ tramitesArray[selectedTramite]['info']['extension'] }}
+            </p> -->
+          </div>
+        </div>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+
+  <ion-modal #modal trigger="modal-hija-de-dogo-2" [initialBreakpoint]="0.50" [breakpoints]="[0, 0.50, 0.75, 0.90]">
+    <ng-template>
+      <ion-content style="border-radius: 40px !important;">
+        <p style="color: #C59F79; font-size: 21px; width: 90%; margin: auto; margin-top: 40px; margin-bottom: 20px; text-align: left !important; font-weight: bold; padding-right: 2vw;">{{ tramitesArray[selectedTramite]['titulo'] }}</p>
+
+        <ion-segment [(ngModel)]="current_segment" value="{{ current_segment }}" mode="md" color="gobred">
+          <ion-segment-button value="desc">
+            <ion-label style="text-transform: none;">Descripción</ion-label>
+          </ion-segment-button>
+          <ion-segment-button value="info">
+            <ion-label style="text-transform: none;">Más Información</ion-label>
+          </ion-segment-button>
+        </ion-segment>
+
+        <div *ngIf="current_segment == 'desc'" class="tramites-segment-block">
+          <div class="tramites-segment-content">
+            <p style="margin-bottom: 0px; padding-bottom: 0px;"><b>{{ tramitesArray[selectedTramite]['desc']['texto'] }}</b></p>
+            <ul style="list-style-type:square; margin-top: 0px; padding-top: 0px; text-align: justify; margin-bottom: 30px;">
+              <li style="margin-top: 5px;" *ngFor="let bullet of tramitesArray[selectedTramite]['desc']['bullet_points']">{{ bullet }}</li>
+            </ul>
+            <!-- <ion-button class="global-button" color="gobred">Iniciar el Trámite</ion-button><br> -->
+          </div>
+        </div>
+        
+        <div *ngIf="current_segment == 'info'" class="tramites-segment-block">
+          <div class="tramites-segment-content">
+            <ion-list style="width: 100%;">
+              <ion-item [button]="true" detail="true" (click)="func_openURL(tramitesArray[selectedTramite]['info']['url'])">
+                <ion-icon color="gobred" slot="start" name="open-outline" size="large"></ion-icon>
+                <ion-label class="ion-text-wrap">{{ tramitesArray[selectedTramite]['info']['url'] }}</ion-label>
+              </ion-item>
+
+              <ion-item [button]="true" detail="true" (click)="mainService.func_service_openCall(tramitesArray[selectedTramite]['info']['telefono_raw'])">
+                <ion-icon color="gobred" slot="start" name="call-outline" size="large"></ion-icon>
+                <ion-label>
+                  {{ tramitesArray[selectedTramite]['info']['telefono'] }}
+                </ion-label>
+              </ion-item>
+
+              <ion-item [button]="false" detail="false">
+                <ion-icon color="gobred" slot="start" name="business-outline" size="large"></ion-icon>
+                <ion-label>
+                  {{ tramitesArray[selectedTramite]['info']['extension'] }}
+                </ion-label>
+              </ion-item>
+            </ion-list>
+            <!-- <ion-button (click)="func_openURL(tramitesArray[selectedTramite]['info']['url'])" color="dark" style="margin-top: 10px; text-decoration: underline; text-transform: none; width: 100%; overflow-wrap: break-word;" fill="clear"><p class="ion-text-wrap" style="width: 100%; overflow-wrap: break-word;">{{ tramitesArray[selectedTramite]['info']['url'] }}</p></ion-button> -->
+            <!-- <p button style="margin-bottom: 0px; padding-bottom: 0px; text-decoration: underline;">{{ tramitesArray[selectedTramite]['info']['url'] }}</p> -->
+            <!-- <p style="margin-bottom: 0px; padding-bottom: 0px;">
+              {{ tramitesArray[selectedTramite]['info']['telefono'] }}<br>
+              {{ tramitesArray[selectedTramite]['info']['extension'] }}
+            </p> -->
+          </div>
+        </div>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+
+  <ion-modal #modal trigger="modal-hija-de-dogo-3" [initialBreakpoint]="0.50" [breakpoints]="[0, 0.50, 0.75, 0.90]">
+    <ng-template>
+      <ion-content style="border-radius: 40px !important;">
+        <p style="color: #C59F79; font-size: 21px; width: 90%; margin: auto; margin-top: 40px; margin-bottom: 20px; text-align: left !important; font-weight: bold; padding-right: 2vw;">{{ tramitesArray[selectedTramite]['titulo'] }}</p>
+
+        <ion-segment [(ngModel)]="current_segment" value="{{ current_segment }}" mode="md" color="gobred">
+          <ion-segment-button value="desc">
+            <ion-label style="text-transform: none;">Descripción</ion-label>
+          </ion-segment-button>
+          <ion-segment-button value="info">
+            <ion-label style="text-transform: none;">Más Información</ion-label>
+          </ion-segment-button>
+        </ion-segment>
+
+        <div *ngIf="current_segment == 'desc'" class="tramites-segment-block">
+          <div class="tramites-segment-content">
+            <p style="margin-bottom: 0px; padding-bottom: 0px;"><b>{{ tramitesArray[selectedTramite]['desc']['texto'] }}</b></p>
+            <ul style="list-style-type:square; margin-top: 0px; padding-top: 0px; text-align: justify; margin-bottom: 30px;">
+              <li style="margin-top: 5px;" *ngFor="let bullet of tramitesArray[selectedTramite]['desc']['bullet_points']">{{ bullet }}</li>
+            </ul>
+            <!-- <ion-button class="global-button" color="gobred">Iniciar el Trámite</ion-button><br> -->
+          </div>
+        </div>
+        
+        <div *ngIf="current_segment == 'info'" class="tramites-segment-block">
+          <div class="tramites-segment-content">
+            <ion-list style="width: 100%;">
+              <ion-item [button]="true" detail="true" (click)="func_openURL(tramitesArray[selectedTramite]['info']['url'])">
+                <ion-icon color="gobred" slot="start" name="open-outline" size="large"></ion-icon>
+                <ion-label class="ion-text-wrap">{{ tramitesArray[selectedTramite]['info']['url'] }}</ion-label>
+              </ion-item>
+
+              <ion-item [button]="true" detail="true" (click)="mainService.func_service_openCall(tramitesArray[selectedTramite]['info']['telefono_raw'])">
+                <ion-icon color="gobred" slot="start" name="call-outline" size="large"></ion-icon>
+                <ion-label>
+                  {{ tramitesArray[selectedTramite]['info']['telefono'] }}
+                </ion-label>
+              </ion-item>
+
+              <ion-item [button]="false" detail="false">
+                <ion-icon color="gobred" slot="start" name="business-outline" size="large"></ion-icon>
+                <ion-label>
+                  {{ tramitesArray[selectedTramite]['info']['extension'] }}
+                </ion-label>
+              </ion-item>
+            </ion-list>
+            <!-- <ion-button (click)="func_openURL(tramitesArray[selectedTramite]['info']['url'])" color="dark" style="margin-top: 10px; text-decoration: underline; text-transform: none; width: 100%; overflow-wrap: break-word;" fill="clear"><p class="ion-text-wrap" style="width: 100%; overflow-wrap: break-word;">{{ tramitesArray[selectedTramite]['info']['url'] }}</p></ion-button> -->
+            <!-- <p button style="margin-bottom: 0px; padding-bottom: 0px; text-decoration: underline;">{{ tramitesArray[selectedTramite]['info']['url'] }}</p> -->
+            <!-- <p style="margin-bottom: 0px; padding-bottom: 0px;">
+              {{ tramitesArray[selectedTramite]['info']['telefono'] }}<br>
+              {{ tramitesArray[selectedTramite]['info']['extension'] }}
+            </p> -->
+          </div>
+        </div>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+
+  <ion-modal #modal trigger="modal-hija-de-dogo-4" [initialBreakpoint]="0.50" [breakpoints]="[0, 0.50, 0.75, 0.90]">
+    <ng-template>
+      <ion-content style="border-radius: 40px !important;">
+        <p style="color: #C59F79; font-size: 21px; width: 90%; margin: auto; margin-top: 40px; margin-bottom: 20px; text-align: left !important; font-weight: bold; padding-right: 2vw;">{{ tramitesArray[selectedTramite]['titulo'] }}</p>
+
+        <ion-segment [(ngModel)]="current_segment" value="{{ current_segment }}" mode="md" color="gobred">
+          <ion-segment-button value="desc">
+            <ion-label style="text-transform: none;">Descripción</ion-label>
+          </ion-segment-button>
+          <ion-segment-button value="info">
+            <ion-label style="text-transform: none;">Más Información</ion-label>
+          </ion-segment-button>
+        </ion-segment>
+
+        <div *ngIf="current_segment == 'desc'" class="tramites-segment-block">
+          <div class="tramites-segment-content">
+            <p style="margin-bottom: 0px; padding-bottom: 0px;"><b>{{ tramitesArray[selectedTramite]['desc']['texto'] }}</b></p>
+            <ul style="list-style-type:square; margin-top: 0px; padding-top: 0px; text-align: justify; margin-bottom: 30px;">
+              <li style="margin-top: 5px;" *ngFor="let bullet of tramitesArray[selectedTramite]['desc']['bullet_points']">{{ bullet }}</li>
+            </ul>
+            <!-- <ion-button class="global-button" color="gobred">Iniciar el Trámite</ion-button><br> -->
+          </div>
+        </div>
+        
+        <div *ngIf="current_segment == 'info'" class="tramites-segment-block">
+          <div class="tramites-segment-content">
+            <ion-list style="width: 100%;">
+              <ion-item [button]="true" detail="true" (click)="func_openURL(tramitesArray[selectedTramite]['info']['url'])">
+                <ion-icon color="gobred" slot="start" name="open-outline" size="large"></ion-icon>
+                <ion-label class="ion-text-wrap">{{ tramitesArray[selectedTramite]['info']['url'] }}</ion-label>
+              </ion-item>
+
+              <ion-item [button]="true" detail="true" (click)="mainService.func_service_openCall(tramitesArray[selectedTramite]['info']['telefono_raw'])">
+                <ion-icon color="gobred" slot="start" name="call-outline" size="large"></ion-icon>
+                <ion-label>
+                  {{ tramitesArray[selectedTramite]['info']['telefono'] }}
+                </ion-label>
+              </ion-item>
+
+              <ion-item [button]="false" detail="false">
+                <ion-icon color="gobred" slot="start" name="business-outline" size="large"></ion-icon>
+                <ion-label>
+                  {{ tramitesArray[selectedTramite]['info']['extension'] }}
+                </ion-label>
+              </ion-item>
+            </ion-list>
+            <!-- <ion-button (click)="func_openURL(tramitesArray[selectedTramite]['info']['url'])" color="dark" style="margin-top: 10px; text-decoration: underline; text-transform: none; width: 100%; overflow-wrap: break-word;" fill="clear"><p class="ion-text-wrap" style="width: 100%; overflow-wrap: break-word;">{{ tramitesArray[selectedTramite]['info']['url'] }}</p></ion-button> -->
+            <!-- <p button style="margin-bottom: 0px; padding-bottom: 0px; text-decoration: underline;">{{ tramitesArray[selectedTramite]['info']['url'] }}</p> -->
+            <!-- <p style="margin-bottom: 0px; padding-bottom: 0px;">
+              {{ tramitesArray[selectedTramite]['info']['telefono'] }}<br>
+              {{ tramitesArray[selectedTramite]['info']['extension'] }}
+            </p> -->
+          </div>
+        </div>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+
+</ion-content>

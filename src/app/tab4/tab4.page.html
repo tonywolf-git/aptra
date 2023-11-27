@@ -1,4 +1,57 @@
-<ion-header>
+<ion-header class="ion-no-border">
+  <div class="global-header-style">
+    <img class="global-fixed-aptra-header" src="../../assets/login/apptra_logo.png" alt="headd">
+    <div style="display: flex; flex: 1 1; width: 100%; height: 20vh; padding-bottom: 2vh;">
+      <ion-grid style="display: flex; flex-direction: column-reverse; bottom: 0px;">
+        <ion-row class="ion-text-center">
+          <ion-col size="6">
+            <ion-button (click)="mainService.func_toggleMenu()" fill="clear" color="none" style="float: left; color: white;">
+              <ion-icon style="font-size: 7vh;" name="menu-outline"></ion-icon>
+            </ion-button>
+          </ion-col>
+          <ion-col size="6" style="align-self: center; text-align: right;">
+            <!-- <div style="float: right; vertical-align: middle; font-weight: bold;" class="ion-text-wrap">Hola, {{ mainService.credencialInfo.elNombre.split(" ")[0] | titlecase }}</div> -->
+            <ion-button id="popover-button" fill="clear" color="light" style="font-size: 18px !important;">
+              <ion-icon slot="icon-only" name="ellipsis-vertical-circle-outline"></ion-icon>
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+  </div>
+</ion-header>
+
+<ion-popover trigger="popover-button" [dismissOnSelect]="true">
+  <ng-template>
+    <ion-content>
+      <ion-list>
+        <ion-item [button]="true" [detail]="false" (click)="func_descargaPDF();">
+          <ion-icon aria-hidden="true" ios="download-outline" md="download-outline" slot="start"></ion-icon>
+          <ion-label>Descargar Constancia</ion-label>
+        </ion-item>
+
+        <ion-item [button]="true" [detail]="false" *ngIf="credencial_interactiva_toggle == true;" (click)="credencialClick();">
+          <ion-icon aria-hidden="true" ios="sync-outline" md="sync-outline" slot="start"></ion-icon>
+          <ion-label>Girar credencial</ion-label>
+        </ion-item>
+
+        <ion-item [button]="true" [detail]="false" (click)="func_showQR();">
+          <ion-icon aria-hidden="true" ios="qr-code-outline" md="qr-code-outline" slot="start"></ion-icon>
+          <ion-label>Mostrar código QR</ion-label>
+        </ion-item>
+
+        <ion-item [button]="true" [detail]="false" (click)="func_credencial_interactiva_toggle();">
+          <ion-icon slot="start" *ngIf="credencial_interactiva_toggle == true;" ios="power-outline" md="power-outline"></ion-icon>
+          <ion-icon slot="start" *ngIf="credencial_interactiva_toggle == false;" ios="radio-button-off-outline" md="radio-button-off-outline"></ion-icon>
+          <ion-label *ngIf="credencial_interactiva_toggle == true;" class="ion-text-wrap">Desactivar credencial dinámica</ion-label>
+          <ion-label *ngIf="credencial_interactiva_toggle == false;" class="ion-text-wrap">Activar credencial dinámica</ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-content>
+  </ng-template>
+</ion-popover>
+
+<!-- <ion-header>
   <ion-toolbar>
     <ion-buttons slot="end">
       <ion-button *ngIf="credencial_interactiva_toggle == true;" (click)="credencialClick();">
@@ -17,7 +70,7 @@
     </ion-buttons>
     <ion-title>Mi Credencial</ion-title>
   </ion-toolbar>
-</ion-header>
+</ion-header> -->
 
 <ion-content [fullscreen]="true">
   <!-- <app-explore-container name="Tab 4 page"></app-explore-container> -->
@@ -26,8 +79,22 @@
     <ion-button color="gobred" class="ion-text-wrap" style="width: 90%; margin: auto; text-align: center;" (click)="func_descargaPDF()">Descargar Constancia</ion-button>
   </div> -->
 
-  <ion-button style="margin-top: 25px;" (click)="func_descargaPDF();" class="global-button" color="gobred">DESCARGAR CONSTANCIA</ion-button><br>
+  <!-- <ion-row>
+    <ion-col size="4">
+      <ion-button (click)="mainService.func_nav_go_back()" fill="clear" class="global-registro-back" color="none" style="background-color: white; margin-top: 2vh !important; margin-left: 3vw; padding-top: 0px !important;">
+        <ion-icon  slot="icon-only" name="chevron-back-outline"></ion-icon>
+      </ion-button>
+    </ion-col>
+    <ion-col size="8">
+      <ion-button style="width: 100% !important;" (click)="func_descargaPDF();" class="global-button" color="gobred">DESCARGAR CONSTANCIA</ion-button><br>
+    </ion-col>
+  </ion-row> -->
 
+  <ion-button (click)="mainService.func_nav_go_back()" fill="clear" class="global-registro-back" color="none" style="background-color: white; margin-top: 2vh !important; margin-left: 3vw; padding-top: 0px !important;">
+    <ion-icon  slot="icon-only" name="chevron-back-outline"></ion-icon>
+  </ion-button>
+
+  <p style="color: #A61B41; font-size: 30px; width: 90%; margin: auto; margin-top: 0px; margin-bottom: 20px; text-align: left !important; font-weight: bold;">Mi Credencial</p>
 
   <div *ngIf="credencial_interactiva_toggle == true;" class="flip-card" style="margin-bottom: 20px;">
     <div class="flip-card-inner" id="credencial">
@@ -312,7 +379,6 @@
     </div>
   </div>
   <!-- CLON DE LA CREDENCIAL -- END -- -->
-  
 </ion-content>
 
 <!-- 

@@ -20,7 +20,21 @@ export class Tab3Page {
     this.calendarioEventosPre = await this.mainService.func_getCalendario();
     for (let x = 0; x < this.calendarioEventosPre.length; x++) {
       let _fechaConvertida = moment(this.calendarioEventosPre[x]['fecha']).format('DD').replace('.', '');
-      var randomColor = "#" + Math.floor(Math.random()*16777215).toString(16);
+      // var randomColor = "#" + Math.floor(Math.random()*16777215).toString(16);
+
+      // NUEVA FORMA DE DEFINIR LOS COLORES -- INI --
+      // #A1193E
+      // #BC936C
+      console.log();
+      var randomColor = '';
+      if (this.calendarioEventosPre[x]['titulo'] == "Periodo Vacacional") {
+        randomColor = '#A1193E';
+      } else {
+        randomColor = '#BC936C';
+      }
+      // NUEVA FORMA DE DEFINIR LOS COLORES -- END --
+
+
       this.calendarioEventosPost.push({
         title: this.calendarioEventosPre[x]['titulo'],
         date: this.calendarioEventosPre[x]['fecha'],

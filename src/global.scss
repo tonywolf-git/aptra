@@ -189,7 +189,7 @@ ion-toolbar {
 .global-input-text-select { padding: 15px; border: 2px solid rgb(240,240,255); background-color: rgb(245,247,250); display: block; margin: auto; width: 100%; border-radius: 10px; }
 .global-password-container {position: relative;}
 .global-input-password { padding: 15px; border: 2px solid rgb(240,240,255); background-color: rgb(245,247,250); display: block; margin: auto; width: 85vw; border-radius: 10px; padding-right: 15vw; }
-.global-input-password-button { padding: 0px; position: absolute; right: 12vw; top: 10%; }
+.global-input-password-button { padding: 0px; position: absolute; right: 10vw; top: -5%; height: 100%;}
 .global-button { display: block; margin: auto; width: 85vw; height: 5.5vh; --border-radius: 10px; text-transform: none;}
 .global-button-outline { display: block; margin: auto; width: 85vw; height: 5.5vh; --border-radius: 10px; text-transform: none;}
 
@@ -257,6 +257,7 @@ div.scrollmenu div {
     width: 70vw;
     border-top-right-radius: 10px;
     border-top-left-radius: 10px;
+    box-shadow: none !important;
 }
 
 .scrollmenu-card-dia-row { width: 100%  !important; height: 9vw  !important; margin: auto  !important; border-top-left-radius: 5px  !important; border-top-right-radius: 5px  !important; background-color: #A61B41  !important; }
@@ -275,10 +276,10 @@ div.scrollmenu div {
 
 .card-container {
     width: 27vw;
-    height: 27vw;
+    height: 33vw;
     box-sizing: border-box;
     background: #FFFFFF;
-    border: 1px solid #D9D9D9;
+    // border: 1px solid #D9D9D9;
     border-radius: 6px;
     margin: auto;
 }
@@ -325,3 +326,52 @@ div.scrollmenu div {
         margin-top: 10px;
     }
   }
+
+  .laBarraDeEspacio  {
+    display: block;
+    margin: auto;
+    background-color: #DADADA;
+    width: 90vw;
+    margin-top: 25px;
+    margin-bottom: 25px;
+  }
+
+  .ripple-parent {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    border: 0px solid black;
+    user-select: none;
+  }
+
+  .card-container-clear {
+    width: 25vw;
+    height: 25vw;
+    box-sizing: border-box;
+    // border: 1px solid #D9D9D9;
+    border-radius: 6px;
+    margin: auto;
+}
+
+.card-content-clear {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    vertical-align: middle;
+    border-radius: 6px;
+    height: 100%;
+}
+
+.card-text-clear {
+    text-align: center;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 130%;
+    letter-spacing: -0.01em;
+    color: #A61B41;
+
+}

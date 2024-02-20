@@ -327,7 +327,7 @@ export class RegistroPage implements OnInit {
 
     // this.registroDatos.celular = tel[0];
 
-    console.log('BEFORE CHECK', this.registroDatos)
+    // console.log('BEFORE CHECK', this.registroDatos)
     if (this.registroDatos.numEmpleado.length == 5) {
       _validNumEmpleado = true;
     }

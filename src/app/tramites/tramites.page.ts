@@ -24,7 +24,7 @@ export class TramitesPage implements OnInit {
         texto: 'Casos en los que debe o puede realizarse el Trámite:',
         bullet_points: [
           'Cuando la antigüedad laboral sea mayor a 6 meses.',
-          'Cuando el servidor publico tenga al menos a uno de sus hijos inscrito en una institución educativa del sistema educativo nacional a partir de nivel básico.',
+          'Cuando el servidor público tenga al menos a uno de sus hijos inscrito en una institución educativa del sistema educativo nacional a partir de nivel básico.',
         ]
       },
       info: {
@@ -35,14 +35,14 @@ export class TramitesPage implements OnInit {
     },
     
     {
-      titulo: 'Bono del dia del niño, madre y padre',
+      titulo: 'Bono del día del niño, madre y padre',
       desc: {
         texto: 'Casos en los que debe o puede realizarse el Trámite:',
         bullet_points: [
           'Cuando el servidor público sea de nuevo ingreso.',
-          'Cuando tengan hijos nacidos despúes del 27 de Febrero del 2023 al 24 de Marzo del 2023.',
-          'Que núnca haya entregado documentación y no hayan recibido este beneficio.',
-          'En caso del bono del día del niño el benficiario deberá ser menor de 12 años.'
+          'Cuando tengan hijos nacidos después del 27 de Febrero del 2023 al 24 de Marzo del 2023.',
+          'Que nunca haya entregado documentación y no hayan recibido este beneficio.',
+          'En caso del bono del día del niño el beneficiario deberá ser menor de 12 años.'
         ]
       },
       info: {
@@ -77,7 +77,7 @@ export class TramitesPage implements OnInit {
       desc: {
         texto: 'Casos en los que debe o puede realizarse el Trámite:',
         bullet_points: [
-          'Cuando el Servidor Publico sea estudiante en una Institución del Sistema Educativo Nacional.',
+          'Cuando el Servidor Público sea estudiante en una Institución del Sistema Educativo Nacional.',
           'Cuando la antigüedad laboral sea mayor a 6 meses.',
         ]
       },
@@ -94,7 +94,7 @@ export class TramitesPage implements OnInit {
       desc: {
         texto: 'Casos en los que debe o puede realizarse el Trámite:',
         bullet_points: [
-          'Cuando el servidor publico cuente con la documentación probatoria.',
+          'Cuando el servidor público cuente con la documentación probatoria.',
         ]
       },
       info: {

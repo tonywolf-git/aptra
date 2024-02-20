@@ -25,7 +25,6 @@ export class Tab3Page {
       // NUEVA FORMA DE DEFINIR LOS COLORES -- INI --
       // #A1193E
       // #BC936C
-      console.log();
       var randomColor = '';
       if (this.calendarioEventosPre[x]['titulo'] == "Periodo Vacacional") {
         randomColor = '#A1193E';
@@ -33,7 +32,6 @@ export class Tab3Page {
         randomColor = '#BC936C';
       }
       // NUEVA FORMA DE DEFINIR LOS COLORES -- END --
-
 
       this.calendarioEventosPost.push({
         title: this.calendarioEventosPre[x]['titulo'],
@@ -54,12 +52,20 @@ export class Tab3Page {
     // let _elPerrito = document.querySelector('#elPerritoCalendario')?.shadowRoot?.querySelector('div.calendar-header')?.querySelector('div.calendar-month-year')?.querySelector('ion-label.sc-ion-label-md-h')!;
     let elObserver = new MutationObserver(async () => {
       let _elPerritoTexto = document.querySelector('#elPerritoCalendario')?.shadowRoot?.querySelector('div.calendar-header')?.querySelector('div.calendar-month-year')?.querySelector('ion-label.sc-ion-label-md-h')?.textContent;
+      if (_elPerritoTexto == undefined) {
+        _elPerritoTexto = document.querySelector('#elPerritoCalendario')?.shadowRoot?.querySelector('div.calendar-header')?.querySelector('div.calendar-month-year')?.querySelector('ion-label.sc-ion-label-ios-h')?.textContent;
+      }
       let _elMes = await this.calendarioGetMonth(_elPerritoTexto!).then(() => {
 
       });
     });
     elObserver.observe(_elPerrito!, {characterData: true, attributes: true, childList: true, subtree: true, characterDataOldValue: true})
     //OBSERVA LOS CAMBIOS DEL CALENDARIO POR MES/AÑO NO TOCAR A MENOS QUE QUIERAS PROBLEMAS --END--
+  }
+
+  async ionViewWillLeave() {
+    var datetime = document.querySelector('ion-datetime');
+    datetime?.reset();
   }
 
   filtrarEventos(_date: any) {
@@ -81,6 +87,7 @@ export class Tab3Page {
 
   async calendarioGetMonth(_string: any) {
     let _elMes = _string;
+    // console.log(_elMes)
     _elMes = _elMes.replaceAll(/[0-9]/g, '');
     _elMes = _elMes.replace(/de/g, "");
     _elMes = _elMes.replace(/ /g, "");

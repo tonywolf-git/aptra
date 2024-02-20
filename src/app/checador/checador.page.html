@@ -4,14 +4,20 @@
     <div style="display: flex; flex: 1 1; width: 100%; height: 20vh; padding-bottom: 2vh;">
       <ion-grid style="display: flex; flex-direction: column-reverse; bottom: 0px;">
         <ion-row class="ion-text-center">
-          <ion-col size="6">
-            <ion-button (click)="mainService.func_toggleMenu()" fill="clear" color="none" style="float: left; color: white;">
+
+          <ion-col size="6" style="display: flex; align-items: center; margin-left: 0px;">
+            <ion-button (click)="mainService.func_nav_go_back();" fill="clear" color="none" style="color: white; --padding-start: 0px !important;">
+              <ion-icon style="font-size: 4vh;" name="chevron-back-outline"></ion-icon>
+              <div>Regresar</div>
+            </ion-button>
+          </ion-col>
+
+          <ion-col size="6" style="align-self: center;">
+            <ion-button (click)="mainService.func_toggleMenu()" fill="clear" color="none" style="float: right; color: white;">
               <ion-icon style="font-size: 7vh;" name="menu-outline"></ion-icon>
             </ion-button>
           </ion-col>
-          <ion-col size="6" style="align-self: center;">
-            <div style="float: right; vertical-align: middle; font-weight: bold;" class="ion-text-wrap">Hola, {{ mainService.credencialInfo.elNombre.split(" ")[0] | titlecase }}</div>
-          </ion-col>
+
         </ion-row>
       </ion-grid>
     </div>
@@ -19,11 +25,8 @@
 </ion-header>
 
 <ion-content [fullscreen]="true" style="--background: #efefef !important;">
-  <ion-button (click)="mainService.func_nav_go_back()" fill="clear" class="global-registro-back" color="none" style="background-color: white; margin-left: 3vw; padding-top: 0px !important;">
-    <ion-icon  slot="icon-only" name="chevron-back-outline"></ion-icon>
-  </ion-button>
 
-  <p style="color: #A61B41; font-size: 30px; width: 90%; margin: auto; margin-top: 0px; margin-bottom: 20px; text-align: left !important; font-weight: bold;">Checador</p>
+  <p style="color: #A61B41; font-size: 30px; width: 90%; margin: auto; margin-top: 20px; margin-bottom: 20px; text-align: left !important; font-weight: bold;">Checador</p>
   <p style="color: #2A080F; font-size: 16px; width: 90%; margin: auto; margin-top: 20px; margin-bottom: 20px; text-align: left !important; font-weight: 400;">
     Aquí puedes consultar tus registros de entrada al trabajo. Para continuar selecciona una fecha:
   </p>
@@ -43,26 +46,56 @@
     locale="es-MX"
     [showDefaultButtons]="false"
     doneText="Aceptar"
-    cancelText="Cancelar">
+    cancelText="Cancelar"
+    mode="md">
   </ion-datetime>
 
 
   <ion-button (click)="func_postChecador();" class="global-button" color="gobred"><p class="ion-text-wrap">Consultar {{ func_checadorDateHumanizer(checadorDate) }}</p></ion-button><br>
+  
+  <ion-item button id="open-modal" style="margin: auto; width: 85vw; margin-bottom: 15px;" color="none" lines="none" detail="false">
+    <ion-grid style="margin: auto; width: 80vw;">
+      <ion-row>
+        <ion-col size="2" style="display: flex; align-self: center; color: black; text-align: center; padding: 0px; margin: 0px; width: 100%;">
+          <ion-icon style="font-size: 3vh;" name="information-circle-outline"></ion-icon>
+        </ion-col>
+        <ion-col size="10">
+          <p style="text-align: justify;">¿No aparece tu información? Revisa si la dependencia en la que laboras se encuentra adscrita al gobierno central presionando este botón.</p>
+          <!-- <p style="text-align: justify;">Si la dependencia en la que laboras se encuentra adscrita al gobierno central, podrás consultar tu información.</p> -->
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-item>
 
-  <!-- <ion-grid style="margin: auto; width: 80vw;">
-    <ion-row>
-      <ion-col size="2" style="display: flex; align-self: center; color: black; text-align: center; padding: 0px; margin: 0px; width: 100%;">
-        <ion-icon style="font-size: 3vh;" name="information-circle-outline"></ion-icon>
-      </ion-col>
-      <ion-col size="10">
-        <p style="text-align: justify;">Si la dependencia en la que laboras se encuentra adscrita al gobierno central, podrás consultar tu información.</p>
-      </ion-col>
-    </ion-row>
-  </ion-grid> -->
+  <ion-modal [keepContentsMounted]="true" trigger="open-modal">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar style="--background: linear-gradient(180deg, #ccb597 0%, #bf9974 100%) !important;">
+          <img class="global-fixed-aptra-header-perfil" src="../../assets/login/apptra_logo.png" alt="headd">
+          <ion-buttons slot="end">
+            <ion-button (click)="mainService.service_dismiss_modal();" color="light">
+              <ion-icon slot="icon-only" ios="close-outline" md="close-outline"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+          <!-- <ion-title>Mi Perfil</ion-title> -->
+        </ion-toolbar>
+      </ion-header>
 
-<ion-modal [keepContentsMounted]="true" trigger="open-modal">
+      <ion-content style="--background: #efefef !important;">
+        <p style="color: #A61B41; font-size: 30px; width: 90%; margin: auto; margin-top: 20px; margin-bottom: 20px; text-align: left !important; font-weight: bold;">Dependencias</p>
+        <p style="margin: auto; width: 90vw;">Si laboras en alguno de estos edificios, podrás consultar tus acceso del checador:</p>
+        <div class="modal-dependencias-container">
+            <ion-item *ngFor="let _dpe of dependencias">
+              <ion-label class="ion-text-wrap">{{ _dpe }}</ion-label>
+            </ion-item>
+        </div>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+
+<!-- <ion-modal [keepContentsMounted]="true" trigger="open-modal">
   <ng-template>
     <ion-datetime color="gobred" ngDefaultControl [(ngModel)]="checadorDate" (ionChange)="func_checadorDateChanged($event)" [preferWheel]="true" displayFormat="DD/MMMM" presentation="date" id="date" locale="es-MX" [showDefaultButtons]="true" doneText="Aceptar" cancelText="Cancelar"></ion-datetime>
   </ng-template>
-</ion-modal>
+</ion-modal> -->
 </ion-content>

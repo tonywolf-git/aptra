@@ -1,6 +1,6 @@
 <ion-app>
   <ion-split-pane contentId="main-content">
-    <ion-menu contentId="main-content" type="overlay" (ionDidOpen)="openedShit()"> <!-- side="end" PARA EL MENU EN LA DERECHA; SE VE FEO -->
+    <ion-menu contentId="main-content" type="overlay" (ionDidOpen)="openedShit()" side="end"> <!-- side="end" PARA EL MENU EN LA DERECHA; SE VE FEO -->
       <ion-content>
         <ion-list id="inbox-list">
           <div style="display: block; width: 75%; margin-left: 23%;">
@@ -12,12 +12,12 @@
           <ion-menu-toggle auto-hide="false">
             <ion-item button (click)="func_openHome()">
               <ion-icon color="light" slot="start" [ios]="'home' + '-sharp'" [md]="'home' + '-sharp'"></ion-icon>
-              <ion-label class="ion-text-wrap" style="margin-left: 10px; font-size: 16px; color: white;">Inicio</ion-label>
+              <ion-label class="ion-text-wrap" style="margin-left: 10px; font-size: 16px; color: white; text-align: right;">Inicio</ion-label>
             </ion-item>
 
             <ion-item button (click)="func_openPerfil()">
               <ion-icon color="light" slot="start" [ios]="'person' + '-sharp'" [md]="'person' + '-sharp'"></ion-icon>
-              <ion-label class="ion-text-wrap" style="margin-left: 10px; font-size: 16px; color: white;">Mi Perfil</ion-label>
+              <ion-label class="ion-text-wrap" style="margin-left: 10px; font-size: 16px; color: white; text-align: right;">Mi Perfil</ion-label>
             </ion-item>
 
             <!-- <ion-item>
@@ -37,7 +37,7 @@
           </ion-menu-toggle>
           <ion-item button (click)="func_logOut()">
             <ion-icon color="light" slot="start" [ios]="'log-out' + '-sharp'" [md]="'log-out' + '-sharp'"></ion-icon>
-            <ion-label class="ion-text-wrap" style="margin-left: 10px; font-size: 16px; color: white;">Cerrar Sesión</ion-label>
+            <ion-label class="ion-text-wrap" style="margin-left: 10px; font-size: 16px; color: white; text-align: right;">Cerrar Sesión</ion-label>
           </ion-item>
         </ion-list>
       </ion-content>

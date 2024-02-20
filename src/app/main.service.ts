@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { AlertController, LoadingController, MenuController, NavController, Platform } from '@ionic/angular';
+import { AlertController, LoadingController, MenuController, ModalController, NavController, Platform } from '@ionic/angular';
 import { ToastController } from '@ionic/angular';
 import axios from 'axios';
 import { Http } from '@capacitor-community/http';
 import { FCM } from "@capacitor-community/fcm";
+import { createAnimation } from '@ionic/core';
 import moment from 'moment';
 
 @Injectable({
@@ -17,11 +18,12 @@ export class MainService {
     public toastCtrl: ToastController,
     public loadCtrl: LoadingController,
     public platformCtrl: Platform,
-    public toasteCtrl: ToastController) { }
+    public toasteCtrl: ToastController,
+    public modalCtrl: ModalController) { }
 
   appVersion = {
-    ios: 37,
-    android: 37
+    ios: 43,
+    android: 43
   };
 
   serverVersion = {
@@ -293,7 +295,6 @@ export class MainService {
   }
 
   async func_doRegistro(datos: any) {
-    console.log('hola, soy el registro NORMAL');
     let _elRes: any;
     let _theUrl = 'https://sitam.tamaulipas.gob.mx/aptranotificaciones/registrar';
     const loading = await this.loadCtrl.create({
@@ -854,7 +855,7 @@ export class MainService {
 
     loading.present();
 
-    console.log(_tel)
+    // console.log(_tel)
 
     const options = {
       url: this.url_POST_agregaTelefono,
@@ -868,14 +869,14 @@ export class MainService {
 
     try {
       _elRes = await Http.post(options).then(data => {
-        console.log(data['data'])
+        // console.log(data['data'])
         loading.dismiss();
         return data['data'];
       })
     } catch {
       this.alertThis('Error', 'Hubo un error, por favor intenta nuevamente.');
     }
-    console.log(_elRes)
+    // console.log(_elRes)
     return _elRes;
   }
 
@@ -1035,6 +1036,42 @@ export class MainService {
     });
 
     await alert.present();
+  }
+
+  async func_genVcard() {
+    let _elRes = '';
+
+    const loading = await this.loadCtrl.create({
+      message: 'Generando vCard...',
+    });
+
+    loading.present();
+
+    const options = {
+      url: "https://sitam.tamaulipas.gob.mx/aptranotificaciones/apivcard",
+      data: {
+        'curp': this.credencialInfo["elCURP"],
+      },
+      headers: { 'Content-Type': 'application/json' },
+    };
+
+    try {
+      await Http.post(options).then(response => response.data)
+      .then(async (data) => {
+        _elRes = String(data).replace('"', "");
+        loading.dismiss();
+      })
+      loading.dismiss();
+    } catch (error) {
+      _elRes = 'ninguna';
+      // console.log(this.vCardURL)
+    }
+
+    return _elRes;
+  }
+
+  service_dismiss_modal() {
+    this.modalCtrl.dismiss();
   }
 
 

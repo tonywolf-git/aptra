@@ -3,9 +3,11 @@ import { MainService } from '../main.service';
 // import SwiperCore, { Autoplay, Keyboard, Pagination, Scrollbar, Zoom } from 'swiper';
 import { Router } from '@angular/router';
 import { FCM } from "@capacitor-community/fcm";
-import { LoadingController, MenuController } from '@ionic/angular';
+import { LoadingController, MenuController, ModalController } from '@ionic/angular';
 import moment from 'moment';
 import { Platform } from '@ionic/angular';
+import { IonModal } from '@ionic/angular';
+import { ModalVCardPage } from '../modal-v-card/modal-v-card.page';
 
 // SwiperCore.use([Autoplay, Keyboard, Pagination, Scrollbar, Zoom]);
 
@@ -14,8 +16,8 @@ import { Platform } from '@ionic/angular';
   templateUrl: 'tab1.page.html',
   styleUrls: ['tab1.page.scss']
 })
-export class Tab1Page {
 
+export class Tab1Page {
   tuSemana = new Array();
   tuSemanaMsg = "Cargando..."
 
@@ -25,6 +27,8 @@ export class Tab1Page {
   elPuesto = '';
   elNombre = '';
 
+  vCardURL = '';
+
   efemeridesSemanales: any = [];
   efemeridesMensuales: any = [];
 
@@ -32,7 +36,8 @@ export class Tab1Page {
     public routerCtrl: Router,
     public menuCtrl: MenuController,
     public loadingCtrl: LoadingController,
-    public platform: Platform) {}
+    public platform: Platform,
+    public modalCtrl: ModalController) {}
 
   async ngOnInit() {
     this.menuCtrl.enable(true);
@@ -140,6 +145,36 @@ export class Tab1Page {
       console.log('ERES PARTE DE LA ROCA :)');
     })
     .catch((err) => console.log(err));
+  }
+
+  async func_genVcard_button() {
+    await this.mainService.func_genVcard().then(_res => {
+      if (_res != 'ninguna') {
+        this.vCardURL = _res;
+        // SHOW MODAL HERE
+        this.func_showQR()
+        let modal = document.getElementById('modal-qr');
+        if (modal) {
+          modal.style.display = "block";
+        }
+      } else {
+        this.mainService.alertThis('Aviso importante', 'No se pudo mostrar tu vCard, por favor intenta mas tarde.')
+      }
+    });
+  }
+
+  async func_showQR() {
+    const modal = await this.modalCtrl.create({
+      component: ModalVCardPage,
+      cssClass: 'controllerModal',
+      componentProps: {
+        _vcardUrl : this.vCardURL
+      }
+      
+    });
+    modal.present().then();
+
+    const { data, role } = await modal.onWillDismiss();
   }
 
   fucn_goTo(where: string) {

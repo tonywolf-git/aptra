@@ -11,9 +11,12 @@
     <img src="../../assets/login/aptraNewBg.png" class="new-login-logo" alt="icon">
   </div>
 
-  <h4 class="ion-text-wrap" style="text-align: center; color: #A61B41; font-weight: bold; margin-bottom: 40px;">Aplicación del Funcionario Público<br>Tamaulipeco</h4>
+  <h4 class="ion-text-wrap" style="text-align: center; color: #A61B41; font-weight: bold; margin-bottom: 40px;">Aplicación del Servidor Público<br>Tamaulipeco</h4>
 
-  <input placeholder="Correo electrónico / teléfono" type="email" [(ngModel)]="loginData.email" class="global-input-text" style="margin-bottom: 20px;">
+  <div class="tooltip">
+    <span class="tooltiptext">Puedes utilizar tu número de teléfono o correo para iniciar sesión</span>
+    <input placeholder="Correo electrónico / teléfono" type="email" [(ngModel)]="loginData.email" class="global-input-text" style="margin-bottom: 20px;">
+  </div>
   
   <div class="global-password-container">
     <input placeholder="Contraseña" type="{{ passType }}" [(ngModel)]="loginData.password" (keypress)="keyPress($event, $event)" class="global-input-password" />
@@ -41,6 +44,6 @@
   </div>
 </ion-content>
 
-<ion-footer class="ion-no-border" style="background-color: white;">
-    <ion-title style="font-size: 15px; margin:auto;text-align: center; color: black; padding-top:3px; padding-bottom: 20px;">Gobierno del Estado de Tamaulipas™ 2022-2028</ion-title>
-</ion-footer>
+<!-- <ion-footer class="ion-no-border" style="background-color: white;">
+    <ion-title style="font-size: 15px; margin:auto;text-align: center; color: black; padding-top:3px; padding-bottom: 80px;">Gobierno del Estado de Tamaulipas™ 2022-2028</ion-title>
+</ion-footer> -->

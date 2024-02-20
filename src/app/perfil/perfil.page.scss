@@ -23,3 +23,15 @@
     font-weight: bold;
     text-transform: capitalize;
 }
+
+.img_vCard {
+    width: 65%;
+    margin: auto;
+    display: block;
+    border-radius: 20px;
+}
+
+ion-modal {
+    --height: 75vh;
+    --padding-top: 5px;
+}

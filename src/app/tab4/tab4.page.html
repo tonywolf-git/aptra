@@ -4,22 +4,27 @@
     <div style="display: flex; flex: 1 1; width: 100%; height: 20vh; padding-bottom: 2vh;">
       <ion-grid style="display: flex; flex-direction: column-reverse; bottom: 0px;">
         <ion-row class="ion-text-center">
-          <ion-col size="6">
-            <ion-button (click)="mainService.func_toggleMenu()" fill="clear" color="none" style="float: left; color: white;">
+
+          <ion-col size="6" style="display: flex; align-items: center; margin-left: 0px;">
+            <ion-button (click)="mainService.func_nav_go_back();" fill="clear" color="none" style="color: white; --padding-start: 0px !important;">
+              <ion-icon style="font-size: 4vh;" name="chevron-back-outline"></ion-icon>
+              <div>Regresar</div>
+            </ion-button>
+          </ion-col>
+
+          <ion-col size="6" style="align-self: center;">
+            <ion-button (click)="mainService.func_toggleMenu()" fill="clear" color="none" style="float: right; color: white;">
               <ion-icon style="font-size: 7vh;" name="menu-outline"></ion-icon>
             </ion-button>
           </ion-col>
-          <ion-col size="6" style="align-self: center; text-align: right;">
-            <!-- <div style="float: right; vertical-align: middle; font-weight: bold;" class="ion-text-wrap">Hola, {{ mainService.credencialInfo.elNombre.split(" ")[0] | titlecase }}</div> -->
-            <ion-button id="popover-button" fill="clear" color="light" style="font-size: 18px !important;">
-              <ion-icon slot="icon-only" name="ellipsis-vertical-circle-outline"></ion-icon>
-            </ion-button>
-          </ion-col>
+
         </ion-row>
       </ion-grid>
     </div>
   </div>
 </ion-header>
+
+
 
 <ion-popover trigger="popover-button" [dismissOnSelect]="true">
   <ng-template>
@@ -90,11 +95,21 @@
     </ion-col>
   </ion-row> -->
 
-  <ion-button (click)="mainService.func_nav_go_back()" fill="clear" class="global-registro-back" color="none" style="background-color: white; margin-top: 2vh !important; margin-left: 3vw; padding-top: 0px !important;">
+  <!-- <ion-button (click)="mainService.func_nav_go_back()" fill="clear" class="global-registro-back" color="none" style="background-color: white; margin-top: 2vh !important; margin-left: 3vw; padding-top: 0px !important;">
     <ion-icon  slot="icon-only" name="chevron-back-outline"></ion-icon>
-  </ion-button>
+  </ion-button> -->
 
-  <p style="color: #A61B41; font-size: 30px; width: 90%; margin: auto; margin-top: 0px; margin-bottom: 20px; text-align: left !important; font-weight: bold;">Mi Credencial</p>
+    <ion-row>
+      <ion-col size="9">
+        <p style="color: #A61B41; font-size: 30px; width: 90%; margin: auto; margin-top: 20px; margin-bottom: 20px; text-align: left !important; font-weight: bold;">Mi Credencial</p> 
+      </ion-col>
+
+      <ion-col size="3" style="display: flex; align-items: center;">
+        <ion-button id="popover-button" fill="clear" color="gobred" style="font-size: 18px !important; float: right;">
+          <ion-icon slot="icon-only" name="ellipsis-vertical-circle-outline"></ion-icon>
+        </ion-button>      
+      </ion-col>
+    </ion-row>
 
   <div *ngIf="credencial_interactiva_toggle == true;" class="flip-card" style="margin-bottom: 20px;">
     <div class="flip-card-inner" id="credencial">

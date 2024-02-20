@@ -15,7 +15,44 @@ export class ChecadorPage implements OnInit {
 
   checadorDate: any;
 
+  dependencias = [
+    "Palacio de Gobierno",
+    "Edificio Miguel Alemán",
+    "Torre Gubernamental",
+    "Tiempo Nuevo",
+    "17 Allende",
+    "Dirección del Trabajo",
+    "Edificio Lic. Rodolfo Resendez",
+    "El Peñón",
+    "Dirección de Catastro",
+    "Secretaría de Desarrollo Rural y Pesca",
+    "Dirección General de Pesca y Acuacultura",
+    "Dirección de Patrimonio",
+    "Secretaría de Obras Públicas y Desarrollo Urbano",
+    "Unidad Deportiva Siglo XXI",
+    "Edificio de Registro Civil",
+    "Edificio de Oficina Fiscal",
+    "Edificio del Supremo Tribunal",
+    "Torre Bicentenario",
+    "Transporte",
+    "Centro Cívico",
+    "Edificio de Conservación de Caminos",
+    "Laboratorio Ambiental"
+  ]
+
   ngOnInit() {
+    const datetime = document.querySelector('ion-datetime')!;
+    datetime.isDateEnabled = (dateString) => {
+      const date = new Date(dateString);
+      const utcDay = date.getUTCDay();
+
+      /**
+       * Date will be enabled if it is not
+       * Sunday or Saturday
+       */
+      return utcDay !== 0 && utcDay !== 6;
+    };
+    this.dependencias = this.dependencias.sort();
   }
 
   func_checadorDateChanged(_event: any) {

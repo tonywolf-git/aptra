@@ -2,54 +2,165 @@
   <ion-toolbar style="--background: linear-gradient(180deg, #ccb597 0%, #bf9974 100%) !important;">
     <img class="global-fixed-aptra-header-perfil" src="../../assets/login/apptra_logo.png" alt="headd">
     <ion-buttons slot="end">
-      <ion-button (click)="func_dismissModal();">
+      <ion-button (click)="func_dismissModal();" color="light">
         <ion-icon slot="icon-only" ios="close-outline" md="close-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title>Mi Perfil</ion-title>
+    <!-- <ion-title>Mi Perfil</ion-title> -->
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <div class="perfil_img_container">
-    <!-- <img class="perfil_img_img" src="../../assets/placeholder/placeholderProfile.jpg" alt=""> -->
+<ion-content style="--background: #efefef !important;">
+  <!-- <div class="perfil_img_container">
+    <img class="perfil_img_img" src="../../assets/placeholder/placeholderProfile.jpg" alt="">
     <img *ngIf="userProfile == ''" class="perfil_img_img" src="../../assets/placeholder/placeholderProfile.jpg" alt="">
     <img *ngIf="userProfile != ''" class="perfil_img_img" src="{{ userProfile }}" alt="">
-  </div>
-  <div class="perfil_info_container">
+  </div> -->
+
+  <p style="color: #A61B41; font-size: 30px; width: 90%; margin: auto; margin-top: 20px; margin-bottom: 20px; text-align: left !important; font-weight: bold;">Mi Perfil</p>
+
+  <!-- <img class="img_vCard" src="{{ vCardURL }}" alt=""> -->
+
+  <ion-grid style="background-color: white; width: 93vw; margin: auto; border-radius: 10px; margin-top: 20px; padding-bottom: 0px !important; margin-bottom: 0px;">
+    <ion-row style="padding-left: 10px; display: flex;">
+      <ion-col size="2" style="text-align: center; align-self: center;">
+        <img src="../../assets/icon/peopp.png" alt="peopp" style="width: 50%; padding: 0px; margin: 0px; margin-top: 10px; margin-bottom: 5px;">
+      </ion-col>
+      <ion-col size="10" style="align-self: center;">
+        <p style="padding: 0px; margin: 0px; margin-top: 10px; margin-bottom: 5px">Empleado: <b>{{ mainService['credencialInfo']['elNumEmpleado'] }}</b></p>
+      </ion-col>
+    </ion-row>
+    <span style="display: block; margin: auto; width: 90%; border-bottom: 2px solid #DADADA;"></span>
+    <ion-row style="padding-left: 10px;">
+      <ion-col>
+        <p style="padding: 0px; margin: 0px; margin-top: 10px; margin-bottom: 5px"><b>{{ mainService['credencialInfo']['elNombre'] | titlecase }}</b></p>
+        <p style="padding: 0px; margin: 0px; margin-top: 10px;"><b>{{ mainService['credencialInfo']['elCURP'] | uppercase }}</b></p>
+        <p style="padding: 0px; margin: 0px; margin-top: 10px;"><b>{{ mainService['credencialInfo']['elPuesto'] | titlecase }}</b></p>
+        <p style="padding: 0px; margin: 0px; margin-top: 10px;"><b>{{ mainService['credencialInfo']['laDependencia'] | titlecase }}</b></p>
+        <p style="padding: 0px; margin: 0px; margin-top: 10px;"><b>{{ 'Versión: ' +  appVersion }}</b></p>
+      </ion-col>
+    </ion-row>
+    <span style="display: block; margin: auto; width: 90%; padding-top: 5px; padding-bottom: 10px; border-bottom: 2px solid #DADADA;"></span>
+    <ion-button (click)="func_cambia_pass()" class="ion-text-wrap" color="gobred" fill="clear" style="display: block; width: 80vw; margin: auto; margin-top: 0px; margin-bottom: 20px;"><b>Cambiar mi contraseña</b></ion-button>
+  </ion-grid>
+
+  <!-- BOTÓN DE COMPARTIR DATOS YUPIIIII INI -->
+  <!-- <ion-col button class="ion-activatable">
+    <div class="card-container-clear" style="margin-bottom: -10px !important;">
+      <div class="card-content-clear ripple-parent">
+        <ion-icon name="share-social-outline" color="gobred" style="font-size: 10vw; margin-bottom: 5px;"></ion-icon>
+        <div class="card-text-clear">Compartir</div>
+        <ion-ripple-effect></ion-ripple-effect>
+      </div>
+    </div>
+  </ion-col> -->
+  <!-- BOTÓN DE COMPARTIR DATOS YUPIIIII END -->
+  
+  <!-- <div class="perfil_info_container">
     <p class="perfil_info_text" style="text-transform: none !important;">
-      <!-- 37120 -->
-      {{ 'Versión: ' + appVersion }}
     </p>
     <p class="perfil_info_text">
-      <!-- 37120 -->
       {{ mainService.credencialInfo.elNumEmpleado }}
     </p>
     <p class="perfil_info_text">
-      <!-- Don Doggo Huesonson Perez -->
       {{ mainService.credencialInfo.elNombre }}
     </p>
-    <!-- <p class="perfil_info_text">
-      DEJJ831119HTSRRL04
-    </p> -->
     <p class="perfil_info_text">
-      <!-- DEJJ831119UTX -->
       {{ mainService.credencialInfo.elCURP }}
     </p>
     <p class="perfil_info_text">
-      <!-- DESC. PUESTO -->
       {{ mainService.credencialInfo.elPuesto }}
     </p>
     <p class="perfil_info_text">
-      <!-- SECRETARÍA DE ADMINISTRACIÓN (DE HUESOS) -->
       {{ mainService.credencialInfo.laDependencia }}
     </p>
-  </div>
+  </div> -->
 
-  <ion-button (click)="func_cambia_pass()" class="ion-text-wrap" color="gobred" fill="clear" style="display: block; width: 50vw; margin: auto; margin-top: 20px; margin-bottom: 20px;">Cambiar mi contraseña</ion-button>
+  <!-- <ion-button (click)="func_cambia_pass()" class="ion-text-wrap" color="gobred" fill="clear" style="display: block; width: 50vw; margin: auto; margin-top: 20px; margin-bottom: 20px;">Cambiar mi contraseña</ion-button> -->
+  <!-- <ion-button (click)="func_perfilLogOut();" fill="clear" class="global-button" color="gobred" style="margin-top: 0px !important; margin-bottom: 0px !important; padding-top: 0px !important; margin-bottom: -20px !important;"><b>Cerrar Sesión</b></ion-button><br> -->
   
   <!-- <ion-button (click)="func_perfilLogOut()" class="ion-text-wrap" color="none" style="display: block; width: 50vw; margin: auto; margin-top: 20px; margin-bottom: 30px; background-color: #A1193E; color: white;">Cerrar Sesión</ion-button> -->
 
+  <ion-button style="margin-top: 25px;" id="modal-hija-de-dogo-1" class="global-button" color="gobmustard">Administrar datos a compartir</ion-button>
+
+  <!-- <ion-button style="margin-top: 25px;" (click)="func_genVcard()" class="global-button" color="gobmustard">Mostrar vCard</ion-button> -->
+
   <ion-button style="margin-top: 25px;" (click)="func_perfilLogOut();" class="global-button" color="gobred">Cerrar Sesión</ion-button><br>
 
+  <ion-modal #modal trigger="modal-hija-de-dogo-1" [initialBreakpoint]="1" [breakpoints]="[0, 1]">
+    <ng-template>
+      <ion-content style="border-radius: 40px !important;">
+
+        <div style="overflow-y: scroll;">
+          <p style="color: #C59F79; font-size: 21px; width: 90vw; margin: auto; margin-top: 40px; margin-bottom: 20px; text-align: left !important; font-weight: bold; padding-right: 2vw;">Datos a compartir</p>
+          <ion-list style="width: 95vw; margin: auto;">
+            <ion-item>
+              <ion-checkbox [(ngModel)]="modalCompartir_datos['check_mod_nombre']" [checked]="modalCompartir_datos['check_mod_nombre']" color="gobred" label-placement="end" justify="start">{{ modalCompartir_datos['mod_nombre'] }}</ion-checkbox>
+            </ion-item>
+            <ion-item>
+              <ion-checkbox [(ngModel)]="modalCompartir_datos['check_mod_curp']" [checked]="modalCompartir_datos['check_mod_curp']" color="gobred" label-placement="end" justify="start">{{ modalCompartir_datos['mod_curp'] }}</ion-checkbox>
+            </ion-item>
+            <ion-item>
+              <ion-checkbox [(ngModel)]="modalCompartir_datos['check_mod_puesto']" [checked]="modalCompartir_datos['check_mod_puesto']" color="gobred" label-placement="end" justify="start">{{ modalCompartir_datos['mod_puesto'] }}</ion-checkbox>
+            </ion-item>
+            <ion-item>
+              <ion-checkbox [(ngModel)]="modalCompartir_datos['check_mod_dependencia']" [checked]="modalCompartir_datos['check_mod_dependencia']" color="gobred" label-placement="end" justify="start">{{ modalCompartir_datos['mod_dependencia'] }}</ion-checkbox>
+            </ion-item>
+          </ion-list>
+  
+          <p style="color: #C59F79; font-size: 21px; width: 90vw; margin: auto; margin-top: 40px; margin-bottom: 20px; text-align: left !important; font-weight: bold; padding-right: 2vw;">Datos a compartir (editables)</p>
+          <ion-list style="width: 95vw; margin: auto;">
+            <!-- <ion-item>
+              <ion-checkbox [(ngModel)]="modalCompartir_datos['check_mod_lugar']" [checked]="modalCompartir_datos['check_mod_lugar']" color="gobred" slot="start" aria-label="Toggle task completion"></ion-checkbox>
+              <ion-input [(ngModel)]="modalCompartir_datos['mod_lugar']" placeholder="Ubicación" aria-label="Ubicación" [value]="modalCompartir_datos['mod_lugar']"></ion-input>
+            </ion-item>
+  
+            <ion-item>
+              <ion-checkbox [(ngModel)]="modalCompartir_datos['check_mod_telefono']" [checked]="modalCompartir_datos['check_mod_telefono']" color="gobred" slot="start" aria-label="Toggle task completion"></ion-checkbox>
+              <ion-input [(ngModel)]="modalCompartir_datos['mod_telefono']" placeholder="Teléfono" aria-label="Teléfono" [value]="modalCompartir_datos['mod_telefono']"></ion-input>
+            </ion-item>
+  
+            <ion-item>
+              <ion-checkbox [(ngModel)]="modalCompartir_datos['check_mod_extension']" [checked]="modalCompartir_datos['check_mod_extension']" color="gobred" slot="start" aria-label="Toggle task completion"></ion-checkbox>
+              <ion-input [(ngModel)]="modalCompartir_datos['mod_extension']" placeholder="Extensión" aria-label="Extensión" [value]="modalCompartir_datos['mod_extension']"></ion-input>
+            </ion-item>
+  
+            <ion-item>
+              <ion-checkbox [(ngModel)]="modalCompartir_datos['check_mod_correo']" [checked]="modalCompartir_datos['check_mod_correo']" color="gobred" slot="start" aria-label="Toggle task completion"></ion-checkbox>
+              <ion-input [(ngModel)]="modalCompartir_datos['mod_correo']" placeholder="Correo Electrónico" aria-label="Correo Electrónico" [value]="modalCompartir_datos['mod_correo']"></ion-input>
+            </ion-item> -->
+
+
+            <div style="width: 93%; margin: auto;border-bottom: 1px solid #c1c0c5;">
+              <ion-checkbox style="vertical-align: middle; height: 100%; align-items: center; display: inline-flex; width: 12%;" [(ngModel)]="modalCompartir_datos['check_mod_lugar']" [checked]="modalCompartir_datos['check_mod_lugar']" color="gobred" slot="start" aria-label="Toggle task completion"></ion-checkbox>
+              <ion-input style="display: inline-block; width: 83%;" [(ngModel)]="modalCompartir_datos['mod_lugar']" placeholder="Ubicación" aria-label="Ubicación" [value]="modalCompartir_datos['mod_lugar']"></ion-input>
+            </div>
+
+            <div style="width: 93%; margin: auto;border-bottom: 1px solid #c1c0c5;">
+              <ion-checkbox style="vertical-align: middle; height: 100%; align-items: center; display: inline-flex; width: 12%;" [(ngModel)]="modalCompartir_datos['check_mod_telefono']" [checked]="modalCompartir_datos['check_mod_telefono']" color="gobred" slot="start" aria-label="Toggle task completion"></ion-checkbox>
+              <ion-input style="display: inline-block; width: 83%;" [(ngModel)]="modalCompartir_datos['mod_telefono']" placeholder="Teléfono" aria-label="Teléfono" [value]="modalCompartir_datos['mod_telefono']"></ion-input>
+            </div>
+
+            <div style="width: 93%; margin: auto;border-bottom: 1px solid #c1c0c5;">
+              <ion-checkbox style="vertical-align: middle; height: 100%; align-items: center; display: inline-flex; width: 12%;" [(ngModel)]="modalCompartir_datos['check_mod_extension']" [checked]="modalCompartir_datos['check_mod_extension']" color="gobred" slot="start" aria-label="Toggle task completion"></ion-checkbox>
+              <ion-input style="display: inline-block; width: 83%;" [(ngModel)]="modalCompartir_datos['mod_extension']" placeholder="Extensión" aria-label="Extensión" [value]="modalCompartir_datos['mod_extension']"></ion-input>
+            </div>
+
+            <div style="width: 93%; margin: auto;border-bottom: 1px solid #c1c0c5;">
+              <ion-checkbox style="vertical-align: middle; height: 100%; align-items: center; display: inline-flex; width: 12%;" [(ngModel)]="modalCompartir_datos['check_mod_correo']" [checked]="modalCompartir_datos['check_mod_correo']" color="gobred" slot="start" aria-label="Toggle task completion"></ion-checkbox>
+              <ion-input style="display: inline-block; width: 83%;" [(ngModel)]="modalCompartir_datos['mod_correo']" placeholder="Correo Electrónico" aria-label="Correo Electrónico" [value]="modalCompartir_datos['mod_correo']"></ion-input>
+            </div>
+          </ion-list>
+          <ion-button style="margin-top: 50px;" (click)="func_post_guardar_compartir();" class="global-button" color="gobred">Guardar</ion-button><br>
+        </div>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+
 </ion-content>
+
+<footer class="ion-no-border" style="background-color: #efefef;">
+  <div style="width: 100%; margin: auto;">
+    <p style="font-size: 15px; margin:auto; text-align: center; color: black; padding: 10px;">Gobierno del Estado de Tamaulipas™ 2022-2028</p>
+  </div>
+</footer>

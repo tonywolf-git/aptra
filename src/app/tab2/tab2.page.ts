@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import axios from 'axios';
 import { MainService } from '../main.service';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-tab2',
@@ -9,7 +10,7 @@ import { MainService } from '../main.service';
 })
 export class Tab2Page {
 
-  constructor(public mainService: MainService) {}
+  constructor(public mainService: MainService, public sanitizerCtrl: DomSanitizer) {}
 
   splicePipe = true;
 
@@ -68,6 +69,8 @@ export class Tab2Page {
       // console.log(data, typeof data, data.length);
       this.avisosAxios = [];
       for (let x = 0; x < data.length; x++) {
+        let _preSanitize = data['text'];
+        data['text'] = this.sanitizerCtrl.bypassSecurityTrustHtml(_preSanitize);
         this.avisosAxios.push({title: data[x]['notificacion'].titulo_notificacion, text: data[x]['notificacion'].notificacion, splicePipe: false, id: x, activo: data[x]['notificacion'].activo, fecha: data[x]['notificacion'].created_at['date'], anexos: data[x]['anexos'] })
       }
       this.avisosAxios.reverse();

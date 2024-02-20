@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 import { PrivacyScreen } from '@capacitor-community/privacy-screen';
 import { Platform } from '@ionic/angular';
 import { ToastController } from '@ionic/angular';
+import { Config } from '@ionic/angular';
 import * as moment from 'moment';
 
 register();
@@ -38,7 +39,11 @@ export class AppComponent {
     public routerCtrl: Router,
     public toasteCtrl: ToastController,
     public platformCtrl: Platform,
-    public alertCtrl: AlertController) {}
+    public alertCtrl: AlertController,
+    public configCtrl: Config) {
+      let swipeBackEnabled = configCtrl.getBoolean('swipeBackEnabled')
+      // console.log(configCtrl.getNumber('swipeBackEnabled'))
+    }
 
   profilePic = 'none';
 
@@ -90,7 +95,7 @@ export class AppComponent {
       // console.log(this.mainService.url_GET_recursos_humanos)
       // console.log(this.mainService.userCurp);
       this.mainService.url_LOGIN_qr = localStorage['userQR']
-      // this.navCtrl.navigateRoot('tab1');
+      // this.navCtrl.navigateRoot('perfil');
       this.navCtrl.navigateRoot('tab1');
     }
     
@@ -145,18 +150,18 @@ export class AppComponent {
 
   async func_logOut() {
     const alert = await this.alertCtrl.create({
-      header: 'Cerrar Sesión',
+      // header: 'Cerrar Sesión',
       message: '¿Quieres cerrar esta sesión?',
       buttons: [
         {
-          text: 'Aceptar',
+          text: 'Si',
           role: 'ok',
           handler: async (input) => {
             this.mainService.func_doLogOut();
           }
         },
         {
-          text: 'Cancelar',
+          text: 'No',
           role: 'cancel',
           handler: async (input) => {
             console.log('Acción cancelada.')

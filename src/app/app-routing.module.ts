@@ -97,6 +97,10 @@ const routes: Routes = [
   {
     path: 'ayuda',
     loadChildren: () => import('./ayuda/ayuda.module').then( m => m.AyudaPageModule)
+  },
+  {
+    path: 'modal-v-card',
+    loadChildren: () => import('./modal-v-card/modal-v-card.module').then( m => m.ModalVCardPageModule)
   }
 ];
 @NgModule({

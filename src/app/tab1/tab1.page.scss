@@ -187,3 +187,32 @@
   
   .warning-banner-content {
   }
+
+  ion-modal {
+    padding: 20px;
+    --height: 40%;
+    --border-radius: 16px;
+  }
+  
+  ion-modal::part(backdrop) {
+    background: rgba(80, 80, 80);
+    opacity: 1;
+  }
+
+  .modal-container {
+    display: flex;
+    flex-direction: row;     /* make main axis horizontal (default setting) */
+    justify-content: center; /* center items horizontally, in this case */
+    align-items: center;     /* center items vertically, in this case */
+    height: 100%;
+    width: 100%;
+  }
+
+  .modal-container {
+    display: flex;           /* establish flex container */
+    flex-direction: column;  /* make main axis vertical */
+    justify-content: center; /* center items vertically, in this case */
+    align-items: center;     /* center items horizontally, in this case */
+    height: 100%;
+    width: 100%;
+  }
